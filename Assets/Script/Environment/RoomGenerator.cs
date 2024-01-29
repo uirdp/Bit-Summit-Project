@@ -8,7 +8,7 @@ public class RoomGenerator : MonoBehaviour
     [SerializeField] private int y_start = -5;
     [SerializeField] private int z_start = -5;
 
-    [Tooltip("length of sizes")]
+    [Tooltip("length of sides")]
     [SerializeField] private int x_length = 10;
     [SerializeField] private int y_length = 10;
     [SerializeField] private int z_length = 10;
