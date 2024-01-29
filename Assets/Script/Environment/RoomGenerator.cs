@@ -40,7 +40,7 @@ public class RoomGenerator : MonoBehaviour
     }
     private void Awake()
     {
-        
+        GenerateRoom();
     }
 
 
