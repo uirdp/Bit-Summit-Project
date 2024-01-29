@@ -25,6 +25,7 @@ public class RoomGenerator : MonoBehaviour
         cube.transform.SetParent(transform, false);
     }
 
+    // inside gets filled too, need to fix it
     private void GenerateRoom()
     {   
         for(int x = 0; x < x_length; x++)
