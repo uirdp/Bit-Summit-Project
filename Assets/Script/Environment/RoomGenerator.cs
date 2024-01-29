@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class RoomGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int x_start = -5;
+    [SerializeField] private int y_start = -5;
+    [SerializeField] private int z_start = -5;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Tooltip("length of sizes")]
+    [SerializeField] private int x_legth = 10;
+    [SerializeField] private int y_legth = 10;
+    [SerializeField] private int z_legth = 10;
+
+
 }
+
