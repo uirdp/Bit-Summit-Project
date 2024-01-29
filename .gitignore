@@ -82,7 +82,6 @@ Assets/Japanese*/*
 Assets/Shinabro/*
 Assets/Toon/*
 
-*.png
 *.asset
 *.prefab
 *.pdf
@@ -92,7 +91,6 @@ Assets/Toon/*
 *.log
 *.fbx
 *.vsconfig
-*.mat
 *vsidx
 *lock
 
