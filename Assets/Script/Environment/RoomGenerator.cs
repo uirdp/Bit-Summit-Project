@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Apple;
 
 public class RoomGenerator : MonoBehaviour
 {
@@ -18,16 +19,19 @@ public class RoomGenerator : MonoBehaviour
     {
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        Material material = cube.GetComponent<Renderer>().material;
+        Material material = cube.GetComponent<Renderer>().sharedMaterial;
         material.color = Color.gray;
 
         cube.transform.position = new Vector3(x, y, z);
         cube.transform.SetParent(transform, false);
     }
 
-    // inside gets filled too, need to fix it
+
+    [ContextMenu("Generate Room")]
     private void GenerateRoom()
-    {   
+    {
+        DestroyRoom();
+
         for(int x = 0; x < x_length; x++)
         {
             for(int y = 0; y < y_length; y++)
@@ -42,6 +46,18 @@ public class RoomGenerator : MonoBehaviour
                         GenerateCube(x + x_start, y + y_start, z + z_start);
                     }
                 }
+            }
+        }
+    }
+
+    [ContextMenu("Destory Room")]
+    private void DestroyRoom()
+    {
+        for(int i = 0; i < 10; i++)
+        {
+            foreach (Transform child in transform)
+            {
+                DestroyImmediate(child.gameObject);
             }
         }
     }
