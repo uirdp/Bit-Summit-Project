@@ -53,7 +53,8 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Destory Room")]
     private void DestroyRoom()
     {
-        for(int i = 0; i < 10; i++)
+        int cap = (x_length + y_length + z_length) >> 2;
+        for (int i = 0; i < cap; i++)
         {
             foreach (Transform child in transform)
             {
