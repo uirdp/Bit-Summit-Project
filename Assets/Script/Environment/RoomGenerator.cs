@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Apple;
 
@@ -14,13 +15,21 @@ public class RoomGenerator : MonoBehaviour
     [SerializeField] private int y_length = 10;
     [SerializeField] private int z_length = 10;
 
+    public Color baseColor = Color.gray;
+    public Texture CubeTexture = null;
+
     //generate one cube per call
-    private void GenerateCube(int x, int y, int z)
+    private void GenerateCube(float x, float y, float z)
     {
         GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
         Material material = cube.GetComponent<Renderer>().sharedMaterial;
-        material.color = Color.gray;
+        material.color = baseColor;
+
+        if(CubeTexture != null)
+        {
+            material.mainTexture = CubeTexture;
+        }
 
         cube.transform.position = new Vector3(x, y, z);
         cube.transform.SetParent(transform, false);
@@ -30,7 +39,7 @@ public class RoomGenerator : MonoBehaviour
     private void DestroyRoom()
     {
         //need to iterate for some times to get rid of the children entirely, for some reason
-        int cap = (x_length + y_length + z_length) >> 2;
+        int cap = (x_length + y_length + z_length) >> 1;
         for (int i = 0; i < cap; i++)
         {
             foreach (Transform child in transform)
@@ -68,11 +77,12 @@ public class RoomGenerator : MonoBehaviour
     {
         DestroyRoom();
 
-        for(int x = 0; x < x_length; x++)
+        Debug.Log(transform.position.y);
+        for (int x = 0; x < x_length; x++)
         {
             for(int z = 0; z < z_length; z++)
             {
-                GenerateCube(x + x_start, y_start, z + z_start);
+                GenerateCube(x + x_start, transform.position.y, z + z_start);
             }
         }
     }
