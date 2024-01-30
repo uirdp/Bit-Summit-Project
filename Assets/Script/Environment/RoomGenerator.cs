@@ -34,7 +34,12 @@ public class RoomGenerator : MonoBehaviour
             {
                 for(int z  = 0; z < z_length; z++)
                 {
-                    GenerateCube(x + x_start, y + y_start, z + z_start);
+                    if (x == 0 || x == x_length - 1 ||
+                        y == 0 || y == y_length - 1 ||
+                        z == 0 || z == z_length - 1)
+                    {
+                        GenerateCube(x + x_start, y + y_start, z + z_start);
+                    }
                 }
             }
         }
