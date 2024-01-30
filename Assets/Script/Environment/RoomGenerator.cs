@@ -26,6 +26,19 @@ public class RoomGenerator : MonoBehaviour
         cube.transform.SetParent(transform, false);
     }
 
+    [ContextMenu("Destory Room")]
+    private void DestroyRoom()
+    {
+        //need to iterate for some times to get rid of the children entirely, for some reason
+        int cap = (x_length + y_length + z_length) >> 2;
+        for (int i = 0; i < cap; i++)
+        {
+            foreach (Transform child in transform)
+            {
+                DestroyImmediate(child.gameObject);
+            }
+        }
+    }
 
     [ContextMenu("Generate Room")]
     private void GenerateRoom()
@@ -50,24 +63,18 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    [ContextMenu("Destory Room")]
-    private void DestroyRoom()
+    [ContextMenu("Generate Floor")]
+    private void GenerateFloor()
     {
-        //need to iterate for some times to get rid of the children entirely, for some reason
-        int cap = (x_length + y_length + z_length) >> 2;
-        for (int i = 0; i < cap; i++)
+        DestroyRoom();
+
+        for(int x = 0; x < x_length; x++)
         {
-            foreach (Transform child in transform)
+            for(int z = 0; z < z_length; z++)
             {
-                DestroyImmediate(child.gameObject);
+                GenerateCube(x + x_start, y_start, z + z_start);
             }
         }
     }
-    private void Awake()
-    {
-        GenerateRoom();
-    }
-
-
 }
 

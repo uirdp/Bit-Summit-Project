@@ -81,6 +81,7 @@ Assets/UnityChan*/*
 Assets/Japanese*/*
 Assets/Shinabro/*
 Assets/Toon/*
+Assets/ThirdParty/*
 
 *.asset
 *.prefab
