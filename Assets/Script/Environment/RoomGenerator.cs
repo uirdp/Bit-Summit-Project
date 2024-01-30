@@ -53,6 +53,7 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Destory Room")]
     private void DestroyRoom()
     {
+        //need to iterate for some times to get rid of the children entirely, for some reason
         int cap = (x_length + y_length + z_length) >> 2;
         for (int i = 0; i < cap; i++)
         {
