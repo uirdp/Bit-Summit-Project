@@ -33,7 +33,8 @@ public class RoomGenerator : MonoBehaviour
             for(int y = 0; y < y_length; y++)
             {
                 for(int z  = 0; z < z_length; z++)
-                {
+                {   
+                    // I do NOT like this algorithm, there surely  is a better way
                     if (x == 0 || x == x_length - 1 ||
                         y == 0 || y == y_length - 1 ||
                         z == 0 || z == z_length - 1)
