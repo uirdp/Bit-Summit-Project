@@ -8,4 +8,15 @@ public class CubeBehaviour : MonoBehaviour
 
     public Material normalMaterial;
     public Material dangerousMaterial;
+
+    [SerializeField] private float interval = 1.0f;
+
+    private void SwitchMaterial()
+    {
+
+    }
+    private void Update()
+    {
+        
+    }
 }
