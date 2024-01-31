@@ -7,13 +7,19 @@ public class CubeBehaviour : MonoBehaviour
     public CubeMaterialScriptableObject cubeMaterial;
 
     [SerializeField] private float interval = 1.0f;
+    private Renderer _renderer = null;
 
-    private void SwitchMaterial()
+    public void SwitchMaterialToRed()
     {
-
+        _renderer.material = cubeMaterial.dangerousMaterial;
     }
-    private void Update()
+
+    public void SwitchMaterialToWhite()
     {
-        
+        _renderer.material = cubeMaterial.defaultMaterial;
+    }
+    public void Awake()
+    {
+        _renderer = GetComponent<Renderer>();
     }
 }
