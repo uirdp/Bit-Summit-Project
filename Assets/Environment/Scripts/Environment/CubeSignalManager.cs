@@ -10,6 +10,11 @@ public class CubeSignalManager : MonoBehaviour
     public CubeMaterialScriptableObject materials = null;
     public List<GameObject> cubes = new List<GameObject>();
 
+
+    public int rows;
+    public int columns;
+    public GameObject[,] cubeMatrix = null;
+
     private int _count = 0;
 
 
@@ -33,6 +38,44 @@ public class CubeSignalManager : MonoBehaviour
         }
 
         else { Debug.Log("there is no room");  }
+    }
+
+    [ContextMenu("Create Matrix")]
+    private void CreateMatrix()
+    {
+        if (cubeMatrix == null) cubeMatrix = new GameObject[rows, columns];
+
+        int ind = 0;
+        if (room != null)
+        {
+            for(int i = 0; i < rows; i++)
+            {
+                for(int j = 0; j < columns; j++)
+                {
+                    cubeMatrix[i, j] = room.transform.GetChild(ind).gameObject;
+                    ind++;
+                }
+            }
+        }
+
+        else { Debug.Log("there is no room");  }
+    }
+
+    [ContextMenu("CheckMatrix")]
+    private void CheckMatrix()
+    {
+        if (cubeMatrix != null)
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    Debug.Log("(" + i + "," + j + ") = " + cubeMatrix[i, j]);
+                }
+            }
+        }
+
+        else Debug.Log("there is no matrix");
     }
 
     private IEnumerator SendSignal()
