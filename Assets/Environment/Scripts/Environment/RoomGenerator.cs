@@ -19,6 +19,12 @@ public class RoomGenerator : MonoBehaviour
     public Texture CubeTexture = null;
 
     public CubeMaterialScriptableObject cubeMaterial = null;
+
+    public List<GameObject> cubes = new List<GameObject>();
+    [Tooltip("set to true if you want them in a list")]
+    public bool makeList = false;
+
+
     //generate one cube per call
     private void GenerateCube(float x, float y, float z)
     {
@@ -34,6 +40,10 @@ public class RoomGenerator : MonoBehaviour
 
         cube.transform.position = new Vector3(x, y, z);
         cube.transform.SetParent(transform, false);
+
+        cube.name = "Cube " + x + "-" + y + "-" + z;
+
+        if(makeList && cube != null) { cubes.Add(cube); }
     }
 
     [ContextMenu("Destory Room")]
@@ -45,6 +55,7 @@ public class RoomGenerator : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
+                cubes.Clear();
                 DestroyImmediate(child.gameObject);
             }
         }
@@ -73,7 +84,7 @@ public class RoomGenerator : MonoBehaviour
         }
     }
 
-    [ContextMenu("Generate Floor")]
+    [ContextMenu("Generate floor")]
     private void GenerateFloor()
     {
         DestroyRoom();
@@ -85,6 +96,23 @@ public class RoomGenerator : MonoBehaviour
             {
                 GenerateCube(x + x_start, transform.position.y, z + z_start);
             }
+        }
+    }
+
+    [ContextMenu("Make List")]
+    private void MakeList()
+    {
+        if(cubes?.Count == 0)
+        {
+            foreach (Transform child in transform)
+            {
+                cubes.Add(child.gameObject);
+            }
+        }
+
+        else
+        {
+            Debug.Log("Cube list already exist");
         }
     }
 
