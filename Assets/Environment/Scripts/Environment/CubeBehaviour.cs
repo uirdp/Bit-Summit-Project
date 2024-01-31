@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class CubeBehaviour : MonoBehaviour
 {
-    public int groupNumber = 0;
-
-    public Material normalMaterial;
-    public Material dangerousMaterial;
+    public CubeMaterialScriptableObject cubeMaterial;
 
     [SerializeField] private float interval = 1.0f;
 

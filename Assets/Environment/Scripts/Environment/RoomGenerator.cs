@@ -18,6 +18,7 @@ public class RoomGenerator : MonoBehaviour
     public Color baseColor = Color.gray;
     public Texture CubeTexture = null;
 
+    public CubeMaterialScriptableObject cubeMaterial = null;
     //generate one cube per call
     private void GenerateCube(float x, float y, float z)
     {
@@ -26,7 +27,7 @@ public class RoomGenerator : MonoBehaviour
         Material material = cube.GetComponent<Renderer>().sharedMaterial;
         material.color = baseColor;
 
-        if(CubeTexture != null)
+        if (CubeTexture != null)
         {
             material.mainTexture = CubeTexture;
         }
@@ -54,12 +55,12 @@ public class RoomGenerator : MonoBehaviour
     {
         DestroyRoom();
 
-        for(int x = 0; x < x_length; x++)
+        for (int x = 0; x < x_length; x++)
         {
-            for(int y = 0; y < y_length; y++)
+            for (int y = 0; y < y_length; y++)
             {
-                for(int z  = 0; z < z_length; z++)
-                {   
+                for (int z = 0; z < z_length; z++)
+                {
                     // I do NOT like this algorithm, there surely  is a better way
                     if (x == 0 || x == x_length - 1 ||
                         y == 0 || y == y_length - 1 ||
@@ -80,11 +81,27 @@ public class RoomGenerator : MonoBehaviour
         Debug.Log(transform.position.y);
         for (int x = 0; x < x_length; x++)
         {
-            for(int z = 0; z < z_length; z++)
+            for (int z = 0; z < z_length; z++)
             {
                 GenerateCube(x + x_start, transform.position.y, z + z_start);
             }
         }
     }
-}
 
+    //call this function from the Inspector(right click)
+    [ContextMenu("Apply default material")]
+    private void ApplyDefaultMaterial()
+    {
+        Renderer renderer;
+
+        foreach (GameObject child in transform)
+        {
+            renderer = child.GetComponent<Renderer>();
+            if(renderer != null || cubeMaterial.defaultMaterial != null)
+            {
+                renderer.material = cubeMaterial.defaultMaterial;
+            }
+        }
+    }
+
+}
