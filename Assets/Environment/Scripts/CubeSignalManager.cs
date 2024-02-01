@@ -40,8 +40,13 @@ public class CubeSignalManager : MonoBehaviour
         else { Debug.Log("there is no room");  }
     }
 
-    [ContextMenu("Create Matrix")]
-    private void CreateMatrix()
+    private void CreateMatrixFromGroupNumber()
+    {
+        
+    }
+
+    [ContextMenu("Create Matrix With Position")]
+    private void CreateMatrixWithPosition()
     {
         if (cubeMatrix == null) cubeMatrix = new GameObject[rows, columns];
 
@@ -90,7 +95,11 @@ public class CubeSignalManager : MonoBehaviour
         StartCoroutine(SendSignal());
     }
 
-    private IEnumerator SwitchCubeMaterials(int x, int z, int xsz, int zsz)
+    private IEnumerator SwitchCubeMaterialsWithGroupNumber(int groupNum)
+    {
+        yield return null;
+    }
+    private IEnumerator SwitchCubeMaterialsWithColorMatrix(int x, int z, int xsz, int zsz)
     {
         for(int i = 0; i < xsz; i++)
         {
@@ -114,10 +123,5 @@ public class CubeSignalManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(SendSignal());
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
