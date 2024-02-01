@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubeColorMatrix : MonoBehaviour
+public class CubeMatrixGenerator : MonoBehaviour
 {
     public GameObject room = null;
 

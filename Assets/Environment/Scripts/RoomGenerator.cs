@@ -122,12 +122,12 @@ public class RoomGenerator : MonoBehaviour
     {
         Renderer renderer;
 
-        foreach (GameObject child in transform)
+        foreach (Transform child in transform)
         {
-            renderer = child.GetComponent<Renderer>();
+            renderer = child.gameObject.GetComponent<Renderer>();
             if(renderer != null || cubeMaterial.defaultMaterial != null)
             {
-                renderer.material = cubeMaterial.defaultMaterial;
+                renderer.sharedMaterial = cubeMaterial.defaultMaterial;
             }
         }
     }
