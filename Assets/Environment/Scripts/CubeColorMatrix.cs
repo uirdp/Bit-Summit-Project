@@ -6,7 +6,6 @@ public class CubeColorMatrix : MonoBehaviour
 {
     public int[,] colorMatrix;
 
-    
-
+    //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
 }
