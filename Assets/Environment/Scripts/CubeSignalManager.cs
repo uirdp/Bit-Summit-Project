@@ -22,6 +22,8 @@ public class CubeSignalManager : MonoBehaviour
     {
         cubeMatrix = matrixScript?.cubeMatrix;
     }
+
+    //should be renamed to ChangeMaterial
     private IEnumerator SendSignal()
     { 
         
@@ -34,10 +36,14 @@ public class CubeSignalManager : MonoBehaviour
         StartCoroutine(SendSignal());
     }
 
+    //not sure if I am gonna need this
+    //changes color by group number, which is assign to cubes individually
     private IEnumerator SwitchCubeMaterialsWithGroupNumber(int groupNum)
     {
         yield return null;
     }
+
+    //use color colour matrix's index to switch colors
     private IEnumerator SwitchCubeMaterialsWithColorMatrix(int x, int z, int xsz, int zsz)
     {
         for(int i = 0; i < xsz; i++)
