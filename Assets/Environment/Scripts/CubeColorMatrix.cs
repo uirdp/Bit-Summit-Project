@@ -8,4 +8,5 @@ public class CubeColorMatrix : MonoBehaviour
 
     //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
+    //Do I need a real matrix? think just inx is enough
 }
