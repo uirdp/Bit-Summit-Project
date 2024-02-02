@@ -9,6 +9,8 @@ public class CubeColorMatrix
     public int[,] colorMatrix;
     public int[,] groupMatrix;
 
+    [SerializeField]
+
     //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
     //Do I need a real matrix? think just inx is enough
@@ -49,4 +51,5 @@ public class CubeColorMatrix
             }
         }
     }
+
 }

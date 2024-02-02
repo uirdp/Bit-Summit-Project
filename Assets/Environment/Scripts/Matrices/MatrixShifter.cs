@@ -5,7 +5,7 @@ using UnityEngine;
 public class MatrixShifter : MonoBehaviour
 {
 
-    public static void RightShiftMatrix(ref int[,] matrix, int start, int rows, int columns)
+    public static void RightShiftMatrix(ref int[,] matrix,int start, int rows, int columns)
     {
         int r = start + rows;
         for(int i = 0; i < rows; i++)
@@ -18,5 +18,9 @@ public class MatrixShifter : MonoBehaviour
                 matrix[r - i,j] = tmp;
             }
         }
+
+        start++;
     }
+
+ 
 }
