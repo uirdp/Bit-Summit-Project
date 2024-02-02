@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//Use color matricies when group members are adjacent to each other
-public class CubeColorMatrix : MonoBehaviour
+//Use group matricies when group members are adjacent to each other
+public class CubeColorMatrix
 {
     public int[,] colorMatrix;
     public int[,] groupMatrix;
@@ -15,9 +15,8 @@ public class CubeColorMatrix : MonoBehaviour
     //or perhaps, create a actual matrix and update 
     //every element
 
-    //as an idea but don't try to make it so complicated
+    //as an idea but don't try to make it too complicated
 
-    //copy a matrix and returns, put it in a avr
     private void CreateColorMatrix(int rows, int columns)
     {
         for(int i = 0; i < rows; i++)
