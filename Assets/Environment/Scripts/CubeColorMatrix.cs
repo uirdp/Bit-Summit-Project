@@ -5,6 +5,7 @@ using UnityEngine;
 public class CubeColorMatrix : MonoBehaviour
 {
     public int[,] colorMatrix;
+    public int[,] groupMatrix;
 
     //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
@@ -12,11 +13,9 @@ public class CubeColorMatrix : MonoBehaviour
     //or perhaps, create a actual matrix and update 
     //every element
 
-    private void GetColorMatrixFromCubeMatrixGenerator(int[,] mat)
-    {
-        colorMatrix = mat;
-    }
+    //as an idea but don't try to make it so complicated
 
+    //copy a matrix and returns, put it in a avr
     private void CreateColorMatrix(int rows, int columns)
     {
         for(int i = 0; i < rows; i++)
@@ -26,5 +25,10 @@ public class CubeColorMatrix : MonoBehaviour
                 colorMatrix[i, j] = 0;
             }
         }
+    }
+
+    private void InitializeMatrix()
+    {
+
     }
 }
