@@ -38,6 +38,7 @@ public class CubeSignalManager : MonoBehaviour
 
     //not sure if I am gonna need this
     //changes color by group number, which is assign to cubes individually
+    //under construction
     private IEnumerator SwitchCubeMaterialsWithGroupNumber(int groupNum)
     {
         yield return null;
