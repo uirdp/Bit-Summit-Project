@@ -11,10 +11,10 @@ public class CubeColorMatrix
 
     [Tooltip("initial point of moving matrix")]
     [SerializeField]
-    private int groupMatrixX = 0;
+    private int groupMatPosX = 0;
 
     [SerializeField] 
-    private int groupMatrixY = 0;
+    private int groupMatPosY = 0;
 
     //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
@@ -41,18 +41,18 @@ public class CubeColorMatrix
         {
             for (int j = 0; j < columns; j++)
             {
-                groupMatrix[i, j] = 0;
+                groupMatrix[i, j] = 1;
             }
         }
     }
 
-    private void MergeGroupMatrixToColorMatrix(int rowStart, int colStart)
+    private void MergeGroupMatrixToColorMatrix()
     {
         for(int i = 0; i < groupMatrix.GetLength(0); i++)
         {
             for(int j = 0; j < groupMatrix.GetLength(1); j++)
             {
-                colorMatrix[i + rowStart, j + colStart] = groupMatrix[i, j];
+                colorMatrix[i + groupMatPosX, j + groupMatPosY] = groupMatrix[i, j];
             }
         }
     }

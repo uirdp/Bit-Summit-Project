@@ -13,7 +13,6 @@ public class MatrixShifter : MonoBehaviour
         {
             for(int j = 0; j < columns; j++)
             {
-                //swap([r-1-i][j],[r-i][j])
                 int tmp = matrix[r - 1 - i,j];
                 matrix[r - 1 - i, j] = matrix[r - i,j];
                 matrix[r - i,j] = tmp;
