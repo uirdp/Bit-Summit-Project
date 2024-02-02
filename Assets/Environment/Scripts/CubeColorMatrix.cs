@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Use color matricies when group members are adjacent to each other
 public class CubeColorMatrix : MonoBehaviour
 {
     public int[,] colorMatrix;
@@ -27,8 +29,25 @@ public class CubeColorMatrix : MonoBehaviour
         }
     }
 
-    private void InitializeMatrix()
+    private void CreateGroupMatrix(int rows, int columns)
     {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                groupMatrix[i, j] = 0;
+            }
+        }
+    }
 
+    private void MergeGroupMatrixToColorMatrix(int rowStart, int colStart)
+    {
+        for(int i = 0; i < groupMatrix.GetLength(0); i++)
+        {
+            for(int j = 0; j < groupMatrix.GetLength(1); j++)
+            {
+                colorMatrix[i + rowStart, j + colStart] = groupMatrix[i, j];
+            }
+        }
     }
 }

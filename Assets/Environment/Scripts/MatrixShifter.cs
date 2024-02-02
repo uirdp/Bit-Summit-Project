@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MatrixShifter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    static void RightShiftMatrix(ref int[,] matrix, int start, int rows, int columns)
     {
-        
+        int r = start + rows;
+        for(int i = 0; i < rows; i++)
+        {
+            for(int j = 0; j < columns; j++)
+            {
+                //swap([r-1-i][j],[r-i][j])
+                int tmp = matrix[r - 1 - i,j];
+                matrix[r - 1 - i, j] = matrix[r - i,j];
+                matrix[r - i,j] = tmp;
+            }
+        }
     }
 }
