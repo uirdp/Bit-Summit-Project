@@ -7,9 +7,14 @@ using UnityEngine;
 public class CubeColorMatrix
 {
     public int[,] colorMatrix;
-    public int[,] groupMatrix;
+    public int[,] groupMatrix; //part of matrix which moves
 
+    [Tooltip("initial point of moving matrix")]
     [SerializeField]
+    private int groupMatrixX = 0;
+
+    [SerializeField] 
+    private int groupMatrixY = 0;
 
     //static matrix should be inserted to colorMatrix
     //move left(), right(), up(), down() diag()...
