@@ -11,7 +11,9 @@ public class CubeMatrixGenerator : MonoBehaviour
 
     public int rows;
     public int columns;
+
     public GameObject[,] cubeMatrix = null;
+    public int[,] colorMatrix = null;
 
     [ContextMenu("Make List")]
     private void MakeList()
@@ -40,10 +42,11 @@ public class CubeMatrixGenerator : MonoBehaviour
 
     }
 
-    [ContextMenu("Create Matrix With Position")]
-    private void CreateMatrixWithPosition()
+    [ContextMenu("Create Matrices With Position")]
+    private void CreateMatricesWithPosition()
     {
         if (cubeMatrix == null) cubeMatrix = new GameObject[rows, columns];
+        if (colorMatrix == null) colorMatrix = new int[rows, columns];
 
         int ind = 0;
         if (room != null)

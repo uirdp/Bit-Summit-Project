@@ -9,6 +9,11 @@ public class CubeColorMatrix
     public int[,] colorMatrix;
     public int[,] groupMatrix; //part of matrix which moves
 
+    public CubeMatrixGenerator matrices = null;
+
+    public int groupMatSizeX = 0;
+    public int groupMatSizeY = 0;
+
     [Tooltip("initial point of moving matrix")]
     [SerializeField]
     private int groupMatPosX = 0;
@@ -24,22 +29,22 @@ public class CubeColorMatrix
 
     //as an idea but don't try to make it too complicated
 
-    private void CreateColorMatrix(int rows, int columns)
-    {
-        for(int i = 0; i < rows; i++)
-        {
-            for( int j = 0; j < columns; j++)
-            {
-                colorMatrix[i, j] = 0;
-            }
-        }
-    }
+    /*private void CreateColorMatrix()
+     *{
+     *  for(int i = 0; i < colorMatSizeX; i++)
+     *   {
+     *       for( int j = 0; j < colorMatSizeY; j++)
+     *       {
+     *           colorMatrix[i, j] = 0;
+     *       }
+     *   }
+     }*/
 
-    private void CreateGroupMatrix(int rows, int columns)
+    private void CreateGroupMatrix()
     {
-        for (int i = 0; i < rows; i++)
+        for (int i = 0; i < groupMatSizeX; i++)
         {
-            for (int j = 0; j < columns; j++)
+            for (int j = 0; j < groupMatSizeY; j++)
             {
                 groupMatrix[i, j] = 1;
             }
@@ -55,6 +60,11 @@ public class CubeColorMatrix
                 colorMatrix[i + groupMatPosX, j + groupMatPosY] = groupMatrix[i, j];
             }
         }
+    }
+
+    private void InitializeMatrix()
+    {
+        colorMatrix = matrices?.colorMatrix;
     }
 
 }

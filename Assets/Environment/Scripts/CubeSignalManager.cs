@@ -8,7 +8,7 @@ public class CubeSignalManager : MonoBehaviour
     public GameObject room = null;
 
     public CubeMaterialScriptableObject materials = null;
-    public CubeMatrixGenerator matrixScript = null;
+    public CubeMatrixGenerator matrices = null;
 
     public List<GameObject> cubes = new List<GameObject>();
     public GameObject[,] cubeMatrix = null;
@@ -20,7 +20,7 @@ public class CubeSignalManager : MonoBehaviour
     //then I will not need a copy
     private void GetCubeMatrix()
     {
-        cubeMatrix = matrixScript?.cubeMatrix;
+        cubeMatrix = matrices?.cubeMatrix;
     }
 
     //should be renamed to ChangeMaterial
