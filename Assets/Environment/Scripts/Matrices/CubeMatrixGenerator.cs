@@ -45,8 +45,8 @@ public class CubeMatrixGenerator : MonoBehaviour
     [ContextMenu("Create Matrices With Position")]
     private void CreateMatricesWithPosition()
     {
-        if (cubeMatrix == null) cubeMatrix = new GameObject[rows, columns];
-        if (colorMatrix == null) colorMatrix = new int[rows, columns];
+        cubeMatrix = new GameObject[rows, columns];
+        colorMatrix = new int[rows, columns];
 
         int ind = 0;
         if (room != null)
@@ -79,6 +79,11 @@ public class CubeMatrixGenerator : MonoBehaviour
         }
 
         else Debug.Log("there is no matrix");
+    }
+
+    private void Awake()
+    {
+        CreateMatricesWithPosition();
     }
 
 }

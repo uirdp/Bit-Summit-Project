@@ -23,6 +23,7 @@ public class CubeSignalManager : MonoBehaviour
     private void GetCubeMatrix()
     {
         cubeMatrix = matrices?.cubeMatrix;
+        if(cubeMatrix == null) GetCubeMatrix();
     }
 
     //should be renamed to ChangeMaterial
@@ -69,7 +70,7 @@ public class CubeSignalManager : MonoBehaviour
     }
 
     //TODO: make materials enum or array?, so that materials?.materials(colorMat[i, j])
-    private void ChangeCubeMaterial(ref int[,] colorMatrix)
+    public void ChangeCubeMaterials(ref int[,] colorMatrix)
     {
         for(int i = 0; i < colorMatrix.GetLength(0); i++)
         {
@@ -83,6 +84,6 @@ public class CubeSignalManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SendSignal());
+        GetCubeMatrix();
     }
 }
