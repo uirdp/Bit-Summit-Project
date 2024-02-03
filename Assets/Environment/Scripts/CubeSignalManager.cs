@@ -8,6 +8,8 @@ public class CubeSignalManager : MonoBehaviour
     public GameObject room = null;
 
     public CubeMaterialScriptableObject materials = null;
+    public MaterialList materialList = null;
+
     public CubeMatrixGenerator matrices = null;
 
     public List<GameObject> cubes = new List<GameObject>();
@@ -73,7 +75,8 @@ public class CubeSignalManager : MonoBehaviour
         {
             for( int j = 0; j < colorMatrix.GetLength(1); j++)
             {
-                cubeMatrix[i, j].GetComponent<Renderer>().material = materials?.dangerousMaterial;
+                cubeMatrix[i, j].GetComponent<Renderer>().material 
+                        = materialList.materials[colorMatrix[i,j]];
             }
         }
     }
