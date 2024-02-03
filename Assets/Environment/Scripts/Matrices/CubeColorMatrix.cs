@@ -4,67 +4,22 @@ using UnityEngine;
 
 
 //Use group matricies when group members are adjacent to each other
-public class CubeColorMatrix
+public class CubeColorMatrix : MonoBehaviour 
 {
-    public int[,] colorMatrix;
-    public int[,] groupMatrix; //part of matrix which moves
+    //as A super class of all cubes
 
-    public CubeMatrixGenerator matrices = null;
+    public int[,] matrix;
 
-    public int groupMatSizeX = 0;
-    public int groupMatSizeY = 0;
+    public int posOfMovingMatrixX; //it's zero origin
+    public int posOfMovingMatrixY;
 
-    [Tooltip("initial point of moving matrix")]
-    [SerializeField]
-    private int groupMatPosX = 0;
+    public int sizeOfMovingMatrixX;
+    public int sizeOfMovingMatrixY;
 
-    [SerializeField] 
-    private int groupMatPosY = 0;
-
-    //static matrix should be inserted to colorMatrix
-    //move left(), right(), up(), down() diag()...
-    //Do I need a real matrix? think just inx is enough
-    //or perhaps, create a actual matrix and update 
-    //every element
-
-    //as an idea but don't try to make it too complicated
-
-    /*private void CreateColorMatrix()
-     *{
-     *  for(int i = 0; i < colorMatSizeX; i++)
-     *   {
-     *       for( int j = 0; j < colorMatSizeY; j++)
-     *       {
-     *           colorMatrix[i, j] = 0;
-     *       }
-     *   }
-     }*/
-
-    private void CreateGroupMatrix()
+    public virtual void ShiftMatrix() { }
+    
+    public void SendSignal()
     {
-        for (int i = 0; i < groupMatSizeX; i++)
-        {
-            for (int j = 0; j < groupMatSizeY; j++)
-            {
-                groupMatrix[i, j] = 1;
-            }
-        }
-    }
 
-    private void MergeGroupMatrixToColorMatrix()
-    {
-        for(int i = 0; i < groupMatrix.GetLength(0); i++)
-        {
-            for(int j = 0; j < groupMatrix.GetLength(1); j++)
-            {
-                colorMatrix[i + groupMatPosX, j + groupMatPosY] = groupMatrix[i, j];
-            }
-        }
     }
-
-    private void InitializeMatrix()
-    {
-        colorMatrix = matrices?.colorMatrix;
-    }
-
 }

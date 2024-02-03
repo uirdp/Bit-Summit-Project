@@ -66,6 +66,17 @@ public class CubeSignalManager : MonoBehaviour
         }
     }
 
+    private void ChangeCubeMaterial(ref int[,] colorMatrix)
+    {
+        for(int i = 0; i < colorMatrix.GetLength(0); i++)
+        {
+            for( int j = 0; j < colorMatrix.GetLength(1); j++)
+            {
+                cubeMatrix[i, j].GetComponent<Renderer>().material = materials?.dangerousMaterial;
+            }
+        }
+    }
+
     private void Start()
     {
         StartCoroutine(SendSignal());

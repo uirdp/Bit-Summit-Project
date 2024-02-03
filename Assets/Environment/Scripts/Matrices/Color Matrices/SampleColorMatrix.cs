@@ -16,4 +16,10 @@ public class SampleColorMatrix : MonoBehaviour
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
+
+    public int posOfMovingMatrixX = 0; //it's zero origin
+    public int posOfMovingMatrixY = 0;
+
+    public int sizeOfMovingMatrixX = 3;
+    public int sizeOfMovingMatrixY = 3;
 }
