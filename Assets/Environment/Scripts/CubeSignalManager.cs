@@ -66,6 +66,7 @@ public class CubeSignalManager : MonoBehaviour
         }
     }
 
+    //TODO: make materials enum, so that materials?.materials(colorMat[i, j])
     private void ChangeCubeMaterial(ref int[,] colorMatrix)
     {
         for(int i = 0; i < colorMatrix.GetLength(0); i++)
