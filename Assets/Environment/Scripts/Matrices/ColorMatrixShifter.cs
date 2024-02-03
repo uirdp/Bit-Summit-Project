@@ -9,6 +9,8 @@ public class ColorMatrixShifter : MonoBehaviour
 {
     public SampleColorMatrix colorMatrix;
     public CubeSignalManager signalManager;
+
+
     public IEnumerator ShiftMatrix()
     {
         yield return new WaitForSeconds(0.5f);
