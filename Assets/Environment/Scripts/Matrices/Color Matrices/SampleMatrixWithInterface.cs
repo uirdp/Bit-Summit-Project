@@ -19,8 +19,8 @@ public class SampleMatrixWithInterface : IColorMatrix
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
-    static readonly int[] manual = new int[] { 1, 2 };
-    public int manualIndex = 0;
+    static readonly int[] directions = new int[] { 1, 2 };
+    public MatrixManual manual; 
 
     private const int numOfMovingMatrices = 1;
 
@@ -56,5 +56,10 @@ public class SampleMatrixWithInterface : IColorMatrix
     {
         get { return sizeOfMovingMatrices; }
         set { }
+    }
+
+    public void Init()
+    {
+        manual = new MatrixManual(directions);
     }
 }

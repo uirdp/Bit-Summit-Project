@@ -5,7 +5,13 @@ using UnityEngine;
 public class MatrixManual 
 {
     public int[] shiftDirections;
-    public int index = 0;
+    public int index;
+
+    public MatrixManual(int[] directions) 
+    {
+        this.shiftDirections = directions;
+        index = 0;
+    }
 
     public void GotoNextStep()
     {
@@ -16,5 +22,5 @@ public class MatrixManual
     {
         index = 0;
     }
-
+    
 }
