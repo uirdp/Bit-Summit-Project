@@ -26,6 +26,7 @@ public class CubeSignalManager : MonoBehaviour
         if(cubeMatrix == null) GetCubeMatrix();
     }
   
+    //rewrite all cubes
     public void ChangeCubeMaterials(ref int[,] colorMatrix)
     {
         for(int i = 0; i < colorMatrix.GetLength(0); i++)
@@ -37,6 +38,18 @@ public class CubeSignalManager : MonoBehaviour
             }
         }
     }
+
+    /*public void ChangeCubeMaterials(ref SampleColorMatrix)
+    {
+        for (int i = 0; i < sizeX; i++)
+        {
+            for (int j = 0; j < sizeY; j++)
+            {
+                cubeMatrix[i, j].GetComponent<Renderer>().material
+                        = materialList.materials[colorMatrix[i, j]];
+            }
+        }
+    }*/
 
     private void Start()
     {

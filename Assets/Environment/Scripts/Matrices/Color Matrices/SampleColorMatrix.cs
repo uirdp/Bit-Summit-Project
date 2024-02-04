@@ -18,7 +18,7 @@ public class SampleColorMatrix : MonoBehaviour
     };
 
     public int posOfMovingMatrixX = 0; //it's zero origin
-    public int posOfMovingMatrixY = 0;
+    public int posOfMovingMatrixY = 0; //position of matrix that moves
 
     public int sizeOfMovingMatrixX = 3;
     public int sizeOfMovingMatrixY = 3;
