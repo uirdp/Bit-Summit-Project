@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//later make abstract class instead of interface
 public class SampleMatrixWithInterface : IColorMatrix
 {
     public readonly string name = "sample";

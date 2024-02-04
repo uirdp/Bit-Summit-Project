@@ -7,13 +7,13 @@ using UnityEngine;
 //Use group matricies when group members are adjacent to each other
 public class ColorMatrixShifter : MonoBehaviour 
 {
-    public SampleColorMatrix colorMatrix;
+    //public SampleColorMatrix colorMatrix;
     public CubeSignalManager signalManager;
 
 
     public IEnumerator ShiftMatrix()
     {
-        yield return new WaitForSeconds(0.5f);
+       /* yield return new WaitForSeconds(0.5f);
         SendSignal();
         yield return new WaitForSeconds(2.5f);
 
@@ -34,13 +34,13 @@ public class ColorMatrixShifter : MonoBehaviour
         MatrixShifter.RightShiftMatrix(ref colorMatrix.matrix, ref colorMatrix.posOfMovingMatrixX,
                                         colorMatrix.sizeOfMovingMatrixX,
                                         colorMatrix.sizeOfMovingMatrixY);
-        SendSignal();
+        SendSignal();*/
 
     }
     
     public void SendSignal()
     {
-        signalManager.ChangeCubeMaterials(ref colorMatrix.matrix);
+        //signalManager.ChangeCubeMaterials(ref colorMatrix.matrix);
     }
 
     public void Start()
