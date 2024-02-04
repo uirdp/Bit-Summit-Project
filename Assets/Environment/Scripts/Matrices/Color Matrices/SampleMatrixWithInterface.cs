@@ -5,7 +5,8 @@ using UnityEngine;
 public class SampleMatrixWithInterface : IColorMatrix
 {
     public readonly string name = "sample";
-    private readonly int[,] matrix = new int[,]{
+
+    public int[,] matrix = new int[,]{
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -20,12 +21,12 @@ public class SampleMatrixWithInterface : IColorMatrix
 
     private const int numOfMovingMatrices = 1;
 
-    private readonly Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
+    public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
     {
         new Point(0, 0)
     };
 
-    private readonly Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
+    public Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
     {
         new Point(0, 0)
     };
@@ -45,7 +46,7 @@ public class SampleMatrixWithInterface : IColorMatrix
     public Point[] PosOfMovingMatrices
     {
         get { return posOfMovingMatrices; }
-        set { }
+        set { posOfMovingMatrices = value; }
     }
 
     public Point[] SizeOfMovingMatrices
