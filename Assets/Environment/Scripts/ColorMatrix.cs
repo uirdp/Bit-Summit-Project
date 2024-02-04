@@ -4,11 +4,11 @@ using UnityEngine;
 
 interface IColorMatrix
 {
-    public int[,] colorMatrix { get; set; }
+    int[,] ColorMatrix { get; set; }
 
-    public int numOfMovingMatrices { get; set; }    
+    int NumOfMovingMatrices { get; set; }    
 
-    public Point[] posOfMovingMatrices { get; set; }
-    public Point[] sizeOfMovingMatrices { get; set; }
+    Point[] PosOfMovingMatrices { get; set; }
+    Point[] SizeOfMovingMatrices { get; set; }
 
 }
