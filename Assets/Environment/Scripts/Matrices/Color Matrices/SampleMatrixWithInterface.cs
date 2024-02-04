@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SampleMatrixWithInterface : IColorMatrix
 {
+    public readonly string name = "sample";
     private readonly int[,] matrix = new int[,]{
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
