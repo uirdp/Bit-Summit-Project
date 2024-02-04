@@ -19,24 +19,27 @@ public class SampleMatrixWithInterface : IColorMatrix
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
+    static readonly int[] manual = new int[] { 1, 2 };
+    public int manualIndex = 0;
+
     private const int numOfMovingMatrices = 1;
 
-    public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
+    private Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
     {
         new Point(0, 0)
     };
 
-    public Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
+    private Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
     {
         new Point(0, 0)
     };
 
+    //-------------------------------------Properties------------------------------------------------
     public int[,] ColorMatrix
     {
         get { return matrix; }
         set { }
     }
-
     public int NumOfMovingMatrices
     {
         get { return numOfMovingMatrices;  }
@@ -54,5 +57,4 @@ public class SampleMatrixWithInterface : IColorMatrix
         get { return sizeOfMovingMatrices; }
         set { }
     }
-
 }
