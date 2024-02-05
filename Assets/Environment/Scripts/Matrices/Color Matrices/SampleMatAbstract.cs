@@ -1,51 +1,10 @@
 using static DirectionSpace.Directions;
 
-public class SampleColorMatrixModel : IReaderMatrixModel 
-{
-    public static readonly int[,] matrix = new int[,]{
-        {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-        {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-        {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    };
-
-    public const int numOfMovingMatrices = 1;
-    public static readonly int[,] movingMatrix = new int[,]
-    {
-        {1, 1, 1 },
-        {1, 1, 1 },
-        {1, 1, 1 },
-    };
-
-    public static readonly Direction[] manual = new Direction[]
-    {
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-    };
-
-    public int[,] Matrix => matrix;
-    public int[,] MovingMatrix => movingMatrix;
-    public Direction[] Manual => manual;
-
-}
-
-
 //should be more generic
 public class SampleMatAbstract : ColorMatrixBase
 {
     private string _name = "sample";
-
+    
     public SampleMatAbstract()
     {
         Init();
@@ -66,5 +25,6 @@ public class SampleMatAbstract : ColorMatrixBase
         {
             new Point(3, 3)
         };
+
     }
 }
