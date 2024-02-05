@@ -42,6 +42,7 @@ public class ColorMatrixShifter : MonoBehaviour
                 RightShiftMatrix(0); break;
         }
 
+        SendSignal();
         colorMatrix.manual.GotoNextStep();
 
         yield return new WaitForSeconds(1.5f);
@@ -52,6 +53,8 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.right:
                 RightShiftMatrix(0); break;
         }
+
+        SendSignal();
         colorMatrix.manual.GotoNextStep();
 
         yield return new WaitForSeconds(1.5f);
@@ -62,6 +65,7 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.right:
                 RightShiftMatrix(0); break;
         }
+        SendSignal();
 
         yield return new WaitForSeconds(1.5f);
 

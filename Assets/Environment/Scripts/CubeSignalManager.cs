@@ -13,7 +13,7 @@ public class CubeSignalManager : MonoBehaviour
     public CubeMatrixGenerator matrices = null;
 
     public List<GameObject> cubes = new List<GameObject>();
-    public GameObject[,] cubeMatrix = null;
+    public GameObject[,] cubeMatrix;
 
     private int _count = 0;
 
