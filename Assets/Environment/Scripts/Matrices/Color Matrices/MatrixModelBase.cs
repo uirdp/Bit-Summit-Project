@@ -1,4 +1,7 @@
-public abstract class MatrixModelBase 
+using static DirectionSpace.Directions;
+interface IReaderMatrixModel
 {
-    public static readonly int[,] matrix;
+    static readonly int[,] matrix;
+    static readonly int[,] movingMatrix;
+    static readonly Direction[] manual;
 }

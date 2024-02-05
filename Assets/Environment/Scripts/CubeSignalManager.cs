@@ -39,18 +39,6 @@ public class CubeSignalManager : MonoBehaviour
         }
     }
 
-    /*public void ChangeCubeMaterials(ref SampleColorMatrix)
-    {
-        for (int i = 0; i < sizeX; i++)
-        {
-            for (int j = 0; j < sizeY; j++)
-            {
-                cubeMatrix[i, j].GetComponent<Renderer>().material
-                        = materialList.materials[colorMatrix[i, j]];
-            }
-        }
-    }*/
-
     private void Start()
     {
         GetCubeMatrix();

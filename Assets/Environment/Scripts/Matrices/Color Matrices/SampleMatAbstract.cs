@@ -1,6 +1,6 @@
 using static DirectionSpace.Directions;
 
-public static class SampleColorMatrixModel
+public class SampleColorMatrixModel : IReaderMatrixModel 
 {
     public static readonly int[,] matrix = new int[,]{
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -33,6 +33,10 @@ public static class SampleColorMatrixModel
         Direction.right,
         Direction.right,
     };
+
+    public int[,] Matrix => matrix;
+    public int[,] MovingMatrix => movingMatrix;
+    public Direction[] Manual => manual;
 
 }
 
