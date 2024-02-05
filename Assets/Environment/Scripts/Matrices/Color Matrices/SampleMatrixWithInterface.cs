@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,3 +64,4 @@ public class SampleMatrixWithInterface : IColorMatrix
         manual = new MatrixManual(directions);
     }
 }
+*/

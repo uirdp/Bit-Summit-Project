@@ -1,4 +1,4 @@
-using static Direction.Dir;
+using static DirectionSpace.Directions;
 
 public static class SampleColorMatrixModel
 {
@@ -23,22 +23,29 @@ public static class SampleColorMatrixModel
         {1, 1, 1 },
     };
 
-    public static readonly int[] manual = new int[]
+    public static readonly Direction[] manual = new Direction[]
     {
-        (int)directions.right,
-        (int)directions.right,
-        (int)directions.right,
-        (int)directions.right,
-        (int)directions.right,
-        (int)directions.right,
-        (int)directions.right,
+        Direction.right,
+        Direction.right,
+        Direction.right,
+        Direction.right,
+        Direction.right,
+        Direction.right,
+        Direction.right,
     };
 
 }
 
+
+//should be more generic
 public class SampleMatAbstract : ColorMatrixBase
 {
     private string _name = "sample";
+
+    public SampleMatAbstract()
+    {
+        Init();
+    }
 
     public override void Init()
     {

@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static DirectionSpace.Directions;
 
 public class MatrixManual 
 {
-    public int[] shiftDirections;
+    public Direction[] shiftDirections;
     public int index;
 
-    public MatrixManual(int[] directions) 
+    public MatrixManual(Direction[] di) 
     {
-        this.shiftDirections = directions;
+        this.shiftDirections = di;
         index = 0;
+    }
+
+    public Direction GetDirection()
+    {
+        return shiftDirections[index];
     }
 
     public void GotoNextStep()

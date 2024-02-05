@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Direction { 
- public static class Dir
+namespace DirectionSpace { 
+ public static class Directions
 {
-    public enum directions
+    public enum Direction
     {
         up,
         down,
