@@ -68,7 +68,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
-        colorMatrix.posOfMovingMatrices[which].y--;
+        colorMatrix.posOfMovingMatrices[which].y++;
     }
 
     public void ShiftMatrixToDown(int which)
@@ -76,16 +76,19 @@ public class ColorMatrixShifter : MonoBehaviour
         // Get bottom left element of submatrix, because it's swapped first
         int b = colorMatrix.posOfMovingMatrices[which].y +
                     colorMatrix.sizeOfMovingMatrices[which].y;
+        
+        int x = colorMatrix.posOfMovingMatrices[which].x;
 
         for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[i, b - 1 - j];
-                colorMatrix.matrix[i, b - 1 - j] = colorMatrix.matrix[i, b - j];
-                colorMatrix.matrix[i, b - j] = tmp;
+                int tmp = colorMatrix.matrix[x + i, b - 1 - j];
+                colorMatrix.matrix[x + i, b - 1 - j] = colorMatrix.matrix[x + i, b - j];
+                colorMatrix.matrix[x + i, b - j] = tmp;
             }
         }
+
 
         colorMatrix.posOfMovingMatrices[which].y++;
     }
@@ -94,18 +97,35 @@ public class ColorMatrixShifter : MonoBehaviour
     {
         Direction dir = colorMatrix.manual.GetDirection();
 
+        Debug.Log(dir);
+
         switch(dir)
         {
             case Direction.right:
                 ShiftMatrixToRight(0); break;
+            case Direction.left:
+                ShiftMatrixToLeft(0);  break;
+            case Direction.up:
+                ShiftMatrixToUp(0);    break;
+            case Direction.down:
+                ShiftMatrixToDown(0);  break;
         }
 
-        
+
         colorMatrix.manual.GotoNextStep();
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         SendSignal();
+
+        /*for (int i = 0; i < colorMatrix.matrix.GetLength(0); i++)
+        {
+            for (int j = 0; j < colorMatrix.matrix.GetLength(1); j++)
+            {
+                Debug.Log("(" + i + "," + j + ") = " + colorMatrix.matrix[i, j]);
+            }
+        }*/
+
         StartCoroutine(ShiftMatrix());
     }
 

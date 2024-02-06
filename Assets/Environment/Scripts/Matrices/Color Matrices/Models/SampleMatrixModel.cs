@@ -43,6 +43,30 @@ public class SampleColorMatrixModel : IMatrixModel
         Direction.right,
         Direction.right,
         Direction.right,
+
+        Direction.down,
+        Direction.down,
+        Direction.down,
+        Direction.down,
+        Direction.down,
+        Direction.down,
+        Direction.down,
+        
+        Direction.left,
+        Direction.left,
+        Direction.left,
+        Direction.left,
+        Direction.left,
+        Direction.left,
+        Direction.left,
+
+        Direction.up,
+        Direction.up,
+        Direction.up,
+        Direction.up,
+        Direction.up,
+        Direction.up,
+        Direction.up,
     };
 
     public int[,] Matrix => matrix;
