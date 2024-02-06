@@ -6,6 +6,7 @@ using static DirectionSpace.Directions;
 public class SampleColorMatrixModel : IMatrixModel
 {
     public static readonly string name = "sample";
+
     public static readonly int[,] matrix = new int[,]{
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
