@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static DirectionSpace.Directions;
 
-public class SampleColorMatrixModel : IReadOnlyMatrixModel
+public class SampleColorMatrixModel : IMatrixModel
 {
     public static readonly string name = "sample";
     public static readonly int[,] matrix = new int[,]{

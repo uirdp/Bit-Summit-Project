@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class ColorMatrixInstance : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Tooltip("Name of the matrix you are intending to use")]
+    public string matrixName = "sample";
+    private MatrixDictionary dict;
+
+    IMatrixModel colorMatrix;
+    
+    private void GetMatrix()
     {
-        
+        dict = new MatrixDictionary();
+        colorMatrix = dict.ReturnMatrix(matrixName);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        GetMatrix();
     }
 }

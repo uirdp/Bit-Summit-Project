@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class MatrixDictionary
 {
-    private static Dictionary<IReadOnlyMatrixModel, string>
-        matrixDictionary = new Dictionary<IReadOnlyMatrixModel, string>()
+    private static Dictionary<string, IMatrixModel>
+        matrixDictionary = new Dictionary<string, IMatrixModel>()
         {
-            { new SampleColorMatrixModel() , "sample" }
+            { "sample", new SampleColorMatrixModel() }
         };
+
+    public IMatrixModel ReturnMatrix(string targetName)
+    {
+        return matrixDictionary[targetName];
+    }
 }

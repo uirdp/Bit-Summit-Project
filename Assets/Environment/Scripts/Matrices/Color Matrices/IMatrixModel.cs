@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 //MatrixInstant(Instance of a static matrix) should look for a dictionary
 //through this Interface
-interface IReadOnlyMatrixModel
+public interface IMatrixModel
 {
     int[,] Matrix { get; }
     
