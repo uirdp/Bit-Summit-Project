@@ -7,16 +7,16 @@ public class ColorMatrixInstance : MonoBehaviour
 {
     [Tooltip("Name of the matrix you are intending to use")]
     public string matrixName = "sample";
-    private MatrixDictionary dict;
+    private MatrixDictionary _dict;
 
-    IMatrixModel colorMatrix;
+    private IMatrixModel _colorMatrix;
     
     private void GetMatrix()
     {
-        dict = new MatrixDictionary();
-        colorMatrix = dict.ReturnMatrix(matrixName);
+        _dict = new MatrixDictionary();
+        _colorMatrix = _dict.ReturnMatrix(matrixName);
 
-        if (colorMatrix == null) Debug.Log("unable to fetch matrix");
+        if (_colorMatrix == null) Debug.Log("unable to fetch matrix");
     }
 
     private void Awake()
