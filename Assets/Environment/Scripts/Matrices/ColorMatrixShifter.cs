@@ -113,8 +113,6 @@ public class ColorMatrixShifter : MonoBehaviour
     {
         Direction dir = manual.GetDirection();
 
-        Debug.Log(dir);
-
         switch(dir)
         {
             case Direction.right:
