@@ -5,7 +5,6 @@ using UnityEngine;
 using static DirectionSpace.Directions;
 
 
-//Use group matricies when group members are adjacent to each other
 public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
