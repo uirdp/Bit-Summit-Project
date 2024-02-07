@@ -48,7 +48,6 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
-                Debug.Log("(i, j) = " + (l + i + 1) + " , " + (y + j));
                 int tmp = colorMatrix.matrix[l + i, y + j];
                 colorMatrix.matrix[l + i, y + j] = colorMatrix.matrix[l + i - 1, y + j];
                 colorMatrix.matrix[l + i - 1, y + j] = tmp;
@@ -68,13 +67,14 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
+                Debug.Log("(i, j) = " + (x + i) + " , " + (t + j));
                 int tmp = colorMatrix.matrix[x + i, t + j];
                 colorMatrix.matrix[x + i, t + j] = colorMatrix.matrix[x + i, t + j - 1];
                 colorMatrix.matrix[x + i, t + j - 1] = tmp;
             }
         }
 
-        colorMatrix.posOfMovingMatrices[which].y++;
+        colorMatrix.posOfMovingMatrices[which].y--;
     }
 
     public void ShiftMatrixToDown(int which)
