@@ -6,4 +6,5 @@ using UnityEngine;
 public class MaterialList : ScriptableObject
 {
     public List<Material> materials;
+    public List<string> statusList;
 }

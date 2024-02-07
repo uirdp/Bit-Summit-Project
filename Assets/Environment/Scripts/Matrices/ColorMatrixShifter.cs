@@ -126,7 +126,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
         manual.GotoNextStep();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.05f);
 
         SendSignal();
 

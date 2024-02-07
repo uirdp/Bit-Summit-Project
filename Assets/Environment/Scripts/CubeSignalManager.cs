@@ -33,6 +33,8 @@ public class CubeSignalManager : MonoBehaviour
             {
                 cubeMatrix[i, j].GetComponent<Renderer>().material 
                         = materialList.materials[colorMatrix[i,j]];
+
+                cubeMatrix[i, j].gameObject.tag = materialList.statusList[colorMatrix[i,j]];
             }
         }
     }
