@@ -15,8 +15,6 @@ public class CubeSignalManager : MonoBehaviour
     public List<GameObject> cubes = new List<GameObject>();
     public GameObject[,] cubeMatrix;
 
-    private int _count = 0;
-
     //Do you need a copy though?
     //if the matrix is refered by some more objects, 
     //then I will not need a copy

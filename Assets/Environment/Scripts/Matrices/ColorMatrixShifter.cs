@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using static DirectionSpace.Directions;
 
@@ -11,30 +10,37 @@ public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
     public CubeSignalManager signalManager;
-    public SampleMatAbstract colorMatrix;
+    public IMatrixModel colorMatrix;
+
+    public string matrixName = "sample";
+    private MatrixDictionary _dict;
+
+    private MatrixManual manual;
 
     public float interval = 0.5f;
 
     //which -> which Matrix to move, should be renamed
+
+    //----------------------------shift method----------------------------------------------------------
     public void ShiftMatrixToRight(int which)
     {
         //get right top element of submatrix, because it's swapped first
-        int r = colorMatrix.posOfMovingMatrices[which].x +
-                    colorMatrix.sizeOfMovingMatrices[which].x;
+        int r = colorMatrix.PosOfMovingMatrices[which].x +
+                    colorMatrix.SizeOfMovingMatrices[which].x;
 
-        int y = colorMatrix.posOfMovingMatrices[which].y;
+        int y = colorMatrix.PosOfMovingMatrices[which].y;
 
-        for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
+        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
         {
-            for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
+            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[r - 1 - i, y + j];
-                colorMatrix.matrix[r - 1 - i, y + j] = colorMatrix.matrix[r - i,y + j];
-                colorMatrix.matrix[r - i, y + j] = tmp;
+                int tmp = colorMatrix.Matrix[r - 1 - i, y + j];
+                colorMatrix.Matrix[r - 1 - i, y + j] = colorMatrix.Matrix[r - i,y + j];
+                colorMatrix.Matrix[r - i, y + j] = tmp;
             }
         }
 
-        colorMatrix.posOfMovingMatrices[which].x++;
+        colorMatrix.PosOfMovingMatrices[which].x++;
     }
 
 
@@ -42,68 +48,70 @@ public class ColorMatrixShifter : MonoBehaviour
     public void ShiftMatrixToLeft(int which)
     {
         // Get left top element of submatrix, because it's swapped first
-        int l = colorMatrix.posOfMovingMatrices[which].x;
+        int l = colorMatrix.PosOfMovingMatrices[which].x;
 
-        int y = colorMatrix.posOfMovingMatrices[which].y;
+        int y = colorMatrix.PosOfMovingMatrices[which].y;
 
-        for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
+        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
         {
-            for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
+            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[l + i, y + j];
-                colorMatrix.matrix[l + i, y + j] = colorMatrix.matrix[l + i - 1, y + j];
-                colorMatrix.matrix[l + i - 1, y + j] = tmp;
+                int tmp = colorMatrix.Matrix[l + i, y + j];
+                colorMatrix.Matrix[l + i, y + j] = colorMatrix.Matrix[l + i - 1, y + j];
+                colorMatrix.Matrix[l + i - 1, y + j] = tmp;
             }
         }
 
-        colorMatrix.posOfMovingMatrices[which].x--;
+        colorMatrix.PosOfMovingMatrices[which].x--;
     }
 
     public void ShiftMatrixToUp(int which)
     {
         // Get top left element of submatrix, because it's swapped first
-        int t = colorMatrix.posOfMovingMatrices[which].y;
-        int x = colorMatrix.posOfMovingMatrices[which].x;
+        int t = colorMatrix.PosOfMovingMatrices[which].y;
+        int x = colorMatrix.PosOfMovingMatrices[which].x;
 
-        for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
+        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
         {
-            for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
+            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
             {
                 Debug.Log("(i, j) = " + (x + i) + " , " + (t + j));
-                int tmp = colorMatrix.matrix[x + i, t + j];
-                colorMatrix.matrix[x + i, t + j] = colorMatrix.matrix[x + i, t + j - 1];
-                colorMatrix.matrix[x + i, t + j - 1] = tmp;
+                int tmp = colorMatrix.Matrix[x + i, t + j];
+                colorMatrix.Matrix[x + i, t + j] = colorMatrix.Matrix[x + i, t + j - 1];
+                colorMatrix.Matrix[x + i, t + j - 1] = tmp;
             }
         }
 
-        colorMatrix.posOfMovingMatrices[which].y--;
+        colorMatrix.PosOfMovingMatrices[which].y--;
     }
 
     public void ShiftMatrixToDown(int which)
     {
         // Get bottom left element of submatrix, because it's swapped first
-        int b = colorMatrix.posOfMovingMatrices[which].y +
-                    colorMatrix.sizeOfMovingMatrices[which].y;
+        int b = colorMatrix.PosOfMovingMatrices[which].y +
+                    colorMatrix.SizeOfMovingMatrices[which].y;
         
-        int x = colorMatrix.posOfMovingMatrices[which].x;
+        int x = colorMatrix.PosOfMovingMatrices[which].x;
 
-        for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
+        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
         {
-            for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
+            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[x + i, b - 1 - j];
-                colorMatrix.matrix[x + i, b - 1 - j] = colorMatrix.matrix[x + i, b - j];
-                colorMatrix.matrix[x + i, b - j] = tmp;
+                int tmp = colorMatrix.Matrix[x + i, b - 1 - j];
+                colorMatrix.Matrix[x + i, b - 1 - j] = colorMatrix.Matrix[x + i, b - j];
+                colorMatrix.Matrix[x + i, b - j] = tmp;
             }
         }
 
 
-        colorMatrix.posOfMovingMatrices[which].y++;
+        colorMatrix.PosOfMovingMatrices[which].y++;
     }
+
+    //----------------------------end of shift method----------------------------------------------------------
 
     public IEnumerator ShiftMatrix()
     {
-        Direction dir = colorMatrix.manual.GetDirection();
+        Direction dir = manual.GetDirection();
 
         Debug.Log(dir);
 
@@ -120,7 +128,7 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
 
-        colorMatrix.manual.GotoNextStep();
+        manual.GotoNextStep();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -132,12 +140,17 @@ public class ColorMatrixShifter : MonoBehaviour
     public void SendSignal()
     {
         //TODO: updates only where the change happend
-        signalManager.ChangeCubeMaterials(ref colorMatrix.matrix);
+        signalManager.ChangeCubeMaterials(ref colorMatrix.Matrix);
     }
 
     public void Init()
     {
-        colorMatrix= new SampleMatAbstract();
+        //Get a matrix to shift from the dictionary
+        _dict = new MatrixDictionary();
+        colorMatrix = _dict.ReturnMatrix(matrixName);
+
+        //Get a manual for shifting the matrix
+        manual = new MatrixManual(colorMatrix.Directions);
     }
     public void Start()
     {

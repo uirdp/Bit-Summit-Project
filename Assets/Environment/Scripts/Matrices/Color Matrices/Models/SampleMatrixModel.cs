@@ -7,7 +7,7 @@ public class SampleColorMatrixModel : IMatrixModel
 {
     public static readonly string name = "sample";
 
-    public static readonly int[,] matrix = new int[,]{
+    public int[,] matrix = new int[,]{
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
         {1, 1, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -34,7 +34,17 @@ public class SampleColorMatrixModel : IMatrixModel
         movingMatrix
     };
 
-    public static readonly Direction[] manual = new Direction[]
+    public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
+    {
+        new Point(0,0)
+    };
+
+    public Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
+    {
+        new Point(3, 3)
+    };
+
+    public static readonly Direction[] directions = new Direction[]
     {
         Direction.right,
         Direction.right,
@@ -69,8 +79,11 @@ public class SampleColorMatrixModel : IMatrixModel
         Direction.up,
     };
 
-    public int[,] Matrix => matrix;
+    public ref int[,] Matrix => ref matrix;
     public List<int[,]> MovingMatrices => movingMatrices;
-    public Direction[] Manual => manual;
+    public Direction[] Directions => directions;
+
+    public ref Point[] PosOfMovingMatrices => ref posOfMovingMatrices;
+    public ref Point[] SizeOfMovingMatrices => ref sizeOfMovingMatrices;
 
 }

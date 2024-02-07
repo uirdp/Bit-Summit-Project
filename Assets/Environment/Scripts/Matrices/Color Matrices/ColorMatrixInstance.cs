@@ -9,7 +9,7 @@ public class ColorMatrixInstance : MonoBehaviour
     public string matrixName = "sample";
     private MatrixDictionary _dict;
 
-    private IMatrixModel _colorMatrix;
+    public IMatrixModel _colorMatrix;
     
     private void GetMatrix()
     {
