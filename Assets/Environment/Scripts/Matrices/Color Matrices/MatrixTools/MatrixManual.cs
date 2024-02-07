@@ -22,6 +22,7 @@ public class MatrixManual
     public void GotoNextStep()
     {
         index++;
+        if (index >= shiftDirections.Length) BackToTheFirstStep();
     }
 
     public void BackToTheFirstStep()
