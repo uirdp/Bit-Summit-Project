@@ -20,13 +20,15 @@ public class ColorMatrixShifter : MonoBehaviour
         int r = colorMatrix.posOfMovingMatrices[which].x +
                     colorMatrix.sizeOfMovingMatrices[which].x;
 
+        int y = colorMatrix.posOfMovingMatrices[which].y;
+
         for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[r - 1 - i, j];
-                colorMatrix.matrix[r - 1 - i, j] = colorMatrix.matrix[r - i, j];
-                colorMatrix.matrix[r - i, j] = tmp;
+                int tmp = colorMatrix.matrix[r - 1 - i, y + j];
+                colorMatrix.matrix[r - 1 - i, y + j] = colorMatrix.matrix[r - i,y + j];
+                colorMatrix.matrix[r - i, y + j] = tmp;
             }
         }
 
@@ -40,13 +42,16 @@ public class ColorMatrixShifter : MonoBehaviour
         // Get left top element of submatrix, because it's swapped first
         int l = colorMatrix.posOfMovingMatrices[which].x;
 
+        int y = colorMatrix.posOfMovingMatrices[which].y;
+
         for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[l + i + 1, j];
-                colorMatrix.matrix[l + i + 1, j] = colorMatrix.matrix[l + i, j];
-                colorMatrix.matrix[l + i, j] = tmp;
+                Debug.Log("(i, j) = " + (l + i + 1) + " , " + (y + j));
+                int tmp = colorMatrix.matrix[l + i, y + j];
+                colorMatrix.matrix[l + i, y + j] = colorMatrix.matrix[l + i - 1, y + j];
+                colorMatrix.matrix[l + i - 1, y + j] = tmp;
             }
         }
 
@@ -57,14 +62,15 @@ public class ColorMatrixShifter : MonoBehaviour
     {
         // Get top left element of submatrix, because it's swapped first
         int t = colorMatrix.posOfMovingMatrices[which].y;
+        int x = colorMatrix.posOfMovingMatrices[which].x;
 
         for (int i = 0; i < colorMatrix.sizeOfMovingMatrices[which].x; i++)
         {
             for (int j = 0; j < colorMatrix.sizeOfMovingMatrices[which].y; j++)
             {
-                int tmp = colorMatrix.matrix[i, t + j + 1];
-                colorMatrix.matrix[i, t + j + 1] = colorMatrix.matrix[i, t + j];
-                colorMatrix.matrix[i, t + j] = tmp;
+                int tmp = colorMatrix.matrix[x + i, t + j];
+                colorMatrix.matrix[x + i, t + j] = colorMatrix.matrix[x + i, t + j - 1];
+                colorMatrix.matrix[x + i, t + j - 1] = tmp;
             }
         }
 

@@ -33,7 +33,7 @@ public class CubeSignalManager : MonoBehaviour
         {
             for( int j = 0; j < colorMatrix.GetLength(1); j++)
             {
-                cubeMatrix[i, j].GetComponent<Renderer>().material 
+                cubeMatrix[j, i].GetComponent<Renderer>().material 
                         = materialList.materials[colorMatrix[i,j]];
             }
         }
