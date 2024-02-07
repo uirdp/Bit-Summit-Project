@@ -74,7 +74,6 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
             {
-                Debug.Log("(i, j) = " + (x + i) + " , " + (t + j));
                 int tmp = colorMatrix.Matrix[x + i, t + j];
                 colorMatrix.Matrix[x + i, t + j] = colorMatrix.Matrix[x + i, t + j - 1];
                 colorMatrix.Matrix[x + i, t + j - 1] = tmp;
