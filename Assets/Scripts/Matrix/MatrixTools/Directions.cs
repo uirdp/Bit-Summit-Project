@@ -7,6 +7,8 @@ namespace DirectionSpace {
 {
     public enum Direction
     {
+        //basic movements
+        wait,
         up,
         down,
         left,
@@ -14,7 +16,16 @@ namespace DirectionSpace {
         upRight, //➚
         downRight, //➷
         upLeft,
-        downLeft
+        downLeft,
+
+        //stretch
+        stretchUp,
+        stretchDown,
+        stretchLeft,
+        stretchRight,
+
+        //when calculating a movement is difficult 
+        change //changes to another matrix
     }
 }
 }
