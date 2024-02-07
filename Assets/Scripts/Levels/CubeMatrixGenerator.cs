@@ -6,7 +6,7 @@ public class CubeMatrixGenerator : MonoBehaviour
 {
     public GameObject room = null;
 
-    public CubeMaterialScriptableObject materials = null;
+    public MaterialList materials = null;
     public List<GameObject> cubes = new List<GameObject>();
 
     public int rows;

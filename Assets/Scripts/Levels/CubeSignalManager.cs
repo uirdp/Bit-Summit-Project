@@ -7,7 +7,7 @@ public class CubeSignalManager : MonoBehaviour
 {
     public GameObject room = null;
 
-    public CubeMaterialScriptableObject materials = null;
+    public MaterialList materials = null;
     public MaterialList materialList = null;
 
     public CubeMatrixGenerator matrices = null;

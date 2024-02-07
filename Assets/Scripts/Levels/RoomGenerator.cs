@@ -18,7 +18,7 @@ public class RoomGenerator : MonoBehaviour
     public Color baseColor = Color.gray;
     public Texture CubeTexture = null;
 
-    public CubeMaterialScriptableObject cubeMaterial = null;
+    public MaterialList cubeMaterial = null;
 
     public List<GameObject> cubes = new List<GameObject>();
     [Tooltip("set to true if you want them in a list")]
@@ -125,9 +125,9 @@ public class RoomGenerator : MonoBehaviour
         foreach (Transform child in transform)
         {
             renderer = child.gameObject.GetComponent<Renderer>();
-            if(renderer != null || cubeMaterial.defaultMaterial != null)
+            if(renderer != null || cubeMaterial.materials[0] != null)
             {
-                renderer.sharedMaterial = cubeMaterial.defaultMaterial;
+                renderer.sharedMaterial = cubeMaterial.materials[0];
             }
         }
     }
