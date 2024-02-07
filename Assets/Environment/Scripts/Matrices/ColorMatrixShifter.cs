@@ -13,6 +13,8 @@ public class ColorMatrixShifter : MonoBehaviour
     public CubeSignalManager signalManager;
     public SampleMatAbstract colorMatrix;
 
+    public float interval = 0.5f;
+
     //which -> which Matrix to move, should be renamed
     public void ShiftMatrixToRight(int which)
     {
@@ -124,19 +126,12 @@ public class ColorMatrixShifter : MonoBehaviour
 
         SendSignal();
 
-        /*for (int i = 0; i < colorMatrix.matrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < colorMatrix.matrix.GetLength(1); j++)
-            {
-                Debug.Log("(" + i + "," + j + ") = " + colorMatrix.matrix[i, j]);
-            }
-        }*/
-
         StartCoroutine(ShiftMatrix());
     }
 
     public void SendSignal()
     {
+        //TODO: updates only where the change happend
         signalManager.ChangeCubeMaterials(ref colorMatrix.matrix);
     }
 
