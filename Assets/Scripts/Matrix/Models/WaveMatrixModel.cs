@@ -46,6 +46,16 @@ public class WaveMatrixModel : IMatrixModel
 
     public static readonly Direction[] directions = new Direction[]
     {
-       //Direction
-    }
+       Direction.wave,
+       Direction.wave,
+       Direction.wave,
+       Direction.wave
+    };
+
+    public ref int[,] Matrix => ref matrix;
+    public List<int[,]> MovingMatrices => movingMatrices;
+    public Direction[] Directions => directions;
+
+    public ref Point[] PosOfMovingMatrices => ref posOfMovingMatrices;
+    public ref Point[] SizeOfMovingMatrices => ref sizeOfMovingMatrices;
 }
