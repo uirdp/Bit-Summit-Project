@@ -25,7 +25,8 @@ namespace DirectionSpace {
         stretchRight,
 
         //when calculating a movement is difficult 
-        change //changes to another matrix
+        change,        //changes to another matrix
+        wave            
     }
 }
 }
