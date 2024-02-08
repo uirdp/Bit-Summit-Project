@@ -145,6 +145,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
         pos.x--;
         pos.y--;
+<<<<<<< Updated upstream
     }
 
     public void EraseMatrix()
@@ -159,6 +160,8 @@ public class ColorMatrixShifter : MonoBehaviour
                 colorMatrix.Matrix[i, j] = 0;
             }
         }
+=======
+>>>>>>> Stashed changes
     }
 
     //----------------------------end of shift method----------------------------------------------------------
