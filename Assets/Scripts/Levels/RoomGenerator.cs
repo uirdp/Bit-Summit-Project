@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Apple;
 
@@ -15,6 +17,8 @@ public class RoomGenerator : MonoBehaviour
     [SerializeField] private int y_length = 10;
     [SerializeField] private int z_length = 10;
 
+    public string roomName = null;
+
     public Color baseColor = Color.gray;
     public Texture CubeTexture = null;
 
@@ -24,6 +28,8 @@ public class RoomGenerator : MonoBehaviour
     [Tooltip("set to true if you want them in a list")]
     public bool makeList = false;
 
+    public bool makeMatText = true;
+    public StringBuilder matTxt = new StringBuilder();
 
     //generate one cube per call
     private void GenerateCube(float x, float y, float z)
@@ -49,6 +55,7 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Destory Room")]
     private void DestroyRoom()
     {
+        matTxt.Clear();
         //need to iterate for some times to get rid of the children entirely, for some reason
         int cap = (x_length + y_length + z_length) >> 1;
         for (int i = 0; i < cap; i++)
@@ -64,15 +71,21 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Generate Room")]
     private void GenerateRoom()
     {
+        
+        
         DestroyRoom();
+        
+        
 
         for (int x = 0; x < x_length; x++)
         {
             for (int y = 0; y < y_length; y++)
             {
+                matTxt.Append("0, ");
                 for (int z = 0; z < z_length; z++)
                 {
                     // I do NOT like this algorithm, there surely  is a better way
+                    // but also, it just runs once so... maybe later?
                     if (x == 0 || x == x_length - 1 ||
                         y == 0 || y == y_length - 1 ||
                         z == 0 || z == z_length - 1)
@@ -81,22 +94,42 @@ public class RoomGenerator : MonoBehaviour
                     }
                 }
             }
+           
         }
+
     }
 
     [ContextMenu("Generate floor")]
     private void GenerateFloor()
     {
+        string path = @"./" + roomName + ".txt";
+
+        Debug.Assert(roomName != null, "give the room a name!");
+        using (FileStream fs = File.Create(path))
+
+        if(File.Exists(path))
+            {
+                Debug.Log("file exsits");
+            }
+
+        //make sure not to duplicate it
+        matTxt.Clear();
+        matTxt.Append("{\n");
+
         DestroyRoom();
 
         Debug.Log(transform.position.y);
         for (int x = 0; x < x_length; x++)
         {
+            
             for (int z = 0; z < z_length; z++)
             {
+                matTxt.Append("0, ");
                 GenerateCube(x + x_start, transform.position.y, z + z_start);
             }
+            matTxt.Append("},\n{");
         }
+        File.WriteAllText(path, matTxt.ToString());
     }
 
     [ContextMenu("Make List")]
