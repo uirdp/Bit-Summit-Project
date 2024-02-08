@@ -49,12 +49,11 @@ public class WaveMatrixModel : IMatrixModel
        Direction.wave,
        Direction.wave,
        Direction.wave,
-<<<<<<< Updated upstream
+
        Direction.wave,
        Direction.wave,
        Direction.erase
-=======
->>>>>>> Stashed changes
+
     };
 
     public int[,] InitMatrix => matrix;
