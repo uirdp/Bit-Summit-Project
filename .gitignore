@@ -75,7 +75,7 @@ crashlytics-build.properties
 
 # ----------------------My def----------------
 *.meta
-*.unity
+
 Assets/UnityChan/2DUnitychan/AnimationController/*
 Assets/UnityChan*/*
 Assets/Japanese*/*
