@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Should Be renamed to cubematrix
 public class CubeMatrixGenerator : MonoBehaviour
 {
     public GameObject room = null;

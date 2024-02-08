@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using static DirectionSpace.Directions;
 
-
 public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
@@ -105,6 +104,33 @@ public class ColorMatrixShifter : MonoBehaviour
         colorMatrix.PosOfMovingMatrices[which].y++;
     }
 
+    public void FormWaveMatrix(int which)
+    {
+        int szx = colorMatrix.SizeOfMovingMatrices[which].x;
+        int szy = colorMatrix.SizeOfMovingMatrices[which].y;
+
+        int posx = colorMatrix.PosOfMovingMatrices[which].x;
+        int posy = colorMatrix.PosOfMovingMatrices[which].y;
+
+        for (int i = 0; i < szx; i++)
+        {
+            for( int j = 0; j < szy; j++)
+            {
+                if(i == 0 || j == 0 || i == szx - 1 || j == szy - 1)
+                {
+                    colorMatrix.Matrix[posx + i, posy + j] = 1;
+                }
+
+                else
+                {
+                    colorMatrix.Matrix[posx + i, posy + j] = 0;
+                }
+            }
+
+            
+        }
+    }
+
     //----------------------------end of shift method----------------------------------------------------------
 
     public IEnumerator ShiftMatrix()
@@ -121,6 +147,8 @@ public class ColorMatrixShifter : MonoBehaviour
                 ShiftMatrixToUp(0);    break;
             case Direction.down:
                 ShiftMatrixToDown(0);  break;
+            case Direction.wave:
+                FormWaveMatrix(0);     break;
         }
 
 
