@@ -141,8 +141,6 @@ public class ColorMatrixShifter : MonoBehaviour
         sz.x += 2;
         sz.y += 2;
 
-        Debug.Log(colorMatrix.SizeOfMovingMatrices[which].x);
-
         pos.x--;
         pos.y--;
 
