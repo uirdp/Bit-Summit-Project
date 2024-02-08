@@ -7,7 +7,8 @@ public class MatrixDictionary
     private static Dictionary<string, IMatrixModel>
         matrixDictionary = new Dictionary<string, IMatrixModel>()
         {
-            { "sample", new SampleColorMatrixModel() }
+            { "sample", new SampleColorMatrixModel() },
+            { "wave",  new WaveMatrixModel() }
         };
 
     public IMatrixModel ReturnMatrix(string targetName)
