@@ -34,6 +34,7 @@ public class SampleColorMatrixModel : IMatrixModel
         movingMatrix
     };
 
+
     public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
     {
         new Point(0,0)
@@ -79,6 +80,7 @@ public class SampleColorMatrixModel : IMatrixModel
         Direction.up,
     };
 
+    public int[,] InitMatrix => matrix;
     public ref int[,] Matrix => ref matrix;
     public List<int[,]> MovingMatrices => movingMatrices;
     public Direction[] Directions => directions;

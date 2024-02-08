@@ -7,11 +7,12 @@ using System.Collections.Generic;
 //through this Interface
 public interface IMatrixModel
 {
+    public int[,] InitMatrix { get; }
     public ref int[,] Matrix { get; }
-    
     public List<int[,]> MovingMatrices { get; }
 
     ref Point[] PosOfMovingMatrices { get; }
+
     ref Point[] SizeOfMovingMatrices { get; }
 
     public Direction[] Directions { get; }

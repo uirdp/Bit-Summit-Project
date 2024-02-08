@@ -36,7 +36,7 @@ public class WaveMatrixModel : IMatrixModel
 
     public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
     {
-        new Point(0,0)
+        new Point(4,4)
     };
 
     public Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
@@ -49,9 +49,12 @@ public class WaveMatrixModel : IMatrixModel
        Direction.wave,
        Direction.wave,
        Direction.wave,
-       Direction.wave
+       Direction.wave,
+       Direction.wave,
+       Direction.erase
     };
 
+    public int[,] InitMatrix => matrix;
     public ref int[,] Matrix => ref matrix;
     public List<int[,]> MovingMatrices => movingMatrices;
     public Direction[] Directions => directions;

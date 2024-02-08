@@ -17,6 +17,11 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public float interval = 0.5f;
 
+    private Point initPos;
+    private Point initSize;
+
+    public bool useReset = true;
+    private int[,] initMatrix = null;
     //which -> which Matrix to move, should be renamed
 
     //----------------------------shift method----------------------------------------------------------
@@ -104,35 +109,66 @@ public class ColorMatrixShifter : MonoBehaviour
         colorMatrix.PosOfMovingMatrices[which].y++;
     }
 
+    public void StretchMatrixToUp(int which)
+    {
+
+    }
+
     public void FormWaveMatrix(int which)
     {
-        int szx = colorMatrix.SizeOfMovingMatrices[which].x;
-        int szy = colorMatrix.SizeOfMovingMatrices[which].y;
+        ref Point sz = ref colorMatrix.SizeOfMovingMatrices[which];
 
-        int posx = colorMatrix.PosOfMovingMatrices[which].x;
-        int posy = colorMatrix.PosOfMovingMatrices[which].y;
+        ref Point pos = ref colorMatrix.PosOfMovingMatrices[which];
+        
 
-        for (int i = 0; i < szx; i++)
+        for (int i = 0; i < sz.x; i++)
         {
-            for( int j = 0; j < szy; j++)
+            for( int j = 0; j < sz.y; j++)
             {
-                if(i == 0 || j == 0 || i == szx - 1 || j == szy - 1)
+                if(i == 0 || j == 0 || i == sz.x - 1 || j == sz.y - 1)
                 {
-                    colorMatrix.Matrix[posx + i, posy + j] = 1;
+                    colorMatrix.Matrix[pos.x + i, pos.y + j] = 1;
                 }
 
                 else
                 {
-                    colorMatrix.Matrix[posx + i, posy + j] = 0;
+                    colorMatrix.Matrix[pos.x + i, pos.y + j] = 0;
                 }
             }
-
             
+        }
+        //need to reset size
+        sz.x += 2;
+        sz.y += 2;
+
+        Debug.Log(colorMatrix.SizeOfMovingMatrices[which].x);
+
+        pos.x--;
+        pos.y--;
+    }
+
+    public void EraseMatrix()
+    {
+        int xsz = colorMatrix.Matrix.GetLength(0);
+        int ysz = colorMatrix.Matrix.GetLength(1);
+
+        for(int i = 0; i < xsz; i++)
+        {
+            for(int j = 0; j < ysz; j++)
+            {
+                colorMatrix.Matrix[i, j] = 0;
+            }
         }
     }
 
     //----------------------------end of shift method----------------------------------------------------------
 
+    private void ResetMatrix()
+    {
+        colorMatrix.PosOfMovingMatrices[0] = initPos;
+        colorMatrix.SizeOfMovingMatrices[0] = initSize;
+
+    }
     public IEnumerator ShiftMatrix()
     {
         Direction dir = manual.GetDirection();
@@ -148,13 +184,20 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.down:
                 ShiftMatrixToDown(0);  break;
             case Direction.wave:
-                FormWaveMatrix(0);     break;
+                FormWaveMatrix(0); break;
+            case Direction.erase:
+                EraseMatrix(); break;
         }
 
 
         manual.GotoNextStep();
+        if (manual.index >= manual.shiftDirections.Length)
+        {
+            manual.BackToTheFirstStep();
+            ResetMatrix();
+        }
 
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(interval);
 
         SendSignal();
 
@@ -175,6 +218,13 @@ public class ColorMatrixShifter : MonoBehaviour
 
         //Get a manual for shifting the matrix
         manual = new MatrixManual(colorMatrix.Directions);
+
+        //need to be a for loop if more than one moving matrices
+        initPos = colorMatrix.PosOfMovingMatrices[0];
+        initSize = colorMatrix.SizeOfMovingMatrices[0];
+
+        if (useReset) initMatrix = colorMatrix.InitMatrix;
+
     }
     public void Start()
     {

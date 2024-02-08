@@ -22,12 +22,16 @@ public class MatrixManual
     public void GotoNextStep()
     {
         index++;
-        if (index >= shiftDirections.Length) BackToTheFirstStep();
     }
 
     public void BackToTheFirstStep()
     {
         index = 0;
+    }
+
+    public void BackToTheFirstStep(IMatrixModel matrix)
+    {
+
     }
     
 }
