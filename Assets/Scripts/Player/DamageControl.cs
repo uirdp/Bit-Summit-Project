@@ -14,10 +14,12 @@ public class DamageControl : MonoBehaviour
     }
     private void OnCollisionStay(Collision collision)
     {
-        Get();
+        //Project Setting -> Physics -> Sleeping Threshold -> 0
+        //When player stops, rigid body will be turned off
+        //maybe a lot of cost, but let's keep it that
         if (collision.gameObject.tag == "dangerous")
         {
-            //Debug.Log("Take Damage");
+            Debug.Log("Take Damage");
         }
     }
 
