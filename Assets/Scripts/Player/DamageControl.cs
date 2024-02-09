@@ -13,5 +13,11 @@ public class DamageControl : MonoBehaviour
             Debug.Log("Take Damage");
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) { Debug.Log(transform.position); }
+       
+    }
 }
 
