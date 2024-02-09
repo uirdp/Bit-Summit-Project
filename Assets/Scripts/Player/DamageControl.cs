@@ -5,12 +5,19 @@ using UnityEngine;
 public class DamageControl : MonoBehaviour
 {
     public MaterialList materialList;
+
+
+    //Maybe use ray?
+    public void Get()
+    {
+        Debug.Log("called");
+    }
     private void OnCollisionStay(Collision collision)
     {
-        Debug.Log("colliding");
+        Get();
         if (collision.gameObject.tag == "dangerous")
         {
-            Debug.Log("Take Damage");
+            //Debug.Log("Take Damage");
         }
     }
 
