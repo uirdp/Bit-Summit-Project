@@ -4,6 +4,13 @@ using System;
 using UnityEngine;
 using static DirectionSpace.Directions;
 
+/*DamageArea{ vec2 size; vec2 pos };
+GreenArea{ vec2 size; vec2 pos };
+DamageArea[] damageAreas;
+GreenArea[] greenAreas;
+
+and you use int[,] matrix just to cache final result after everything moved/added/removed this frame 
+added bonus that they can be moved independently*/
 public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
