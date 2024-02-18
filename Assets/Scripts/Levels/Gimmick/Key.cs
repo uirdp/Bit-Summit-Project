@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public float keyRadius = 3.0f; //please come up with a better name fr
+    public LayerMask PlayerLayer;
+    //check whether the key was obtained by the player
+
+
+    private void Update()
     {
-        
+        ObtainedCheck();
     }
 
-    // Update is called once per frame
-    void Update()
+    //check whether the key was obtained by the player
+    private void ObtainedCheck()
     {
-        
+        Vector3 SpherePosition = new Vector3(transform.position.x, transform.position.y,
+                transform.position.z);
+
+
+        Collider[] cols = Physics.OverlapSphere(SpherePosition, keyRadius, PlayerLayer);
+        foreach (var col in cols)
+        {
+            if (col.gameObject.tag == "player") Debug.Log("obtained");
+        }
     }
+
+
 }
