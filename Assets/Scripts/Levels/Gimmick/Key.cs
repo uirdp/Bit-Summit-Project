@@ -25,7 +25,7 @@ public class Key : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(SpherePosition, keyRadius, PlayerLayer);
         foreach (var col in cols)
         {
-            if (col.gameObject.tag == "player") Debug.Log("obtained");
+            if (col.gameObject.tag == "Player") Debug.Log("obtained");
         }
     }
 
