@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    public KeyCollectionProgress Progress;
 
     public float keyRadius = 3.0f; //please come up with a better name fr
     public LayerMask PlayerLayer;
@@ -25,7 +26,11 @@ public class Key : MonoBehaviour
         Collider[] cols = Physics.OverlapSphere(SpherePosition, keyRadius, PlayerLayer);
         foreach (var col in cols)
         {
-            if (col.gameObject.tag == "Player") Debug.Log("obtained");
+            if (col.gameObject.tag == "Player")
+            {
+                Progress.UpdateProgress();
+                Destroy(gameObject);
+            }
         }
     }
 
