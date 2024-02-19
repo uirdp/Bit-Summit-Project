@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using static DirectionSpace.Directions;
 using UnityEditor.ShaderGraph;
+using System.Linq;
 
 /*DamageArea{ vec2 size; vec2 pos };
 GreenArea{ vec2 size; vec2 pos };
@@ -21,145 +22,52 @@ public class ColorMatrixShifter : MonoBehaviour
     public string matrixName = "sample";
     private MatrixDictionary _dict;
 
-    private MatrixManual manual;
-
     public float interval = 0.5f;
 
-    private Vector2[] initPosRed;
-    private Vector2[] initSizeRed;
-    private int numOfRed;
+    private Vector2[] _initPosRed;
+    private Vector2[] _initSizeRed;
+    private int _numOfRed;
 
-    private Vector2[] initPosGreen;
-    private Vector2[] initSizeGreen;
-    private int numOfGreen;
-
-    //when the area cannot simply be represented as products of rows and columns
-    private List<Area> rewriteAreas;
+    private Vector2[] _initPosGreen;
+    private Vector2[] _initSizeGreen;
+    private int _numOfGreen;
 
     public bool useReset = true;
     private int[,] initMatrix = null;
     //which -> which Matrix to move, should be renamed
 
     //----------------------------shift method----------------------------------------------------------
-    public void ShiftMatrixToRight(int which)
+    public void ShiftRight(Area area)
     {
-        //get right top element of submatrix, because it's swapped first
-        int r = colorMatrix.PosOfMovingMatrices[which].x +
-                    colorMatrix.SizeOfMovingMatrices[which].x;
-
-        int y = colorMatrix.PosOfMovingMatrices[which].y;
-
-        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
-        {
-            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
-            {
-                int tmp = colorMatrix.Matrix[r - 1 - i, y + j];
-                colorMatrix.Matrix[r - 1 - i, y + j] = colorMatrix.Matrix[r - i,y + j];
-                colorMatrix.Matrix[r - i, y + j] = tmp;
-            }
-        }
-
-        colorMatrix.PosOfMovingMatrices[which].x++;
+        area.Pos.Set(area.Pos.x + 1, area.Pos.y);
+    }
+    public void ShiftLeft(Area area)
+    {
+        area.Pos.Set(area.Pos.x - 1, area.Pos.y);
     }
 
-
-
-    public void ShiftMatrixToLeft(int which)
+    public void ShiftUp(Area area)
     {
-        // Get left top element of submatrix, because it's swapped first
-        int l = colorMatrix.PosOfMovingMatrices[which].x;
-
-        int y = colorMatrix.PosOfMovingMatrices[which].y;
-
-        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
-        {
-            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
-            {
-                int tmp = colorMatrix.Matrix[l + i, y + j];
-                colorMatrix.Matrix[l + i, y + j] = colorMatrix.Matrix[l + i - 1, y + j];
-                colorMatrix.Matrix[l + i - 1, y + j] = tmp;
-            }
-        }
-
-        colorMatrix.PosOfMovingMatrices[which].x--;
+        area.Pos.Set(area.Pos.x, area.Pos.y - 1);
     }
 
-    public void ShiftMatrixToUp(int which)
+    public void ShiftDown(Area area)
     {
-        // Get top left element of submatrix, because it's swapped first
-        int t = colorMatrix.PosOfMovingMatrices[which].y;
-        int x = colorMatrix.PosOfMovingMatrices[which].x;
-
-        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
-        {
-            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
-            {
-                int tmp = colorMatrix.Matrix[x + i, t + j];
-                colorMatrix.Matrix[x + i, t + j] = colorMatrix.Matrix[x + i, t + j - 1];
-                colorMatrix.Matrix[x + i, t + j - 1] = tmp;
-            }
-        }
-
-        colorMatrix.PosOfMovingMatrices[which].y--;
+        area.Pos.Set(area.Pos.x, area.Pos.y + 1);
     }
 
-    public void ShiftMatrixToDown(int which)
-    {
-        // Get bottom left element of submatrix, because it's swapped first
-        int b = colorMatrix.PosOfMovingMatrices[which].y +
-                    colorMatrix.SizeOfMovingMatrices[which].y;
-        
-        int x = colorMatrix.PosOfMovingMatrices[which].x;
-
-        for (int i = 0; i < colorMatrix.SizeOfMovingMatrices[which].x; i++)
-        {
-            for (int j = 0; j < colorMatrix.SizeOfMovingMatrices[which].y; j++)
-            {
-                int tmp = colorMatrix.Matrix[x + i, b - 1 - j];
-                colorMatrix.Matrix[x + i, b - 1 - j] = colorMatrix.Matrix[x + i, b - j];
-                colorMatrix.Matrix[x + i, b - j] = tmp;
-            }
-        }
-
-
-        colorMatrix.PosOfMovingMatrices[which].y++;
-    }
-
-    public void StretchMatrixToUp(int which)
+    public void StretchUp(int which)
     {
 
     }
 
-    public void FormWaveMatrix(int which)
+    public void FormWave(Area area, int rewriteInd)
     {
-        ref Point sz = ref colorMatrix.SizeOfMovingMatrices[which];
+        colorMatrix.RewriteAreas[rewriteInd].Pos.Set(area.Pos.x, area.Pos.y);
+        colorMatrix.RewriteAreas[rewriteInd].Size.Set(area.Pos.x, area.Pos.y);
 
-        ref Point pos = ref colorMatrix.PosOfMovingMatrices[which];
-        
-
-        for (int i = 0; i < sz.x; i++)
-        {
-            for( int j = 0; j < sz.y; j++)
-            {
-                if(i == 0 || j == 0 || i == sz.x - 1 || j == sz.y - 1)
-                {
-                    colorMatrix.Matrix[pos.x + i, pos.y + j] = 1;
-                }
-
-                else
-                {
-                    colorMatrix.Matrix[pos.x + i, pos.y + j] = 0;
-                }
-            }
-            
-        }
-        //need to reset size
-        sz.x += 2;
-        sz.y += 2;
-
-        pos.x--;
-        pos.y--;
-
+        area.Pos.Set(area.Pos.x + 1, area.Pos.y + 1);
+        area.Size.Set(area.Pos.x + 1, area.Pos.y + 1);
     }
 
     public void EraseMatrix()
@@ -192,24 +100,30 @@ public class ColorMatrixShifter : MonoBehaviour
         _dict = new MatrixDictionary();
         colorMatrix = _dict.ReturnMatrix(matrixName);
 
-        numOfRed = colorMatrix.NumOfRed;
-        numOfGreen = colorMatrix.NumOfGreen;
+        _numOfRed = colorMatrix.NumOfRed;
+        _numOfGreen = colorMatrix.NumOfGreen;
 
-        for(int i = 0; i < numOfRed; i++)
+        Debug.Log(colorMatrix.RedAreas[0].Pos);
+
+        _initPosRed = new Vector2[_numOfRed];
+        _initSizeRed = new Vector2[_numOfRed];
+
+        _initPosGreen = new Vector2[_numOfGreen];
+        _initSizeGreen = new Vector2[_numOfGreen];
+
+        for(int i = 0; i < _numOfRed; i++)
         {
-            initPosRed[i] = colorMatrix.RedAreas[i].Pos;
-            initSizeRed[i] = colorMatrix.RedAreas[i].Size;
+            _initPosRed[i] = colorMatrix.RedAreas[i].Pos;
+            _initSizeRed[i] = colorMatrix.RedAreas[i].Size;
         }
 
-        for(int i = 0;i < numOfGreen; i++)
+        for(int i = 0;i < _numOfGreen; i++)
         {
-            initPosGreen[i] = colorMatrix.GreenAreas[i].Pos;
-            initSizeGreen[i] = colorMatrix.GreenAreas[i].Size;
+            _initPosGreen[i] = colorMatrix.GreenAreas[i].Pos;
+            _initSizeGreen[i] = colorMatrix.GreenAreas[i].Size;
         }
 
         if (useReset) initMatrix = colorMatrix.InitMatrix;
-
-        rewriteAreas = new List<Area>();
 
     }
     public void Start()
@@ -224,37 +138,53 @@ public class ColorMatrixShifter : MonoBehaviour
 
     private void ResetMatrix()
     {
-        colorMatrix.PosOfMovingMatrices[0] = initPos;
-        colorMatrix.SizeOfMovingMatrices[0] = initSize;
-
+        for(int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
+        {
+            for(int iy = 0; iy < colorMatrix.Matrix.GetLength(1); iy++)
+            {
+                colorMatrix.Matrix[ix, iy] = 0;
+            }
+        }
     }
     public IEnumerator ShiftMatrix()
     {
-        Direction dir = manual.GetDirection();
-
-        switch (dir)
+        for (int i = 0; i < colorMatrix.RedAreas.Length; i++)
         {
-            case Direction.right:
-                ShiftMatrixToRight(0); break;
-            case Direction.left:
-                ShiftMatrixToLeft(0); break;
-            case Direction.up:
-                ShiftMatrixToUp(0); break;
-            case Direction.down:
-                ShiftMatrixToDown(0); break;
-            case Direction.wave:
-                FormWaveMatrix(0); break;
-            case Direction.erase:
-                EraseMatrix(); break;
+            var rArea = colorMatrix.RedAreas[i];
+            Direction dir = rArea.Manual[rArea.ManualIndex++];
+
+            if (rArea.ManualIndex >= rArea.Manual.Length)
+            {
+                rArea.ManualIndex = 0;
+            }
+
+            switch (dir)
+            {
+                case Direction.right:
+                    ShiftRight(rArea);
+                    break;
+                case Direction.left:
+                    ShiftLeft(rArea);
+                    break;
+                case Direction.up:
+                    ShiftUp(rArea);
+                    break;
+                case Direction.down:
+                    ShiftDown(rArea);
+                    break;
+                case Direction.wave:
+                    FormWave(rArea, i);
+                    break;
+                case Direction.erase:
+                    EraseMatrix();
+                    break;
+            }
+
+            
         }
 
-
-        manual.GotoNextStep();
-        if (manual.index >= manual.shiftDirections.Length)
-        {
-            manual.BackToTheFirstStep();
-            ResetMatrix();
-        }
+        ResetMatrix();
+        RenderColorsOnMatrix();
 
         yield return new WaitForSeconds(interval);
 
@@ -263,6 +193,7 @@ public class ColorMatrixShifter : MonoBehaviour
         StartCoroutine(ShiftMatrix());
     }
 
+    //plz change name!
     private void RenderColorsOnMatrix()
     {
         //from the least priority to the highest
@@ -279,13 +210,16 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
         //render rewrite
-        foreach(var wArea in rewriteAreas)
+        if (colorMatrix?.RewriteAreas != null)
         {
-            for (int ix = wArea.Pos.x; ix <= wArea.Pos.x + wArea.Size.x; ix++)
+            foreach (var wArea in colorMatrix?.RewriteAreas)
             {
-                for (int iy = wArea.Pos.y; iy <= wArea.Pos.y + wArea.Size.y; iy++)
+                for (int ix = wArea.Pos.x; ix <= wArea.Pos.x + wArea.Size.x; ix++)
                 {
-                    colorMatrix.Matrix[ix, iy] = 1;
+                    for (int iy = wArea.Pos.y; iy <= wArea.Pos.y + wArea.Size.y; iy++)
+                    {
+                        colorMatrix.Matrix[ix, iy] = 1;
+                    }
                 }
             }
         }
@@ -297,7 +231,7 @@ public class ColorMatrixShifter : MonoBehaviour
             {
                 for (int iy = gArea.Pos.y; iy <= gArea.Pos.y + gArea.Size.y; iy++)
                 {
-                    colorMatrix.Matrix[ix, iy] = 1;
+                    colorMatrix.Matrix[ix, iy] = 2;
                 }
             }
         }

@@ -61,7 +61,7 @@ public class SampleColorMatrixModel : IMatrixModel
     };
 
 
-    public Area[] redAres = new Area[numOfRedAreas]
+    public Area[] redAreas = new Area[numOfRedAreas]
     {
         new Area(new Vector2Int(0,0), new Vector2Int(3, 3), directionsRed[0])
     };
@@ -81,11 +81,14 @@ public class SampleColorMatrixModel : IMatrixModel
         new Area(new Vector2Int(3,3), new Vector2Int(4,4), directionsGreen[0])
     };
 
+    public const int numOfRewriteArea = 0;
+    public Area[] rewriteAreas = null;
 
     public int[,] InitMatrix => matrix;
     public ref int[,] Matrix => ref matrix;
-    public Area[] RedAreas => RedAreas;
-    public Area[] GreenAreas => GreenAreas;
+    public ref Area[] RedAreas => ref redAreas;
+    public ref Area[] GreenAreas => ref greenAreas;
+    public ref Area[] RewriteAreas => ref rewriteAreas;
 
     public int NumOfRed => numOfRedAreas;
     public int NumOfGreen => numOfGreenArea;
