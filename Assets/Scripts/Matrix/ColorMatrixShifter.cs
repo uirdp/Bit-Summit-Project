@@ -33,6 +33,7 @@ public class ColorMatrixShifter : MonoBehaviour
     private Vector2[] initSizeGreen;
     private int numOfGreen;
 
+    //when the area cannot simply be represented as products of rows and columns
     private List<Area> rewriteAreas;
 
     public bool useReset = true;
@@ -196,13 +197,13 @@ public class ColorMatrixShifter : MonoBehaviour
 
         for(int i = 0; i < numOfRed; i++)
         {
-            initPosRed[i] = colorMatrix.RedAreas[i].Position;
+            initPosRed[i] = colorMatrix.RedAreas[i].Pos;
             initSizeRed[i] = colorMatrix.RedAreas[i].Size;
         }
 
         for(int i = 0;i < numOfGreen; i++)
         {
-            initPosGreen[i] = colorMatrix.GreenAreas[i].Position;
+            initPosGreen[i] = colorMatrix.GreenAreas[i].Pos;
             initSizeGreen[i] = colorMatrix.GreenAreas[i].Size;
         }
 
@@ -264,6 +265,8 @@ public class ColorMatrixShifter : MonoBehaviour
 
     private void RenderColorsOnMatrix()
     {
+        //from the least priority to the highest
+        //render red area
         foreach(var rArea in colorMatrix.RedAreas)
         {
             for(int ix = rArea.Pos.x; ix <= rArea.Pos.x + rArea.Size.x; ix++)
@@ -275,6 +278,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
+        //render rewrite
         foreach(var wArea in rewriteAreas)
         {
             for (int ix = wArea.Pos.x; ix <= wArea.Pos.x + wArea.Size.x; ix++)
@@ -286,6 +290,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
+        //render green area
         foreach(var gArea in colorMatrix.GreenAreas)
         {
             for (int ix = gArea.Pos.x; ix <= gArea.Pos.x + gArea.Size.x; ix++)
