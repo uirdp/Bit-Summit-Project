@@ -20,72 +20,74 @@ public class SampleColorMatrixModel : IMatrixModel
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
-    public const int numOfMovingMatrices = 1;
+    public const int numOfRedAreas = 1;
 
-    public static readonly int[,] movingMatrix = new int[,]
-    {
-        {1, 1, 1 },
-        {1, 1, 1 },
-        {1, 1, 1 },
+    public static readonly Direction[][] directionsRed = new Direction[numOfRedAreas][]
+   {
+        new Direction[]
+        {
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+        }
     };
 
-    public static readonly List<int[,]> movingMatrices = new List<int[,]>
+
+    public Area[] redAres = new Area[numOfRedAreas]
     {
-        movingMatrix
+        new Area(new Vector2Int(0,0), new Vector2Int(3, 3), directionsRed[0])
     };
 
+    public const int numOfGreenArea = 1;
 
-    public Point[] posOfMovingMatrices = new Point[numOfMovingMatrices]
-    {
-        new Point(0,0)
+    public static readonly Direction[][] directionsGreen = new Direction[numOfRedAreas][]
+   {
+        new Direction[]
+        {
+            Direction.wait
+        }
     };
 
-    public Point[] sizeOfMovingMatrices = new Point[numOfMovingMatrices]
+    public Area[] greenAreas = new Area[numOfGreenArea]
     {
-        new Point(3, 3)
+        new Area(new Vector2Int(3,3), new Vector2Int(4,4), directionsGreen[0])
     };
 
-    public static readonly Direction[] directions = new Direction[]
-    {
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-        Direction.right,
-
-        Direction.down,
-        Direction.down,
-        Direction.down,
-        Direction.down,
-        Direction.down,
-        Direction.down,
-        Direction.down,
-        
-        Direction.left,
-        Direction.left,
-        Direction.left,
-        Direction.left,
-        Direction.left,
-        Direction.left,
-        Direction.left,
-
-        Direction.up,
-        Direction.up,
-        Direction.up,
-        Direction.up,
-        Direction.up,
-        Direction.up,
-        Direction.up,
-    };
 
     public int[,] InitMatrix => matrix;
     public ref int[,] Matrix => ref matrix;
-    public List<int[,]> MovingMatrices => movingMatrices;
-    public Direction[] Directions => directions;
+    public Area[] RedAreas => RedAreas;
+    public Area[] GreenAreas => GreenAreas;
 
-    public ref Point[] PosOfMovingMatrices => ref posOfMovingMatrices;
-    public ref Point[] SizeOfMovingMatrices => ref sizeOfMovingMatrices;
+    public int NumOfRed => numOfRedAreas;
+    public int NumOfGreen => numOfGreenArea;
 
 }

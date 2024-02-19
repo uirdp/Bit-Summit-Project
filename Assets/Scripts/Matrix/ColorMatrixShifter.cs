@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using static DirectionSpace.Directions;
+using UnityEditor.ShaderGraph;
 
 /*DamageArea{ vec2 size; vec2 pos };
 GreenArea{ vec2 size; vec2 pos };
@@ -24,8 +25,15 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public float interval = 0.5f;
 
-    private Point initPos;
-    private Point initSize;
+    private Vector2[] initPosRed;
+    private Vector2[] initSizeRed;
+    private int numOfRed;
+
+    private Vector2[] initPosGreen;
+    private Vector2[] initSizeGreen;
+    private int numOfGreen;
+
+    private List<Area> rewriteAreas;
 
     public bool useReset = true;
     private int[,] initMatrix = null;
@@ -170,6 +178,49 @@ public class ColorMatrixShifter : MonoBehaviour
 
     //----------------------------end of shift method----------------------------------------------------------
 
+    
+
+    public void SendSignal()
+    {
+        signalManager.ChangeCubeMaterials(ref colorMatrix.Matrix);
+    }
+
+    public void Init()
+    {
+        //Get a matrix to shift from the dictionary
+        _dict = new MatrixDictionary();
+        colorMatrix = _dict.ReturnMatrix(matrixName);
+
+        numOfRed = colorMatrix.NumOfRed;
+        numOfGreen = colorMatrix.NumOfGreen;
+
+        for(int i = 0; i < numOfRed; i++)
+        {
+            initPosRed[i] = colorMatrix.RedAreas[i].Position;
+            initSizeRed[i] = colorMatrix.RedAreas[i].Size;
+        }
+
+        for(int i = 0;i < numOfGreen; i++)
+        {
+            initPosGreen[i] = colorMatrix.GreenAreas[i].Position;
+            initSizeGreen[i] = colorMatrix.GreenAreas[i].Size;
+        }
+
+        if (useReset) initMatrix = colorMatrix.InitMatrix;
+
+        rewriteAreas = new List<Area>();
+
+    }
+    public void Start()
+    {
+        StartCoroutine(ShiftMatrix());
+    }
+
+    public void Awake()
+    {
+        Init();
+    }
+
     private void ResetMatrix()
     {
         colorMatrix.PosOfMovingMatrices[0] = initPos;
@@ -180,16 +231,16 @@ public class ColorMatrixShifter : MonoBehaviour
     {
         Direction dir = manual.GetDirection();
 
-        switch(dir)
+        switch (dir)
         {
             case Direction.right:
                 ShiftMatrixToRight(0); break;
             case Direction.left:
-                ShiftMatrixToLeft(0);  break;
+                ShiftMatrixToLeft(0); break;
             case Direction.up:
-                ShiftMatrixToUp(0);    break;
+                ShiftMatrixToUp(0); break;
             case Direction.down:
-                ShiftMatrixToDown(0);  break;
+                ShiftMatrixToDown(0); break;
             case Direction.wave:
                 FormWaveMatrix(0); break;
             case Direction.erase:
@@ -211,36 +262,40 @@ public class ColorMatrixShifter : MonoBehaviour
         StartCoroutine(ShiftMatrix());
     }
 
-    public void SendSignal()
+    private void RenderColorsOnMatrix()
     {
-        //TODO: updates only where the change happend
-        signalManager.ChangeCubeMaterials(ref colorMatrix.Matrix);
-    }
+        foreach(var rArea in colorMatrix.RedAreas)
+        {
+            for(int ix = rArea.Pos.x; ix <= rArea.Pos.x + rArea.Size.x; ix++)
+            {
+                for(int  iy = rArea.Pos.y; iy <= rArea.Pos.y + rArea.Size.y; iy++)
+                {
+                    colorMatrix.Matrix[ix, iy] = 1;
+                }
+            }
+        }
 
-    public void Init()
-    {
-        //Get a matrix to shift from the dictionary
-        _dict = new MatrixDictionary();
-        colorMatrix = _dict.ReturnMatrix(matrixName);
+        foreach(var wArea in rewriteAreas)
+        {
+            for (int ix = wArea.Pos.x; ix <= wArea.Pos.x + wArea.Size.x; ix++)
+            {
+                for (int iy = wArea.Pos.y; iy <= wArea.Pos.y + wArea.Size.y; iy++)
+                {
+                    colorMatrix.Matrix[ix, iy] = 1;
+                }
+            }
+        }
 
-        //Get a manual for shifting the matrix
-        manual = new MatrixManual(colorMatrix.Directions);
-
-        //need to be a for loop if more than one moving matrices
-        initPos = colorMatrix.PosOfMovingMatrices[0];
-        initSize = colorMatrix.SizeOfMovingMatrices[0];
-
-        if (useReset) initMatrix = colorMatrix.InitMatrix;
-
-    }
-    public void Start()
-    {
-        StartCoroutine(ShiftMatrix());
-    }
-
-    public void Awake()
-    {
-        Init();
+        foreach(var gArea in colorMatrix.GreenAreas)
+        {
+            for (int ix = gArea.Pos.x; ix <= gArea.Pos.x + gArea.Size.x; ix++)
+            {
+                for (int iy = gArea.Pos.y; iy <= gArea.Pos.y + gArea.Size.y; iy++)
+                {
+                    colorMatrix.Matrix[ix, iy] = 1;
+                }
+            }
+        }
     }
 
 }
