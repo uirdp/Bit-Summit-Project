@@ -148,39 +148,20 @@ public class ColorMatrixShifter : MonoBehaviour
     }
     public IEnumerator ShiftMatrix()
     {
+        //move red
         for (int i = 0; i < colorMatrix.RedAreas.Length; i++)
         {
             var rArea = colorMatrix.RedAreas[i];
-            Direction dir = rArea.Manual[rArea.ManualIndex++];
 
-            if (rArea.ManualIndex >= rArea.Manual.Length)
-            {
-                rArea.ManualIndex = 0;
-            }
+            ReadManual(ref rArea, i);
+        }
 
-            switch (dir)
-            {
-                case Direction.right:
-                    ShiftRight(ref rArea);
-                    break;
-                case Direction.left:
-                    ShiftLeft(ref rArea);
-                    break;
-                case Direction.up:
-                    ShiftUp(ref rArea);
-                    break;
-                case Direction.down:
-                    ShiftDown(ref rArea);
-                    break;
-                case Direction.wave:
-                    FormWave(ref rArea, i);
-                    break;
-                case Direction.erase:
-                    EraseMatrix();
-                    break;
-            }
+        //move green
+        for(int i =0; i < colorMatrix.GreenAreas.Length; i++)
+        {
+            var gArea = colorMatrix.GreenAreas[i];
 
-            
+            ReadManual(ref gArea, i);
         }
 
         ResetMatrix();
@@ -191,6 +172,38 @@ public class ColorMatrixShifter : MonoBehaviour
         SendSignal();
 
         StartCoroutine(ShiftMatrix());
+    }
+
+    private void ReadManual(ref Area area, int ind)
+    {
+        Direction dir = area.Manual[area.ManualIndex++];
+
+        if (area.ManualIndex >= area.Manual.Length)
+        {
+            area.ManualIndex = 0;
+        }
+
+        switch (dir)
+        {
+            case Direction.right:
+                ShiftRight(ref area);
+                break;
+            case Direction.left:
+                ShiftLeft(ref area);
+                break;
+            case Direction.up:
+                ShiftUp(ref area);
+                break;
+            case Direction.down:
+                ShiftDown(ref area);
+                break;
+            case Direction.wave:
+                FormWave(ref area, ind);
+                break;
+            case Direction.erase:
+                EraseMatrix();
+                break;
+        }
     }
 
     //plz change name!

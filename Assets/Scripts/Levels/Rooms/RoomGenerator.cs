@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Apple;
 
+public enum RoomType
+{
+    level,
+    background
+}
 public class RoomGenerator : MonoBehaviour
 {
     [SerializeField] private int x_start = -5;
@@ -23,6 +26,9 @@ public class RoomGenerator : MonoBehaviour
     public Texture CubeTexture = null;
 
     public MaterialList cubeMaterial = null;
+    [Tooltip("material to apply")]
+    public MaterialList.MaterialName MatName;
+    public RoomType roomType;
 
     public List<GameObject> cubes = new List<GameObject>();
     [Tooltip("set to true if you want them in a list")]
@@ -155,12 +161,15 @@ public class RoomGenerator : MonoBehaviour
     {
         Renderer renderer;
 
+        int matInd = 0;
+        if(roomType == RoomType.background) matInd = 3;
+
         foreach (Transform child in transform)
         {
             renderer = child.gameObject.GetComponent<Renderer>();
-            if(renderer != null || cubeMaterial.materials[0] != null)
+            if(renderer != null || cubeMaterial.materials[matInd] != null)
             {
-                renderer.sharedMaterial = cubeMaterial.materials[0];
+                renderer.sharedMaterial = cubeMaterial.materials[matInd];
             }
         }
     }
