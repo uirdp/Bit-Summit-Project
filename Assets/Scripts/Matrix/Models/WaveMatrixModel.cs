@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static DirectionSpace.Directions;
@@ -64,3 +64,4 @@ public class WaveMatrixModel : IMatrixModel
     public ref Point[] PosOfMovingMatrices => ref posOfMovingMatrices;
     public ref Point[] SizeOfMovingMatrices => ref sizeOfMovingMatrices;
 }
+*/
