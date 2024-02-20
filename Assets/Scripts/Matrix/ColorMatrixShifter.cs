@@ -56,6 +56,11 @@ public class ColorMatrixShifter : MonoBehaviour
         area.Pos = new Vector2Int(area.Pos.x, area.Pos.y + 1);
     }
 
+    public void ShiftDownRight(ref Area area)
+    {
+        area.Pos = new Vector2Int(area.Pos.x + 1, area.Pos.y - 1);
+    }
+
     public void StretchUp(int which)
     {
 
