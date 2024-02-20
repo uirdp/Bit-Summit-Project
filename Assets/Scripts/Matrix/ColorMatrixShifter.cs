@@ -61,6 +61,10 @@ public class ColorMatrixShifter : MonoBehaviour
         area.Pos = new Vector2Int(area.Pos.x + 1, area.Pos.y + 1);
     }
 
+    public void ResetPosX(ref Area area)
+    {
+        area.ResetPosX();
+    }
     public void StretchUp(int which)
     {
 
@@ -89,6 +93,9 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
     }
+
+    
+
 
     //----------------------------end of shift method----------------------------------------------------------
 
@@ -160,7 +167,8 @@ public class ColorMatrixShifter : MonoBehaviour
             {
                 var rArea = colorMatrix.RedAreas[i];
 
-                ReadManual(ref rArea, i);
+                if (rArea.IsActive) ReadManual(ref rArea, i);
+                else rArea.CountDownActivation();
             }
         }
 
@@ -171,7 +179,8 @@ public class ColorMatrixShifter : MonoBehaviour
             {
                 var gArea = colorMatrix.GreenAreas[i];
 
-                ReadManual(ref gArea, i);
+                if (gArea.IsActive) ReadManual(ref gArea, i);
+                else gArea.CountDownActivation();
             }
         }
 
@@ -191,7 +200,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (area.ManualIndex >= area.Manual.Length)
         {
-            area.ResetAreaStatus(); //index = 0, pos & size = init pos & size
+            area.ResetManual(); //index = 0, pos & size = init pos & size
         }
 
         Debug.Log(area.ManualIndex);
@@ -218,6 +227,10 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.erase:
                 EraseMatrix();
                 break;
+            case Direction.resetPosX:
+                ResetPosX(ref area);
+                break;
+
         }
     }
 
@@ -234,7 +247,12 @@ public class ColorMatrixShifter : MonoBehaviour
                 {
                     for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
                     {
-                        colorMatrix.Matrix[ix, iy] = 1;
+                        if (ix >= colorMatrix.Matrix.GetLength(0))
+                        {
+                            colorMatrix.Matrix[ix - colorMatrix.Matrix.GetLength(0), iy] = 1;
+                        }
+
+                        else colorMatrix.Matrix[ix, iy] = 1;
                     }
                 }
             }

@@ -26,7 +26,9 @@ namespace DirectionSpace {
 
         erase,
         change,        //changes to another matrix
-        wave            
+        wave,
+        
+        resetPosX
     }
 }
 }

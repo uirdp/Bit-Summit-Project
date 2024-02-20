@@ -9,17 +9,42 @@ using UnityEngine;
 
 public class Area
 {
-
+    //public Vec2 currentPos maybe should have this 
     private Vector2Int _initPos;
     private Vector2Int _initSize;
 
-    public Area(Vector2Int pos, Vector2Int size, Direction[] man)
+    private bool _isActive = true;
+
+    private int _turnsTillActivation;
+    private int _turnsTillReset; 
+    private int _turns = 0; //how many times the Direction[] was completed
+
+    public Area(Vector2Int pos, Vector2Int size, Direction[] man, int turnsTillReset)
     {
         _initPos= pos;
         Pos = _initPos;
 
         _initSize = size;
         Size = _initSize;
+
+        _turnsTillReset = turnsTillReset;
+
+        Manual = man;
+        ManualIndex = 0;
+    }
+
+    public Area(Vector2Int pos, Vector2Int size, Direction[] man, int turnsTillReset, int turnsTillActivation)
+    {
+        _initPos = pos;
+        Pos = _initPos;
+
+        _initSize = size;
+        Size = _initSize;
+
+        _turnsTillReset = turnsTillReset;
+
+        _turnsTillActivation = turnsTillActivation;
+        _isActive = false;
 
         Manual = man;
         ManualIndex = 0;
@@ -29,16 +54,38 @@ public class Area
     public Vector2Int Size { get; set; }
     public Direction[] Manual { get; }
 
+    public bool IsActive => _isActive;
+
     public int ManualIndex { get; set; }
 
-    public void ResetAreaStatus()
+    public void ResetManual()
     {
         ManualIndex = 0;
-        Pos = _initSize;
-        Pos = _initPos;
+        if (_turns >= _turnsTillReset) ResetArea();
     }
 
+    public void ResetArea()
+    {
+        Pos = _initSize;
+        Pos = _initPos;
+        _turns = 0;
+    }
 
+    public void ResetPosX()
+    {
+        Pos = new Vector2Int(_initPos.x, Pos.y);
+    }
+
+    public void CountDownActivation()
+    {
+        _turnsTillActivation--;
+        if (_turnsTillActivation <= 0) Activate();
+    }
+
+    public void Activate()
+    {
+        _isActive = true;
+    }
 }
 public interface IMatrixModel
 {
