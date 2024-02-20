@@ -154,19 +154,25 @@ public class ColorMatrixShifter : MonoBehaviour
     public IEnumerator ShiftMatrix()
     {
         //move red
-        for (int i = 0; i < colorMatrix.RedAreas.Length; i++)
+        if (colorMatrix.RedAreas != null)
         {
-            var rArea = colorMatrix.RedAreas[i];
+            for (int i = 0; i < colorMatrix.RedAreas.Length; i++)
+            {
+                var rArea = colorMatrix.RedAreas[i];
 
-            ReadManual(ref rArea, i);
+                ReadManual(ref rArea, i);
+            }
         }
 
         //move green
-        for(int i =0; i < colorMatrix.GreenAreas.Length; i++)
+        if (colorMatrix.GreenAreas != null)
         {
-            var gArea = colorMatrix.GreenAreas[i];
+            for (int i = 0; i < colorMatrix.GreenAreas.Length; i++)
+            {
+                var gArea = colorMatrix.GreenAreas[i];
 
-            ReadManual(ref gArea, i);
+                ReadManual(ref gArea, i);
+            }
         }
 
         ResetMatrix();
@@ -202,6 +208,9 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.down:
                 ShiftDown(ref area);
                 break;
+            case Direction.downRight:
+                ShiftDownRight(ref area);
+                break;
             case Direction.wave:
                 FormWave(ref area, ind);
                 break;
@@ -216,20 +225,23 @@ public class ColorMatrixShifter : MonoBehaviour
     {
         //from the least priority to the highest
         //render red area
-        foreach(var rArea in colorMatrix.RedAreas)
+        if (colorMatrix.RedAreas != null)
         {
-            Debug.Log(rArea.Pos);
-            for(int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
+            foreach (var rArea in colorMatrix.RedAreas)
             {
-                for(int  iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
+                Debug.Log(rArea.Pos);
+                for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
                 {
-                    colorMatrix.Matrix[ix, iy] = 1;
+                    for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
+                    {
+                        colorMatrix.Matrix[ix, iy] = 1;
+                    }
                 }
             }
         }
 
         //render rewrite
-        if (colorMatrix?.RewriteAreas != null)
+        if (colorMatrix.RewriteAreas != null)
         {
             foreach (var wArea in colorMatrix?.RewriteAreas)
             {
@@ -244,13 +256,16 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
         //render green area
-        foreach(var gArea in colorMatrix.GreenAreas)
+        if (colorMatrix.GreenAreas != null)
         {
-            for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
+            foreach (var gArea in colorMatrix.GreenAreas)
             {
-                for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
+                for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
                 {
-                    colorMatrix.Matrix[ix, iy] = 2;
+                    for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
+                    {
+                        colorMatrix.Matrix[ix, iy] = 2;
+                    }
                 }
             }
         }

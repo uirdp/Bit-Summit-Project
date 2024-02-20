@@ -9,6 +9,8 @@ public enum RoomType
     level,
     background
 }
+
+//this code is a mess, sorry 
 public class RoomGenerator : MonoBehaviour
 {
     [SerializeField] private int x_start = -5;
