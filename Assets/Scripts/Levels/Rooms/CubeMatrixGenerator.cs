@@ -36,6 +36,14 @@ public class CubeMatrixGenerator : MonoBehaviour
         }
 
         else { Debug.Log("there is no room"); }
+        SortCubeList();
+        
+    }
+
+    [ContextMenu("Sort Matrix")]
+    private void SortCubeList()
+    {
+        //cubes?.Sort((obj1, obj2) => char.Compare(obj1.name[1],obj2.name));
     }
 
     private void CreateMatrixFromGroupNumber()

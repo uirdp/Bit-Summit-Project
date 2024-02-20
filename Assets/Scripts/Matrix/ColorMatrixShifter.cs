@@ -58,7 +58,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void ShiftDownRight(ref Area area)
     {
-        area.Pos = new Vector2Int(area.Pos.x + 1, area.Pos.y - 1);
+        area.Pos = new Vector2Int(area.Pos.x + 1, area.Pos.y + 1);
     }
 
     public void StretchUp(int which)
@@ -191,9 +191,10 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (area.ManualIndex >= area.Manual.Length)
         {
-            area.ManualIndex = 0;
+            area.ResetAreaStatus(); //index = 0, pos & size = init pos & size
         }
 
+        Debug.Log(area.ManualIndex);
         switch (dir)
         {
             case Direction.right:
@@ -229,7 +230,6 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             foreach (var rArea in colorMatrix.RedAreas)
             {
-                Debug.Log(rArea.Pos);
                 for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
                 {
                     for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)

@@ -9,10 +9,18 @@ using UnityEngine;
 
 public class Area
 {
+
+    private Vector2Int _initPos;
+    private Vector2Int _initSize;
+
     public Area(Vector2Int pos, Vector2Int size, Direction[] man)
     {
-        Pos = pos;
-        Size = size;
+        _initPos= pos;
+        Pos = _initPos;
+
+        _initSize = size;
+        Size = _initSize;
+
         Manual = man;
         ManualIndex = 0;
     }
@@ -22,6 +30,14 @@ public class Area
     public Direction[] Manual { get; }
 
     public int ManualIndex { get; set; }
+
+    public void ResetAreaStatus()
+    {
+        ManualIndex = 0;
+        Pos = _initSize;
+        Pos = _initPos;
+    }
+
 
 }
 public interface IMatrixModel
