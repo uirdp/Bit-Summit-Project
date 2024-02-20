@@ -203,7 +203,6 @@ public class ColorMatrixShifter : MonoBehaviour
             area.ResetManual(); //index = 0, pos & size = init pos & size
         }
 
-        Debug.Log(area.ManualIndex);
         switch (dir)
         {
             case Direction.right:

@@ -42,7 +42,7 @@ public class SampleCorridor : IMatrixModel
         { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, }
     };
 
-    public const int numOfRedAreas = 3;
+    public const int numOfRedAreas = 4;
 
     public static readonly Direction[][] directionsRed = new Direction[1][]
    {
@@ -95,9 +95,10 @@ public class SampleCorridor : IMatrixModel
 
     public Area[] redAreas = new Area[numOfRedAreas]
     {
-        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 20),
-        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 20, 7),
-        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 20, 14),
+        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 7),
+        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 7, 50),
+        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 7, 100),
+        new Area(new Vector2Int(0,0), new Vector2Int(6, 2), directionsRed[0], 7, 150),
     };
 
     public const int numOfGreenArea = 0;

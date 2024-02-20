@@ -61,6 +61,8 @@ public class Area
     public void ResetManual()
     {
         ManualIndex = 0;
+        _turns++;
+        Debug.Log(_turns);
         if (_turns >= _turnsTillReset) ResetArea();
     }
 
