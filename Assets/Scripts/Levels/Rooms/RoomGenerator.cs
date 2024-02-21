@@ -13,9 +13,9 @@ public enum RoomType
 //this code is a mess, sorry 
 public class RoomGenerator : MonoBehaviour
 {
-    [SerializeField] private int x_start = -5;
-    [SerializeField] private int y_start = -5;
-    [SerializeField] private int z_start = -5;
+    private int x_start = 0;
+    private int y_start = 0;
+    private int z_start = 0;
 
     [Tooltip("length of sides")]
     [SerializeField] private int x_length = 10;
