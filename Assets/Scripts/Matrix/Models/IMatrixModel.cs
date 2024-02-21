@@ -91,6 +91,7 @@ public class Area
 }
 public interface IMatrixModel
 {
+    //probably redundunt?
     public int[,] InitMatrix { get; }
     public ref int[,] Matrix { get; }
     public ref Area[] RedAreas { get; }

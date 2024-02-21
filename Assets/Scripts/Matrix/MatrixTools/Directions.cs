@@ -24,10 +24,16 @@ namespace DirectionSpace {
         stretchLeft,
         stretchRight,
 
+        shrinkUp,
+        shrinkDown,
+        shrinkLeft,
+        shrinkRight,
+
         erase,
         change,        //changes to another matrix
         wave,
         reverse,
+        allRed, //whole matrix red
         
         resetPosX
     }

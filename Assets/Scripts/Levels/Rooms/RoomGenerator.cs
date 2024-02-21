@@ -110,34 +110,45 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Generate floor")]
     private void GenerateFloor()
     {
+        DestroyRoom();
+
+        for (int x = 0; x < x_length; x++)
+        {        
+            for (int z = 0; z < z_length; z++)
+            {
+                GenerateCube(x + x_start, 0, z + z_start);
+            }
+        }
+
+        GenerateTextFile();
+    }
+
+    private void GenerateTextFile()
+    {
         string path = @"./" + roomName + ".txt";
 
         Debug.Assert(roomName != null, "give the room a name!");
         using (FileStream fs = File.Create(path))
 
-        if(File.Exists(path))
+            if (File.Exists(path))
             {
                 Debug.Log("file exsits");
             }
 
-        //make sure not to duplicate it
         matTxt.Clear();
         matTxt.Append("{\n");
 
-        DestroyRoom();
-
-        Debug.Log(transform.position.y);
-        for (int x = 0; x < x_length; x++)
+        for(int i = 0; i < z_length; i++)
         {
-            
-            for (int z = 0; z < z_length; z++)
+            for(int j = 0; j < x_length; j++)
             {
                 matTxt.Append("0, ");
-                GenerateCube(x + x_start, transform.position.y, z + z_start);
             }
             matTxt.Append("},\n{");
         }
+
         File.WriteAllText(path, matTxt.ToString());
+
     }
 
     [ContextMenu("Make List")]
