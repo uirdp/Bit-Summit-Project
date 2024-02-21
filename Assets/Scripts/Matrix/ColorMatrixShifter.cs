@@ -184,7 +184,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
-        ResetMatrix();
+       
         RenderColorsOnMatrix();
 
         yield return new WaitForSeconds(interval);
@@ -196,6 +196,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
     private void ReadManual(ref Area area, int ind)
     {
+        ResetMatrix();
         Direction dir = area.Manual[area.ManualIndex++];
 
         if (area.ManualIndex >= area.Manual.Length)
@@ -231,6 +232,11 @@ public class ColorMatrixShifter : MonoBehaviour
                 break;
 
         }
+    }
+
+    private void ReadManual(ref int[,] matrix)
+    {
+       
     }
 
     //plz change name!

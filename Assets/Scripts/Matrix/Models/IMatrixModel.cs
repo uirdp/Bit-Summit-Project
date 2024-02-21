@@ -104,3 +104,31 @@ public interface IMatrixModel
     public int NumOfGreen { get; }
     
 }
+
+public abstract class NoAreaMatrixBase : IMatrixModel
+{
+    //should be replaced with a Manual class?
+    private bool _isActive = true;
+
+    private int _turnsTillActivation;
+    private int _turnsTillReset;
+    private int _turns = 0; //how many times the Direction[] was completed
+
+    public int[,] matrix;
+    public Direction[] manual;
+
+    public Area[] redArea = null;
+    public Area[] greenArea = null;
+    public Area[] rewriteArea = null;
+    public int[,] InitMatrix { get; }
+    public ref int[,] Matrix => ref matrix;
+    public ref Area[] RedAreas => ref redArea;
+    public ref Area[] GreenAreas => ref greenArea;
+
+    //when it's hard to render simply by two for loops as x * y...
+    //when the area cannot simply be represented as products of rows and columns
+    public ref Area[] RewriteAreas => ref rewriteArea;
+
+    public int NumOfRed { get; }
+    public int NumOfGreen { get; }
+}
