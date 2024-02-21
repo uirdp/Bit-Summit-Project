@@ -110,9 +110,8 @@ public abstract class NoAreaMatrixBase : IMatrixModel
     //should be replaced with a Manual class?
     private bool _isActive = true;
 
-    private int _turnsTillActivation;
-    private int _turnsTillReset;
-    private int _turns = 0; //how many times the Direction[] was completed
+    private int _turnsTillActivation = 0;
+    //how many times the Direction[] was completed
 
     public int[,] matrix;
     public Direction[] manual;
@@ -131,4 +130,31 @@ public abstract class NoAreaMatrixBase : IMatrixModel
 
     public int NumOfRed { get; }
     public int NumOfGreen { get; }
+
+    public Direction[] Manual { get; }
+
+    public bool IsActive => _isActive;
+    public int ManualIndex { get; set; }
+
+    public NoAreaMatrixBase(int[,] mat, Direction[] man)
+    {
+        matrix = mat;
+        Manual = man;
+    }
+
+    public void ResetManual()
+    {
+        ManualIndex = 0;
+    }
+
+    public void CountDownActivation()
+    {
+        _turnsTillActivation--;
+        if (_turnsTillActivation <= 0) Activate();
+    }
+
+    public void Activate()
+    {
+        _isActive = true;
+    }
 }

@@ -8,7 +8,8 @@ public class MatrixDictionary
         matrixDictionary = new Dictionary<string, IMatrixModel>()
         {
             { "sample", new SampleColorMatrixModel() },
-            { "corridor", new SampleCorridor() }
+            { "corridor", new SampleCorridor() },
+            {"switch", new SampleSwitchModel() }
         };
 
     public IMatrixModel ReturnMatrix(string targetName)

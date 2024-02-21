@@ -93,4 +93,6 @@ public class SampleColorMatrixModel : IMatrixModel
     public int NumOfRed => numOfRedAreas;
     public int NumOfGreen => numOfGreenArea;
 
+    public int NumOfRewriteArea => numOfGreenArea;
+
 }

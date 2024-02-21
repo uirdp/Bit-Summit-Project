@@ -17,7 +17,8 @@ public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
     public CubeSignalManager signalManager;
-    public IMatrixModel colorMatrix;
+    public IMatrixModel colorMatrix;       //use either one of them, maybe union?
+    private NoAreaMatrixBase noAreaMatrix;
 
     public string matrixName = "sample";
     private MatrixDictionary _dict;
@@ -94,6 +95,27 @@ public class ColorMatrixShifter : MonoBehaviour
 
     }
 
+    public void ReverseMatrix()
+    {
+        for(int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
+        {
+            for(int iy = 0; iy < colorMatrix.Matrix.GetLength(1); iy++)
+            {
+                if (colorMatrix.Matrix[ix, iy] == 1)
+                {
+                    colorMatrix.Matrix[ix, iy] = 0;
+                }
+                else if (colorMatrix.Matrix[ix, iy] == 0)
+                {
+                    colorMatrix.Matrix[ix, iy] = 1;
+                }
+
+                else continue;
+                
+            }
+        }
+        useReset = false;
+    }
     
 
 
@@ -112,10 +134,12 @@ public class ColorMatrixShifter : MonoBehaviour
         _dict = new MatrixDictionary();
         colorMatrix = _dict.ReturnMatrix(matrixName);
 
-        _numOfRed = colorMatrix.NumOfRed;
-        _numOfGreen = colorMatrix.NumOfGreen;
+        if (typeof(NoAreaMatrixBase) == colorMatrix.GetType()) { 
 
-        Debug.Log(colorMatrix.RedAreas[0].Pos);
+        }
+
+            _numOfRed = colorMatrix.NumOfRed;
+        _numOfGreen = colorMatrix.NumOfGreen;
 
         _initPosRed = new Vector2[_numOfRed];
         _initSizeRed = new Vector2[_numOfRed];
@@ -160,6 +184,7 @@ public class ColorMatrixShifter : MonoBehaviour
     }
     public IEnumerator ShiftMatrix()
     {
+        useReset = true; //reset by default
         //move red
         if (colorMatrix.RedAreas != null)
         {
@@ -184,7 +209,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
-       
+        if(useReset) ResetMatrix();
         RenderColorsOnMatrix();
 
         yield return new WaitForSeconds(interval);
@@ -195,8 +220,7 @@ public class ColorMatrixShifter : MonoBehaviour
     }
 
     private void ReadManual(ref Area area, int ind)
-    {
-        ResetMatrix();
+    {     
         Direction dir = area.Manual[area.ManualIndex++];
 
         if (area.ManualIndex >= area.Manual.Length)
@@ -230,14 +254,13 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.resetPosX:
                 ResetPosX(ref area);
                 break;
+            case Direction.reverse:
+                ReverseMatrix();
+                break;
 
         }
     }
 
-    private void ReadManual(ref int[,] matrix)
-    {
-       
-    }
 
     //plz change name!
     private void RenderColorsOnMatrix()
@@ -272,7 +295,7 @@ public class ColorMatrixShifter : MonoBehaviour
                 {
                     for (int iy = wArea.Pos.y; iy < wArea.Pos.y + wArea.Size.y; iy++)
                     {
-                        colorMatrix.Matrix[ix, iy] = 1;
+                        colorMatrix.Matrix[ix, iy] = 0;
                     }
                 }
             }
