@@ -116,6 +116,17 @@ public class ColorMatrixShifter : MonoBehaviour
         }
         useReset = false;
     }
+
+    public void AllRed()
+    {
+        for (int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
+        {
+            for (int iy = 0; iy < colorMatrix.Matrix.GetLength(1); iy++)
+            {
+                colorMatrix.Matrix[ix, iy] = 1;
+            }
+        }
+    }
     
 
 
@@ -257,6 +268,9 @@ public class ColorMatrixShifter : MonoBehaviour
             case Direction.reverse:
                 ReverseMatrix();
                 break;
+            case Direction.allRed:
+                AllRed();
+                break;
 
         }
     }
@@ -280,6 +294,11 @@ public class ColorMatrixShifter : MonoBehaviour
                             colorMatrix.Matrix[ix - colorMatrix.Matrix.GetLength(0), iy] = 1;
                         }
 
+                        else if (iy >= colorMatrix.Matrix.GetLength(1))
+                        {
+                            colorMatrix.Matrix[ix, iy - colorMatrix.Matrix.GetLength(1)] = 1;
+                        }
+
                         else colorMatrix.Matrix[ix, iy] = 1;
                     }
                 }
@@ -301,18 +320,55 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
-        //render green area
         if (colorMatrix.GreenAreas != null)
         {
+            int cnt = 0;
             foreach (var gArea in colorMatrix.GreenAreas)
             {
+                //Debug.Log(gArea.Size);   
                 for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
                 {
+                    int x = ix;
+                    if (ix < 0)
+                    {
+                        x = colorMatrix.Matrix.GetLength(0) + ix;
+
+                    }
+
+                    if(ix >= colorMatrix.Matrix.GetLength(0))
+                            {
+                        x = ix - colorMatrix.Matrix.GetLength(0);
+                    }
+
                     for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
                     {
-                        colorMatrix.Matrix[ix, iy] = 2;
+                        int y = iy;
+                            if (iy >= colorMatrix.Matrix.GetLength(1))
+                            {
+                                y = iy - colorMatrix.Matrix.GetLength(1);
+                            }
+
+
+                            
+
+                            if (iy < 0)
+                            {
+                                y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
+                                
+                             }
+
+
+                            
+                            
+                        
+                           
+                            colorMatrix.Matrix[x, y] = 2;
+                            if (cnt == 0) Debug.Log(ix);
                     }
+                    
+                    
                 }
+                cnt++;
             }
         }
     }

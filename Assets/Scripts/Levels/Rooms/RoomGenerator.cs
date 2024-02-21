@@ -123,6 +123,7 @@ public class RoomGenerator : MonoBehaviour
         GenerateTextFile();
     }
 
+    [ContextMenu("Generate Text")]
     private void GenerateTextFile()
     {
         string path = @"./" + roomName + ".txt";
@@ -138,9 +139,9 @@ public class RoomGenerator : MonoBehaviour
         matTxt.Clear();
         matTxt.Append("{\n");
 
-        for(int i = 0; i < z_length; i++)
+        for(int i = 0; i < x_length; i++)
         {
-            for(int j = 0; j < x_length; j++)
+            for(int j = 0; j < z_length; j++)
             {
                 matTxt.Append("0, ");
             }

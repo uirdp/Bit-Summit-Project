@@ -57,5 +57,5 @@ public class SampleSwitchModel : IMatrixModel
 
     public int NumOfRed => numOfRedArea;
     public int NumOfGreen => numOfGreenArea;
-    public int NumOfRewriteArea => numOfGreenArea;
+    public int NumOfRewriteArea => numOfRewriteArea;
 }
