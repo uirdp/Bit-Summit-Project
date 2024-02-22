@@ -349,19 +349,12 @@ public class ColorMatrixShifter : MonoBehaviour
                             }
 
 
-                            
-
                             if (iy < 0)
                             {
                                 y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
                                 
                              }
 
-
-                            
-                            
-                        
-                           
                             colorMatrix.Matrix[x, y] = 2;
                             if (cnt == 0) Debug.Log(ix);
                     }
