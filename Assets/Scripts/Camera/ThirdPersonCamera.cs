@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VSX.UniversalVehicleCombat;
+using Cinemachine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameAgent player;
 
-    // Update is called once per frame
-    void Update()
+    private void StartFollowing(Vehicle player)
     {
-        
+        var followTarget = player.transform.GetChild(0);
+
+        var vcam = GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = followTarget;
     }
 }
