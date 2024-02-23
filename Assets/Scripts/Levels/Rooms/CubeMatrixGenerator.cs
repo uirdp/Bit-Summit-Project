@@ -93,6 +93,7 @@ public class CubeMatrixGenerator : MonoBehaviour
     private void Awake()
     {
         CreateMatricesWithPosition();
+        //CheckMatrix();
     }
 
 }

@@ -145,11 +145,7 @@ public class ColorMatrixShifter : MonoBehaviour
         _dict = new MatrixDictionary();
         colorMatrix = _dict.ReturnMatrix(matrixName);
 
-        if (typeof(NoAreaMatrixBase) == colorMatrix.GetType()) { 
-
-        }
-
-            _numOfRed = colorMatrix.NumOfRed;
+        _numOfRed = colorMatrix.NumOfRed;
         _numOfGreen = colorMatrix.NumOfGreen;
 
         _initPosRed = new Vector2[_numOfRed];
@@ -175,6 +171,7 @@ public class ColorMatrixShifter : MonoBehaviour
     }
     public void Start()
     {
+        //SendSignal();
         StartCoroutine(ShiftMatrix());
     }
 
@@ -232,12 +229,8 @@ public class ColorMatrixShifter : MonoBehaviour
 
     private void ReadManual(ref Area area, int ind)
     {     
-        Direction dir = area.Manual[area.ManualIndex++];
-
-        if (area.ManualIndex >= area.Manual.Length)
-        {
-            area.ResetManual(); //index = 0, pos & size = init pos & size
-        }
+        Direction dir = area.Manual[area.ManualIndex];
+        area.ManualIndex++;
 
         switch (dir)
         {
@@ -273,6 +266,12 @@ public class ColorMatrixShifter : MonoBehaviour
                 break;
 
         }
+
+        if (area.ManualIndex >= area.Manual.Length)
+        {
+
+            area.ResetManual(); //index = 0, pos & size = init pos & size
+        }
     }
 
 
@@ -287,19 +286,36 @@ public class ColorMatrixShifter : MonoBehaviour
             {
                 for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
                 {
+                    int x = ix;
+                    if (ix < 0)
+                    {
+                        x = colorMatrix.Matrix.GetLength(0) + ix;
+
+                    }
+
+                    if (ix >= colorMatrix.Matrix.GetLength(0))
+                    {
+                        x = ix - colorMatrix.Matrix.GetLength(0);
+                    }
+
                     for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
                     {
-                        if (ix >= colorMatrix.Matrix.GetLength(0))
+
+                        int y = iy;
+                        if (iy >= colorMatrix.Matrix.GetLength(1))
                         {
-                            colorMatrix.Matrix[ix - colorMatrix.Matrix.GetLength(0), iy] = 1;
+                            y = iy - colorMatrix.Matrix.GetLength(1);
                         }
 
-                        else if (iy >= colorMatrix.Matrix.GetLength(1))
+
+                        if (iy < 0)
                         {
-                            colorMatrix.Matrix[ix, iy - colorMatrix.Matrix.GetLength(1)] = 1;
+
+                            y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
                         }
 
-                        else colorMatrix.Matrix[ix, iy] = 1;
+                        colorMatrix.Matrix[x, y] = 1;
+
                     }
                 }
             }
@@ -342,7 +358,7 @@ public class ColorMatrixShifter : MonoBehaviour
 
                     for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
                     {
-                        int y = iy;
+                            int y = iy;
                             if (iy >= colorMatrix.Matrix.GetLength(1))
                             {
                                 y = iy - colorMatrix.Matrix.GetLength(1);
@@ -356,12 +372,9 @@ public class ColorMatrixShifter : MonoBehaviour
                              }
 
                             colorMatrix.Matrix[x, y] = 2;
-                            if (cnt == 0) Debug.Log(ix);
                     }
                     
-                    
                 }
-                cnt++;
             }
         }
     }

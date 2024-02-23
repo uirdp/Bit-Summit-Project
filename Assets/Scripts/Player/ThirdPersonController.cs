@@ -197,7 +197,7 @@ namespace StarterAssets
             Collider[] cols = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers);
             foreach(var col in cols)
             {
-                if (col.gameObject.tag == "dangerous") Debug.Log("Damage");
+                if (col.gameObject.tag == "Dangerous") Debug.Log("Damage");
             }
         }
 
