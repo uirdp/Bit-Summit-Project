@@ -6,8 +6,7 @@ using Cinemachine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    public GameAgent player;
-
+    //‚±‚ê‚ğƒJƒƒ‰‚É‚Â‚¯‚ÄALoadOut-‚©‚ç“Ç‚ñ‚Å‚­‚¾‚³‚¢
     private void StartFollowing(Vehicle player)
     {
         var followTarget = player.transform.GetChild(0);
