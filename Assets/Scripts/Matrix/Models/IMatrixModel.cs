@@ -28,6 +28,7 @@ public class Area
         Size = _initSize;
 
         _turnsTillReset = turnsTillReset;
+        _turnsTillActivation = 0;
 
         Manual = man;
         ManualIndex = 0;

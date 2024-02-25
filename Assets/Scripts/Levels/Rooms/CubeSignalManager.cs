@@ -31,6 +31,7 @@ public class CubeSignalManager : MonoBehaviour
         {
             for( int j = 0; j < colorMatrix.GetLength(1); j++)
             {
+                if (cubeMatrix == null) Debug.Log("fuck");
                 cubeMatrix[i, j].GetComponent<Renderer>().material 
                         = materialList.materials[colorMatrix[i,j]];
 
