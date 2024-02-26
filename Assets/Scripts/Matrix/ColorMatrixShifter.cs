@@ -17,8 +17,7 @@ public class ColorMatrixShifter : MonoBehaviour
 {
     //public SampleColorMatrix colorMatrix;
     public CubeSignalManager signalManager;
-    public IMatrixModel colorMatrix;       //use either one of them, maybe union?
-    private NoAreaMatrixBase noAreaMatrix;
+    public IMatrixModel colorMatrix;   
 
     public string matrixName = "sample";
     private MatrixDictionary _dict;
@@ -379,4 +378,17 @@ public class ColorMatrixShifter : MonoBehaviour
         }
     }
 
+    public void SetInterval(float iv)
+    {
+        interval = iv;
+    }
+
+    public void ActivateArea(int areaType, int areaNum)
+    {
+        if(areaType == 1)
+        {
+            colorMatrix.RedAreas[areaNum].Activate();
+        }
+    }
 }
+
