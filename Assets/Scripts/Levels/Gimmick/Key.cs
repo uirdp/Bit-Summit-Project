@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    public enum keyStatus
+    {
+        locked,
+        unLocked
+    };
+
+    public keyStatus status = keyStatus.locked;
     //public KeyCollectionProgress Progress;
     public FloorManager floorManager;
+
+    public int id;
 
     public float keyRadius = 1.0f; //please come up with a better name fr
     public LayerMask PlayerLayer;
@@ -29,8 +38,10 @@ public class Key : MonoBehaviour
         {
             if (col.gameObject.tag == "Player")
             {
-                floorManager?.OnKeyCollected.Invoke();
+                floorManager?.OnKeyCollected();
                 this.GetComponent<Renderer>().material.color = Color.green;
+                
+                status = keyStatus.unLocked;
             }
         }
     }
