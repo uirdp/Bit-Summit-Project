@@ -34,6 +34,23 @@ public class Area
         ManualIndex = 0;
     }
 
+    public Area(Vector2Int pos, Vector2Int size, Direction[] man, int turnsTillReset, bool isActive)
+    {
+        _initPos = pos;
+        Pos = _initPos;
+
+        _initSize = size;
+        Size = _initSize;
+
+        _turnsTillReset = turnsTillReset;
+        _turnsTillActivation = 0;
+
+        Manual = man;
+        ManualIndex = 0;
+
+        _isActive = isActive;
+    }
+
     public Area(Vector2Int pos, Vector2Int size, Direction[] man, int turnsTillReset, int turnsTillActivation)
     {
         _initPos = pos;

@@ -69,7 +69,7 @@ public class SampleColorMatrixModel : IMatrixModel
     public const int numOfGreenArea = 1;
 
     public static readonly Direction[][] directionsGreen = new Direction[numOfRedAreas][]
-   {
+    {
         new Direction[]
         {
             Direction.wait

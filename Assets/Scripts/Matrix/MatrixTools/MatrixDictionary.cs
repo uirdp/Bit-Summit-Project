@@ -10,7 +10,8 @@ public class MatrixDictionary
             { "sample", new SampleColorMatrixModel() },
             { "corridor", new SampleCorridor() },
             { "switch", new SampleSwitchModel() },
-            { "motorway", new SampleMotorWayModel() }
+            { "motorway", new SampleMotorWayModel() },
+            { "garden-first", new GardenFirstModel() },
         };
 
     public IMatrixModel ReturnMatrix(string targetName)
