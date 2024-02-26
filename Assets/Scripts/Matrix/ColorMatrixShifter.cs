@@ -118,6 +118,26 @@ public class ColorMatrixShifter : MonoBehaviour
         useReset = false;
     }
 
+    private void WaitUntillReset(ref Area area)
+    {
+        area.IsWaiting = true;
+       
+    }
+
+    public void ResetAllArea()
+    {
+        foreach (var rArea in colorMatrix.RedAreas)
+        {
+            rArea.ResetArea();
+            rArea.ResetManual();
+        }
+
+        foreach (var gArea in colorMatrix.RedAreas)
+        {
+            gArea.ResetArea();
+            gArea.ResetManual();
+        }
+    }
     public void AllRed()
     {
         for (int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
@@ -155,16 +175,21 @@ public class ColorMatrixShifter : MonoBehaviour
         _initPosGreen = new Vector2[_numOfGreen];
         _initSizeGreen = new Vector2[_numOfGreen];
 
+
         for(int i = 0; i < _numOfRed; i++)
         {
             _initPosRed[i] = colorMatrix.RedAreas[i].Pos;
             _initSizeRed[i] = colorMatrix.RedAreas[i].Size;
+
+            if (colorMatrix.RedAreas[i].IsActive) _activatedRedAreas++;
         }
 
         for(int i = 0;i < _numOfGreen; i++)
         {
             _initPosGreen[i] = colorMatrix.GreenAreas[i].Pos;
             _initSizeGreen[i] = colorMatrix.GreenAreas[i].Size;
+
+            if (colorMatrix.GreenAreas[i].IsActive) _activatedGreenAreas++;
         }
 
         if (useReset) initMatrix = colorMatrix.InitMatrix;
@@ -191,6 +216,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
     }
+
     private IEnumerator ShiftMatrix()
     {
         useReset = true; //reset by default
@@ -270,7 +296,6 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (area.ManualIndex >= area.Manual.Length)
         {
-
             area.ResetManual(); //index = 0, pos & size = init pos & size
         }
     }
@@ -285,13 +310,13 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             foreach (var rArea in colorMatrix.RedAreas)
             {
+                if (!rArea.IsActive) continue;
                 for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
                 {
                     int x = ix;
                     if (ix < 0)
                     {
                         x = colorMatrix.Matrix.GetLength(0) + ix;
-
                     }
 
                     if (ix >= colorMatrix.Matrix.GetLength(0))
@@ -339,9 +364,10 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (colorMatrix.GreenAreas != null)
         {
+
             foreach (var gArea in colorMatrix.GreenAreas)
             {
-                //Debug.Log(gArea.Size);   
+                if (!gArea.IsActive) continue;
                 for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
                 {
                     int x = ix;
@@ -386,10 +412,16 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void ActivateArea(int areaType)
     {
-        if(areaType == 1)
+
+        if (areaType == 1)
         {
-            colorMatrix.RedAreas[1].Activate();
+            if (_activatedRedAreas < _numOfRed)
+            {
+                Debug.Log("activated");
+                colorMatrix.RedAreas[_activatedRedAreas++].Activate();
+            }
         }
     }
+
 }
 

@@ -29,7 +29,7 @@ public class GardenFirstModel : IMatrixModel
 
     public const int numOfRedArea = 2;
 
-    public static readonly Direction[][] directionsRed = new Direction[1][]
+    public static readonly Direction[][] directionsRed = new Direction[numOfRedArea][]
    {
         new Direction[]
         {
@@ -76,13 +76,61 @@ public class GardenFirstModel : IMatrixModel
             Direction.up,
             Direction.up,
             Direction.up,
+        },
+
+        new Direction[]
+        {
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+            Direction.left,
+
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+            Direction.down,
+
         }
     };
 
     public Area[] redAreas = new Area[numOfRedArea]
     {
         new Area(new Vector2Int(0,0), new Vector2Int(6, 6), directionsRed[0], 1),
-        new Area(new Vector2Int(0,0), new Vector2Int(6, 6), directionsRed[0], 1, false)
+        new Area(new Vector2Int(10,10), new Vector2Int(6, 6), directionsRed[1], 1, false)
     }; 
     
     

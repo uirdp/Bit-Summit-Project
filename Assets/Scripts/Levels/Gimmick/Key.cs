@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public KeyCollectionProgress Progress;
+    //public KeyCollectionProgress Progress;
+    public FloorManager floorManager;
 
-    public float keyRadius = 3.0f; //please come up with a better name fr
+    public float keyRadius = 1.0f; //please come up with a better name fr
     public LayerMask PlayerLayer;
     //check whether the key was obtained by the player
 
@@ -28,7 +29,7 @@ public class Key : MonoBehaviour
         {
             if (col.gameObject.tag == "Player")
             {
-                Progress.UpdateProgress();
+                floorManager?.OnKeyCollected.Invoke();
                 Destroy(gameObject);
             }
         }

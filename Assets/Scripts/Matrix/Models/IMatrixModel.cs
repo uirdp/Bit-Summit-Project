@@ -19,6 +19,8 @@ public class Area
     private int _turnsTillReset; 
     private int _turns = 0; //how many times the Direction[] was completed
 
+    public bool IsWaiting = false; 
+
     public Area(Vector2Int pos, Vector2Int size, Direction[] man, int turnsTillReset)
     {
         _initPos= pos;
@@ -43,7 +45,7 @@ public class Area
         Size = _initSize;
 
         _turnsTillReset = turnsTillReset;
-        _turnsTillActivation = 0;
+        _turnsTillActivation = 10000;
 
         Manual = man;
         ManualIndex = 0;
