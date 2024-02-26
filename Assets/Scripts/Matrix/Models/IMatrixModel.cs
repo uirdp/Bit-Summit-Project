@@ -107,6 +107,11 @@ public class Area
     {
         _isActive = true;
     }
+
+    public void Deactivate()
+    {
+        _isActive = false;
+    }
 }
 public interface IMatrixModel
 {

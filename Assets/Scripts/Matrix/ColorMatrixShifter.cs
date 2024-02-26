@@ -149,11 +149,37 @@ public class ColorMatrixShifter : MonoBehaviour
         }
     }
     
+    public void AllGreen()
+    {
+        for (int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
+        {
+            for (int iy = 0; iy < colorMatrix.Matrix.GetLength(1); iy++)
+            {
+                colorMatrix.Matrix[ix, iy] = 2;
+            }
+        }
+    }
 
+    public void DeactivateAllAreas()
+    {
+        foreach(var rArea in colorMatrix.RedAreas)
+        {
+            rArea.Deactivate();
+        }
+
+        foreach(var gArea in colorMatrix.GreenAreas)
+        {
+            gArea.Deactivate();
+        }
+    }
 
     //----------------------------end of shift method----------------------------------------------------------
 
-    
+    public void OnCollectedAllKeys()
+    {
+        DeactivateAllAreas();
+        AllGreen();
+    }
 
     private void SendSignal()
     {

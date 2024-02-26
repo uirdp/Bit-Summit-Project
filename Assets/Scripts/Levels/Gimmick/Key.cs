@@ -30,7 +30,7 @@ public class Key : MonoBehaviour
             if (col.gameObject.tag == "Player")
             {
                 floorManager?.OnKeyCollected.Invoke();
-                Destroy(gameObject);
+                this.GetComponent<Renderer>().material.color = Color.green;
             }
         }
     }
