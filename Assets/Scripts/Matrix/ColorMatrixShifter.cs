@@ -27,10 +27,12 @@ public class ColorMatrixShifter : MonoBehaviour
     private Vector2[] _initPosRed;
     private Vector2[] _initSizeRed;
     private int _numOfRed;
+    private int _activatedRedAreas;
 
     private Vector2[] _initPosGreen;
     private Vector2[] _initSizeGreen;
     private int _numOfGreen;
+    private int _activatedGreenAreas;
 
     public bool useReset = true;
     private int[,] initMatrix = null;
@@ -133,12 +135,12 @@ public class ColorMatrixShifter : MonoBehaviour
 
     
 
-    public void SendSignal()
+    private void SendSignal()
     {
         signalManager.ChangeCubeMaterials(ref colorMatrix.Matrix);
     }
 
-    public void Init()
+    private void Init()
     {
         //Get a matrix to shift from the dictionary
         _dict = new MatrixDictionary();
@@ -168,13 +170,13 @@ public class ColorMatrixShifter : MonoBehaviour
         if (useReset) initMatrix = colorMatrix.InitMatrix;
 
     }
-    public void Start()
+    private void Start()
     {
         //SendSignal();
         StartCoroutine(ShiftMatrix());
     }
 
-    public void Awake()
+    private void Awake()
     {
         Init();
     }
@@ -189,7 +191,7 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
     }
-    public IEnumerator ShiftMatrix()
+    private IEnumerator ShiftMatrix()
     {
         useReset = true; //reset by default
         //move red
@@ -337,7 +339,6 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (colorMatrix.GreenAreas != null)
         {
-            int cnt = 0;
             foreach (var gArea in colorMatrix.GreenAreas)
             {
                 //Debug.Log(gArea.Size);   
@@ -383,11 +384,11 @@ public class ColorMatrixShifter : MonoBehaviour
         interval = iv;
     }
 
-    public void ActivateArea(int areaType, int areaNum)
+    public void ActivateArea(int areaType)
     {
         if(areaType == 1)
         {
-            colorMatrix.RedAreas[areaNum].Activate();
+            colorMatrix.RedAreas[1].Activate();
         }
     }
 }
