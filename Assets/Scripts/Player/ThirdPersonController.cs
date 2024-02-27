@@ -204,6 +204,9 @@ namespace StarterAssets
                 if (col.gameObject.tag == "Dangerous")
                 {
                     OnPlayerTakeDamage.Invoke();
+                    //UIの更新
+                    //無敵の付与
+                    //演出
                 }
                     
             }
