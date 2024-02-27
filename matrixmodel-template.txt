@@ -1,0 +1,69 @@
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+{0, 0, 0, 0, },
+
+
+public static readonly string name = "";
+
+    int[,] matrix =
+    {
+
+    };
+
+    public const int numOfRedArea = ;
+
+    public static readonly Direction[][] directionsRed = new Direction[numOfRedArea][]
+   {
+        new Direction[]
+        {
+           
+        },
+    };
+
+    public Area[] redAreas = new Area[numOfRedArea]
+    {
+        new Area(new Vector2Int(,), new Vector2Int(, ), directionsRed[0], 1),
+        new Area(new Vector2Int(,), new Vector2Int(, ), directionsRed[1], 1, false)
+    }; 
+    
+    
+    public const int numOfGreenArea = ;
+    public static readonly Direction[][] directionsGreen = new Direction[numOfGreenArea][]
+    {
+        new Direction[]
+        {
+            
+        }
+    };
+
+    public Area[] greenAreas = new Area[numOfGreenArea]
+    {
+        new Area(new Vector2Int(,), new Vector2Int(,), directionsGreen[0], 1)
+    };
+
+    public const int numOfRewriteArea = ;
+    public Area[] rewriteAreas;
+
+    public int[,] InitMatrix => matrix;
+    public ref int[,] Matrix => ref matrix;
+    public ref Area[] RedAreas => ref redAreas;
+    public ref Area[] GreenAreas => ref greenAreas;
+    public ref Area[] RewriteAreas => ref rewriteAreas;
+
+    public int NumOfRed => numOfRedArea;
+    public int NumOfGreen => numOfGreenArea;
+
+    public int NumOfRewriteArea => numOfGreenArea;

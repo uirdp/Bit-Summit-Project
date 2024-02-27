@@ -7,7 +7,8 @@ using UnityEngine;
 public enum RoomType
 {
     level,
-    background
+    background,
+    border
 }
 
 //this code is a mess, sorry 
@@ -38,6 +39,8 @@ public class RoomGenerator : MonoBehaviour
 
     public bool makeMatText = true;
     public StringBuilder matTxt = new StringBuilder();
+
+    public string tag = "default";
 
     //generate one cube per call
     private void GenerateCube(float x, float y, float z)
@@ -171,15 +174,21 @@ public class RoomGenerator : MonoBehaviour
 
     //call this function from the Inspector(right click)
     [ContextMenu("Apply default material")]
+    //in the future plz fix this mess
     private void ApplyDefaultMaterial()
     {
         Renderer renderer;
 
         int matInd = 0;
         if(roomType == RoomType.background) matInd = 3;
+        if (roomType == RoomType.border) {
+            matInd = 1;
+            tag = "Dangerous";
+            }
 
         foreach (Transform child in transform)
         {
+            child.gameObject.tag = tag;
             renderer = child.gameObject.GetComponent<Renderer>();
             if(renderer != null || cubeMaterial.materials[matInd] != null)
             {

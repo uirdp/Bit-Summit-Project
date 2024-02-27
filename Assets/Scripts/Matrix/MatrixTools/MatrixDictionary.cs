@@ -12,6 +12,7 @@ public class MatrixDictionary
             { "switch", new SampleSwitchModel() },
             { "motorway", new SampleMotorWayModel() },
             { "garden-first", new GardenFirstModel() },
+            { "border", new BorderModel() },
         };
 
     public IMatrixModel ReturnMatrix(string targetName)

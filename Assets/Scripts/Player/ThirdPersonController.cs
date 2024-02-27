@@ -3,6 +3,8 @@
 using UnityEngine.InputSystem;
 #endif
 using UnityEngine.Events;
+using System.Collections;
+using System.Collections.Generic;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -101,6 +103,11 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        //mydef
+
+        private bool _isInvincible = false; //trueの間DamageCheckを無視
+        public float invincibleDuration = 1.0f;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -186,7 +193,7 @@ namespace StarterAssets
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            DamageCheck(spherePosition);
+            if(!_isInvincible) DamageCheck(spherePosition);
        
             // update animator if using character
             if (_hasAnimator)
@@ -199,17 +206,28 @@ namespace StarterAssets
         private void DamageCheck(Vector3 spherePosition)
         {
             Collider[] cols = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers);
-            foreach(var col in cols)
+            foreach (var col in cols)
             {
                 if (col.gameObject.tag == "Dangerous")
                 {
+                    StartCoroutine(GiveInvincibility(invincibleDuration));
                     OnPlayerTakeDamage.Invoke();
+                    
                     //UIの更新
                     //無敵の付与
                     //演出
+                    break;
                 }
                     
             }
+        }
+
+        //TODO do not like this
+        private IEnumerator GiveInvincibility(float dur)
+        {
+            _isInvincible = true;
+            yield return new WaitForSeconds(dur);
+            _isInvincible = false;
         }
 
         private void CameraRotation()

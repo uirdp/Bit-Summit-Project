@@ -1,32 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MoreMountains.Feedbacks;
+using Michsky.UI.Heat;
+
+
+//I hate this code so much fuck
 
 public class DamageControl : MonoBehaviour
 {
-    public MaterialList materialList;
+    public MMFeedbacks damageFeedback;
+    public ProgressBar healthBar;
+    public GameObject player;
+
+    public float health = 100.0f;
+    public float damageAmout = 50.0f;
+    
+
+    public Vector3 respawnPoint;
 
 
-    //Maybe use ray?
-    public void Get()
+    public void Start()
     {
-        Debug.Log("called");
+        respawnPoint = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        healthBar.Initialize();
+
+        healthBar.UpdateUI();
     }
-    private void OnCollisionStay(Collision collision)
+    public void OnPlayerTakeDamage()
     {
-        //Project Setting -> Physics -> Sleeping Threshold -> 0
-        //When player stops, rigid body will be turned off
-        //maybe a lot of cost, but let's keep it that
-        if (collision.gameObject.tag == "dangerous")
-        {
-            Debug.Log("Take Damage");
-        }
+        damageFeedback?.PlayFeedbacks();
+
+        health -= damageAmout;
+        
+        if (health <= 0) RespawnPlayer();
     }
 
-    private void Update()
+    //doesnt work? why
+    public void RespawnPlayer()
     {
-        if (Input.GetKeyDown(KeyCode.L)) { Debug.Log(transform.position); }
-       
+        
+        Vector3 pos = new Vector3(respawnPoint.x, respawnPoint.y, respawnPoint.z);
+
+        player.transform.position = respawnPoint;
+    }
+
+    public void Update()
+    {
+        Debug.Log(respawnPoint);     
     }
 }
 

@@ -23,17 +23,23 @@ public class Key : MonoBehaviour
     public Color lockedColor = Color.green;
     public Color unlockedColor = Color.red;
 
+    public GameObject crystal;
+    private Material _material;
+
     public float rotateSpeed = 35.0f;
     private float _angle = 0.0f;
 
-    private void Awake()
+    private bool _isObtained = false;
+    private void Start()
     {
+        _material = crystal.GetComponent<Renderer>().material;
         Lock();
     }
     private void Update()
     {
         Rotate();
         ObtainedCheck();
+
     }
 
     //check whether the key was obtained by the player
@@ -49,8 +55,14 @@ public class Key : MonoBehaviour
             if (col.gameObject.tag == "Player")
             {
                 keyRadius = 0;  //turn off collider
-                Unlock();
+                _isObtained = true;
             }
+        }
+
+        if (_isObtained)
+        {
+            _isObtained = false;
+            Unlock();
         }
     }
 
@@ -58,16 +70,14 @@ public class Key : MonoBehaviour
     {
         status = keyStatus.locked;
 
-        Transform crystal = transform.GetChild(0);
-        crystal.GetComponent<Renderer>().material.color = lockedColor;
+        _material.color = lockedColor;
     }
 
     private void Unlock()
     {
-        floorManager?.OnKeyCollected();
+        floorManager?.OnKeyCollected(id);
 
-        Transform crystal = transform.GetChild(0);
-        crystal.GetComponent<Renderer>().material.color = unlockedColor;
+        _material.color = unlockedColor;
 
         status = keyStatus.unLocked;
     }

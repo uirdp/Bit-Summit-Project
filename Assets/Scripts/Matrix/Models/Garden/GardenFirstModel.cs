@@ -134,8 +134,8 @@ public class GardenFirstModel : IMatrixModel
     }; 
     
     
-    public const int numOfGreenArea = 1;
-    public static readonly Direction[][] directionsGreen = new Direction[numOfGreenArea][]
+    public const int numOfGreenArea = 3;
+    public static readonly Direction[][] directionsGreen = new Direction[1][]
     {
         new Direction[]
         {
@@ -145,7 +145,9 @@ public class GardenFirstModel : IMatrixModel
 
     public Area[] greenAreas = new Area[numOfGreenArea]
     {
-        new Area(new Vector2Int(6,6), new Vector2Int(4,4), directionsGreen[0], 1)
+        new Area(new Vector2Int(6,6), new Vector2Int(4,4), directionsGreen[0], 1),
+        new Area(new Vector2Int(12,0), new Vector2Int(4, 4), directionsGreen[0], 1, false),
+        new Area(new Vector2Int(0,12), new Vector2Int(4, 4), directionsGreen[0], 1, false)
     };
 
     public const int numOfRewriteArea = 0;

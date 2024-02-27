@@ -160,7 +160,7 @@ public class ColorMatrixShifter : MonoBehaviour
         }
     }
 
-    public IEnumerator AllGreen(float interval)
+    public IEnumerator AllGreen(float speed)
     {
         for (int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
         {
@@ -168,21 +168,27 @@ public class ColorMatrixShifter : MonoBehaviour
             {
                 colorMatrix.Matrix[ix, iy] = 2;
                 SendSignal();
-                yield return new WaitForSeconds(interval);
+                yield return new WaitForSeconds(speed);
             }
         }
     }
 
     public void DeactivateAllAreas()
     {
-        foreach(var rArea in colorMatrix.RedAreas)
+        if (colorMatrix?.RedAreas != null)
         {
-            rArea.Deactivate();
+            foreach (var rArea in colorMatrix.RedAreas)
+            {
+                rArea?.Deactivate();
+            }
         }
 
-        foreach(var gArea in colorMatrix.GreenAreas)
+        if (colorMatrix?.GreenAreas != null)
         {
-            gArea.Deactivate();
+            foreach (var gArea in colorMatrix.GreenAreas)
+            {
+                gArea?.Deactivate();
+            }
         }
     }
 
@@ -190,13 +196,16 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void OnCollectedAllKeys()
     {
+
+       
         StopAllCoroutines();
         DeactivateAllAreas();
 
-        StartCoroutine(AllGreen(0.01f));
+        float speed = 1 - colorMatrix.Matrix.GetLength(0) * colorMatrix.Matrix.GetLength(1) * 0.2f;
+        Debug.Log(colorMatrix.Matrix.GetLength(0) * colorMatrix.Matrix.GetLength(1));
+
+        StartCoroutine(AllGreen(speed));
         SendSignal();
-        
-        Debug.Log("yn");
 
         //this.gameObject.SetActive(false);
     }
@@ -242,12 +251,12 @@ public class ColorMatrixShifter : MonoBehaviour
     private void Start()
     {
         //SendSignal();
-        StartCoroutine(ShiftMatrix());
+        if (interval > 0) StartCoroutine(ShiftMatrix());
     }
 
     private void Awake()
     {
-        Init();
+        if(matrixName != "none")   Init();
     }
 
     private void ResetMatrix()
@@ -461,9 +470,17 @@ public class ColorMatrixShifter : MonoBehaviour
         {
             if (_activatedRedAreas < _numOfRed)
             {
-                Debug.Log("activated");
                 colorMatrix.RedAreas[_activatedRedAreas++].Activate();
             }
+        }
+    }
+
+    public void ActivateGreenArea(int id)
+    {
+        if(_activatedGreenAreas < _numOfGreen)
+        {
+            colorMatrix.GreenAreas[id].Activate();
+            _activatedGreenAreas++;
         }
     }
 

@@ -17,9 +17,11 @@ public class FloorManager : MonoBehaviour
 
     public MMFeedbacks KeyCollectionFeedback;
 
-    public void OnKeyCollected()
+    public void OnKeyCollected(int id)
     {
         numOfUnlockedKeys++;
+
+        matrixShifter.ActivateGreenArea(id);
         KeyCollectionFeedback?.PlayFeedbacks();
          
         if (numOfUnlockedKeys >= numOfAllKeys)
