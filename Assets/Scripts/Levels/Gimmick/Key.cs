@@ -38,7 +38,7 @@ public class Key : MonoBehaviour
     private void Update()
     {
         Rotate();
-        ObtainedCheck();
+        if(!_isObtained) ObtainedCheck();
 
     }
 
