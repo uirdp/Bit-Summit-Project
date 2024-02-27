@@ -31,6 +31,7 @@ public class Area
 
         _turnsTillReset = turnsTillReset;
         _turnsTillActivation = 0;
+        _isActive = true;
 
         Manual = man;
         ManualIndex = 0;

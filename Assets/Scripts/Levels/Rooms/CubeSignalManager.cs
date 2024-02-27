@@ -22,6 +22,8 @@ public class CubeSignalManager : MonoBehaviour
     {
         cubeMatrix = matrices?.cubeMatrix;
         if(cubeMatrix == null) GetCubeMatrix();
+
+     
     }
   
     //rewrite all cubes

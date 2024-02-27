@@ -248,9 +248,11 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
     }
-    private void Start()
+    public void StartShifting()
     {
         //SendSignal();
+        ResetAllArea();
+
         if (interval > 0) StartCoroutine(ShiftMatrix());
     }
 
@@ -393,6 +395,8 @@ public class ColorMatrixShifter : MonoBehaviour
                             y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
                         }
 
+                        Debug.Log(colorMatrix.Matrix.GetLength(1));
+
                         colorMatrix.Matrix[x, y] = 1;
 
                     }
@@ -431,7 +435,7 @@ public class ColorMatrixShifter : MonoBehaviour
                     }
 
                     if(ix >= colorMatrix.Matrix.GetLength(0))
-                            {
+                    {
                         x = ix - colorMatrix.Matrix.GetLength(0);
                     }
 

@@ -13,6 +13,7 @@ public class MatrixDictionary
             { "motorway", new SampleMotorWayModel() },
             { "garden-first", new GardenFirstModel() },
             { "border", new BorderModel() },
+            { "garden-second", new GardenSecondModel() },
         };
 
     public IMatrixModel ReturnMatrix(string targetName)
