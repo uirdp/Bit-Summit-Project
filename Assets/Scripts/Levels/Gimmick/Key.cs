@@ -20,12 +20,16 @@ public class Key : MonoBehaviour
     public LayerMask PlayerLayer;
     //check whether the key was obtained by the player
 
-    public Color lockedColor;
-    public Color UnlockedColor;
+    public Color lockedColor = Color.green;
+    public Color unlockedColor = Color.red;
 
     public float rotateSpeed = 35.0f;
     private float _angle = 0.0f;
 
+    private void Awake()
+    {
+        Lock();
+    }
     private void Update()
     {
         Rotate();
@@ -44,16 +48,26 @@ public class Key : MonoBehaviour
         {
             if (col.gameObject.tag == "Player")
             {
+                keyRadius = 0;  //turn off collider
                 Unlock();
-                keyRadius = 0; //turn off collider
             }
         }
+    }
+
+    private void Lock()
+    {
+        status = keyStatus.locked;
+
+        Transform crystal = transform.GetChild(0);
+        crystal.GetComponent<Renderer>().material.color = lockedColor;
     }
 
     private void Unlock()
     {
         floorManager?.OnKeyCollected();
-        this.GetComponent<Renderer>().material.color = UnlockedColor;
+
+        Transform crystal = transform.GetChild(0);
+        crystal.GetComponent<Renderer>().material.color = unlockedColor;
 
         status = keyStatus.unLocked;
     }

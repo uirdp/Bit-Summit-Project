@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +15,18 @@ public class FloorManager : MonoBehaviour
     public UnityEvent OnKeyCollectedEvent;
     public UnityEvent OnAllKeysCollectedEvent;
 
+    public MMFeedbacks KeyCollectionFeedback;
+
     public void OnKeyCollected()
     {
         numOfUnlockedKeys++;
-
+        KeyCollectionFeedback?.PlayFeedbacks();
+         
         if (numOfUnlockedKeys >= numOfAllKeys)
         {
             OnAllKeysCollectedEvent.Invoke();
-            Debug.Log("9j");
         }
         else OnKeyCollectedEvent.Invoke();
+
     }
 }
