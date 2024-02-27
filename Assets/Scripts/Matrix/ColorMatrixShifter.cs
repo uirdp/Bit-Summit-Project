@@ -94,6 +94,8 @@ public class ColorMatrixShifter : MonoBehaviour
             }
         }
 
+        useReset = false;
+
     }
 
     public void ReverseMatrix()
@@ -126,16 +128,24 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void ResetAllArea()
     {
-        foreach (var rArea in colorMatrix.RedAreas)
+
+        if (colorMatrix.NumOfRed > 0)
         {
-            rArea.ResetArea();
-            rArea.ResetManual();
+            foreach (var rArea in colorMatrix.RedAreas)
+            {
+                rArea.ResetArea();
+                rArea.ResetManual();
+            }
         }
 
-        foreach (var gArea in colorMatrix.RedAreas)
+        if (colorMatrix.NumOfGreen > 0)
         {
-            gArea.ResetArea();
-            gArea.ResetManual();
+
+            foreach (var gArea in colorMatrix.RedAreas)
+            {
+                gArea.ResetArea();
+                gArea.ResetManual();
+            }
         }
     }
     public void AllRed()
@@ -248,6 +258,8 @@ public class ColorMatrixShifter : MonoBehaviour
         }
 
     }
+
+    [ContextMenu("debug shifting")]
     public void StartShifting()
     {
         //SendSignal();

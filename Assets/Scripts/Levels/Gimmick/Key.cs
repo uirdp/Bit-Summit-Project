@@ -61,7 +61,7 @@ public class Key : MonoBehaviour
 
         if (_isObtained)
         {
-            _isObtained = false;
+            //_isObtained = false;
             Unlock();
         }
     }
