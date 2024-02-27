@@ -9,7 +9,7 @@ public class FloorManager : MonoBehaviour
     public Key[] keys;
 
     public int numOfAllKeys;
-    public int numOfUnlockedKeys;
+    private int numOfUnlockedKeys = 0;
 
     public UnityEvent OnKeyCollectedEvent;
     public UnityEvent OnAllKeysCollectedEvent;
@@ -17,7 +17,12 @@ public class FloorManager : MonoBehaviour
     public void OnKeyCollected()
     {
         numOfUnlockedKeys++;
-        if (numOfUnlockedKeys >= numOfAllKeys) OnAllKeysCollectedEvent.Invoke();
+
+        if (numOfUnlockedKeys >= numOfAllKeys)
+        {
+            OnAllKeysCollectedEvent.Invoke();
+            Debug.Log("9j");
+        }
         else OnKeyCollectedEvent.Invoke();
     }
 }

@@ -35,7 +35,7 @@ public class ColorMatrixShifter : MonoBehaviour
     private int _activatedGreenAreas;
 
     public bool useReset = true;
-    private int[,] initMatrix = null;
+    //private bool isStart = true;
     //which -> which Matrix to move, should be renamed
 
     //----------------------------shift method----------------------------------------------------------
@@ -160,6 +160,19 @@ public class ColorMatrixShifter : MonoBehaviour
         }
     }
 
+    public IEnumerator AllGreen(float interval)
+    {
+        for (int ix = 0; ix < colorMatrix.Matrix.GetLength(0); ix++)
+        {
+            for (int iy = 0; iy < colorMatrix.Matrix.GetLength(1); iy++)
+            {
+                colorMatrix.Matrix[ix, iy] = 2;
+                SendSignal();
+                yield return new WaitForSeconds(interval);
+            }
+        }
+    }
+
     public void DeactivateAllAreas()
     {
         foreach(var rArea in colorMatrix.RedAreas)
@@ -177,8 +190,15 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void OnCollectedAllKeys()
     {
+        StopAllCoroutines();
         DeactivateAllAreas();
-        AllGreen();
+
+        StartCoroutine(AllGreen(0.01f));
+        SendSignal();
+        
+        Debug.Log("yn");
+
+        //this.gameObject.SetActive(false);
     }
 
     private void SendSignal()
@@ -217,8 +237,6 @@ public class ColorMatrixShifter : MonoBehaviour
 
             if (colorMatrix.GreenAreas[i].IsActive) _activatedGreenAreas++;
         }
-
-        if (useReset) initMatrix = colorMatrix.InitMatrix;
 
     }
     private void Start()

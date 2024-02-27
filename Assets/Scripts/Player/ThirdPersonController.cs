@@ -2,6 +2,7 @@
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
+using UnityEngine.Events;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
@@ -74,6 +75,8 @@ namespace StarterAssets
 
         [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
+
+        public UnityEvent OnPlayerTakeDamage;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -192,12 +195,17 @@ namespace StarterAssets
             }
         }
 
+        //TODO: should be included in a diffrent file
         private void DamageCheck(Vector3 spherePosition)
         {
             Collider[] cols = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers);
             foreach(var col in cols)
             {
-                if (col.gameObject.tag == "Dangerous") Debug.Log("Damage");
+                if (col.gameObject.tag == "Dangerous")
+                {
+                    OnPlayerTakeDamage.Invoke();
+                }
+                    
             }
         }
 

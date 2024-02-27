@@ -42,6 +42,7 @@ public class Key : MonoBehaviour
                 this.GetComponent<Renderer>().material.color = Color.green;
                 
                 status = keyStatus.unLocked;
+                keyRadius = 0; //turn off collider
             }
         }
     }
