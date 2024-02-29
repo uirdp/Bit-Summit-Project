@@ -4,6 +4,7 @@ using UnityEngine;
 using Michsky.UI.Heat;
 using UnityEngine.Events;
 
+//there should be another class to watch the progress
 public class KeyProgressBar : MonoBehaviour
 {
     public ProgressBar keyProgressBar;

@@ -16,4 +16,9 @@ public class LevelLoader : MonoBehaviour
     {
         SceneManager.LoadScene("GardenScene");
     }
+
+    public void LoadLevelSelection()
+    {
+        SceneManager.LoadScene("LevelSelection");
+    }
 }

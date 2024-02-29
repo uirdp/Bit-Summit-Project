@@ -25,7 +25,6 @@ public class DamageControl : MonoBehaviour
     }
     public void OnPlayerTakeDamage()
     {
-        RespawnPlayer();
         damageFeedback?.PlayFeedbacks();
 
         if(!isGuarded) RespawnPlayer();
@@ -41,14 +40,13 @@ public class DamageControl : MonoBehaviour
         //Vector3 pos = new Vector3(respawnPoint.x, respawnPoint.y, respawnPoint.z);
         playerPos.position = respawnPoint;
 
-        Debug.Log(transform.position + " " + respawnPoint);
 
         isGuarded = true;
+
     }
 
     public void Update()
     {
-        Debug.Log(transform.position);
     }
 }
 

@@ -109,6 +109,7 @@ namespace StarterAssets
         public float invincibleDuration = 1.0f;
 
         public Player player;
+        public bool isActive;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -234,6 +235,10 @@ namespace StarterAssets
             _isInvincible = false;
         }
 
+        public void StopMovenment()
+        {
+            
+        }
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
