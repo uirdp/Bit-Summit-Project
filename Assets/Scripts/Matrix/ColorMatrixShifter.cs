@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using static DirectionSpace.Directions;
-using UnityEditor.ShaderGraph;
 using System.Linq;
 
 /*DamageArea{ vec2 size; vec2 pos };
@@ -212,8 +211,7 @@ public class ColorMatrixShifter : MonoBehaviour
         DeactivateAllAreas();
 
         float speed = 1 - colorMatrix.Matrix.GetLength(0) * colorMatrix.Matrix.GetLength(1) * 0.2f;
-        Debug.Log(colorMatrix.Matrix.GetLength(0) * colorMatrix.Matrix.GetLength(1));
-
+       
         StartCoroutine(AllGreen(speed));
         SendSignal();
 
@@ -407,7 +405,6 @@ public class ColorMatrixShifter : MonoBehaviour
                             y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
                         }
 
-                        Debug.Log(colorMatrix.Matrix.GetLength(1));
 
                         colorMatrix.Matrix[x, y] = 1;
 

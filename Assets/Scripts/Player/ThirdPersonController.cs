@@ -108,6 +108,8 @@ namespace StarterAssets
         private bool _isInvincible = false; //trueの間DamageCheckを無視
         public float invincibleDuration = 1.0f;
 
+        public Player player;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -212,6 +214,8 @@ namespace StarterAssets
                 {
                     StartCoroutine(GiveInvincibility(invincibleDuration));
                     OnPlayerTakeDamage.Invoke();
+
+                    player?.OnPlayerTakeDamage.Invoke();
                     
                     //UIの更新
                     //無敵の付与

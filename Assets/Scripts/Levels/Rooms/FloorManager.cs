@@ -28,7 +28,8 @@ public class FloorManager : MonoBehaviour
         {
             OnAllKeysCollectedEvent.Invoke();
         }
-        else OnKeyCollectedEvent.Invoke();
+        
+        OnKeyCollectedEvent.Invoke();
 
     }
 }
