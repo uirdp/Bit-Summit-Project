@@ -196,7 +196,7 @@ namespace StarterAssets
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            if(!_isInvincible) DamageCheck(spherePosition);
+            //if(!_isInvincible) DamageCheck(spherePosition);
        
             // update animator if using character
             if (_hasAnimator)
@@ -206,7 +206,7 @@ namespace StarterAssets
         }
 
         //TODO: should be included in a diffrent file
-        private void DamageCheck(Vector3 spherePosition)
+        /*private void DamageCheck(Vector3 spherePosition)
         {
             Collider[] cols = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers);
             foreach (var col in cols)
@@ -233,7 +233,7 @@ namespace StarterAssets
             _isInvincible = true;
             yield return new WaitForSeconds(dur);
             _isInvincible = false;
-        }
+        }*/
 
         public void StopMovenment()
         {
