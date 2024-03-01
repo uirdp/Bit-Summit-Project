@@ -109,7 +109,7 @@ namespace StarterAssets
         public float invincibleDuration = 1.0f;
 
         public Player player;
-        public bool isActive;
+        public bool isStill = false; //stop movement
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -167,11 +167,13 @@ namespace StarterAssets
 
         private void Update()
         {
-            _hasAnimator = TryGetComponent(out _animator);
-
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            Debug.Log("update");
+            if (this.enabled)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                if (!isStill) Move();
+            }
         }
 
         private void LateUpdate()
@@ -235,9 +237,11 @@ namespace StarterAssets
             _isInvincible = false;
         }*/
 
-        public void StopMovenment()
+        public IEnumerator SetVelocityToZero()
         {
-            
+            enabled = false;
+            yield return new WaitForSeconds(400000.0f);
+            enabled = true;
         }
         private void CameraRotation()
         {

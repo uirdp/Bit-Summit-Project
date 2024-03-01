@@ -30,7 +30,7 @@ public class DamageControl : MonoBehaviour
     private bool _isInvincible = false; //true‚ÌŠÔDamageCheck‚ð–³Ž‹
     public float invincibleDuration = 1.0f;
     [Tooltip("Time until player can move after respawning")]
-    public float stiffDuration = 1.0f;
+    public float stiffDuration = 0.02f;
 
 
     public Player playerInstance;
@@ -38,7 +38,9 @@ public class DamageControl : MonoBehaviour
 
     public void Start()
     {
-        respawnPoint = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);    }
+        respawnPoint = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);
+        controller = player.GetComponent<ThirdPersonController>();
+    }
 
     private void DamageCheck()
     {
@@ -74,7 +76,10 @@ public class DamageControl : MonoBehaviour
     private IEnumerator DisablePlayerController()
     {
         controller.enabled = false;
+
+        Debug.Log(controller.isStill);
         yield return new WaitForSeconds(stiffDuration);
+
         controller.enabled = true;
     }
     public void OnPlayerTakeDamage()
@@ -88,12 +93,15 @@ public class DamageControl : MonoBehaviour
     [ContextMenu("respawn")]
     public void RespawnPlayer()
     {
-        DisablePlayerController();
+        StartCoroutine(DisablePlayerController());
+        
         Debug.Log("respawn");
         health -= damageAmount;
 
         Transform playerPos = this.transform;
         playerPos.position = respawnPoint;
+        
+        
 
         isGuarded = true;
 
@@ -101,7 +109,7 @@ public class DamageControl : MonoBehaviour
 
     public void Update()
     {
-        if(!_isInvincible) DamageCheck();
+        if (!_isInvincible) DamageCheck();
     }
 }
 
