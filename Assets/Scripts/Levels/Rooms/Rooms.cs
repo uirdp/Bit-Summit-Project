@@ -5,6 +5,7 @@ using UnityEngine;
 public class Rooms : MonoBehaviour
 {
     public ColorMatrixShifter[] shifters;
+    public int InitRoomAmout = 1;
 
     public void WakeUpShifter(int roomId)
     {
@@ -13,6 +14,10 @@ public class Rooms : MonoBehaviour
 
     public void Start()
     {
-        shifters[0].StartShifting();
+        for(int i = 0; i < InitRoomAmout; i++)
+        {
+            if (i >= InitRoomAmout) break;
+            shifters[i].StartShifting();
+        }
     }
 }
