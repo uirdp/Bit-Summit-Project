@@ -205,8 +205,6 @@ public class ColorMatrixShifter : MonoBehaviour
 
     public void OnCollectedAllKeys()
     {
-
-       
         StopAllCoroutines();
         DeactivateAllAreas();
 

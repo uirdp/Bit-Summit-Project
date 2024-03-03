@@ -26,23 +26,6 @@ public class OasisLeftModel : IMatrixModel
    {
         new Direction[]
         {
-            Direction.up,
-            Direction.up,
-            Direction.up,
-            Direction.up,
-            Direction.up,
-            Direction.up,
-            Direction.up,
-            Direction.up,
-
-            Direction.right,
-            Direction.right,
-            Direction.right,
-            Direction.right,
-            Direction.right,
-            Direction.right,
-            Direction.right,
-            Direction.right,
 
             Direction.down,
             Direction.down,
@@ -50,11 +33,22 @@ public class OasisLeftModel : IMatrixModel
             Direction.down,
             Direction.down,
             Direction.down,
-            Direction.down,
-            Direction.down,
 
-            Direction.left,
-            Direction.left,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+            Direction.right,
+
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+            Direction.up,
+         
+          
             Direction.left,
             Direction.left,
             Direction.left,
