@@ -373,44 +373,7 @@ public class ColorMatrixShifter : MonoBehaviour
         //render red area
         if (colorMatrix.RedAreas != null)
         {
-            foreach (var rArea in colorMatrix.RedAreas)
-            {
-                if (!rArea.IsActive) continue;
-                for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
-                {
-                    int x = ix;
-                    if (ix < 0)
-                    {
-                        x = colorMatrix.Matrix.GetLength(0) + ix;
-                    }
-
-                    if (ix >= colorMatrix.Matrix.GetLength(0))
-                    {
-                        x = ix - colorMatrix.Matrix.GetLength(0);
-                    }
-
-                    for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
-                    {
-
-                        int y = iy;
-                        if (iy >= colorMatrix.Matrix.GetLength(1))
-                        {
-                            y = iy - colorMatrix.Matrix.GetLength(1);
-                        }
-
-
-                        if (iy < 0)
-                        {
-
-                            y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
-                        }
-
-
-                        colorMatrix.Matrix[x, y] = 1;
-
-                    }
-                }
-            }
+            RenderRed();
         }
 
         //render rewrite
@@ -430,43 +393,88 @@ public class ColorMatrixShifter : MonoBehaviour
 
         if (colorMatrix.GreenAreas != null)
         {
+            RenderGreen();
+        }
+    }
 
-            foreach (var gArea in colorMatrix.GreenAreas)
+    public void RenderRed()
+    {
+        foreach (var rArea in colorMatrix.RedAreas)
+        {
+            if (!rArea.IsActive) continue;
+            for (int ix = rArea.Pos.x; ix < rArea.Pos.x + rArea.Size.x; ix++)
             {
-                if (!gArea.IsActive) continue;
-                for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
+                int x = ix;
+                if (ix < 0)
                 {
-                    int x = ix;
-                    if (ix < 0)
-                    {
-                        x = colorMatrix.Matrix.GetLength(0) + ix;
-
-                    }
-
-                    if(ix >= colorMatrix.Matrix.GetLength(0))
-                    {
-                        x = ix - colorMatrix.Matrix.GetLength(0);
-                    }
-
-                    for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
-                    {
-                            int y = iy;
-                            if (iy >= colorMatrix.Matrix.GetLength(1))
-                            {
-                                y = iy - colorMatrix.Matrix.GetLength(1);
-                            }
-
-
-                            if (iy < 0)
-                            {
-                                y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
-                                
-                             }
-
-                            colorMatrix.Matrix[x, y] = 2;
-                    }
-                    
+                    x = colorMatrix.Matrix.GetLength(0) + ix;
                 }
+
+                if (ix >= colorMatrix.Matrix.GetLength(0))
+                {
+                    x = ix - colorMatrix.Matrix.GetLength(0);
+                }
+
+                for (int iy = rArea.Pos.y; iy < rArea.Pos.y + rArea.Size.y; iy++)
+                {
+
+                    int y = iy;
+                    if (iy >= colorMatrix.Matrix.GetLength(1))
+                    {
+                        y = iy - colorMatrix.Matrix.GetLength(1);
+                    }
+
+
+                    if (iy < 0)
+                    {
+
+                        y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
+                    }
+
+
+                    colorMatrix.Matrix[x, y] = 1;
+
+                }
+            }
+        }
+    }
+    public void RenderGreen()
+    {
+        foreach (var gArea in colorMatrix.GreenAreas)
+        {
+            if (!gArea.IsActive) continue;
+            for (int ix = gArea.Pos.x; ix < gArea.Pos.x + gArea.Size.x; ix++)
+            {
+                int x = ix;
+                if (ix < 0)
+                {
+                    x = colorMatrix.Matrix.GetLength(0) + ix;
+
+                }
+
+                if (ix >= colorMatrix.Matrix.GetLength(0))
+                {
+                    x = ix - colorMatrix.Matrix.GetLength(0);
+                }
+
+                for (int iy = gArea.Pos.y; iy < gArea.Pos.y + gArea.Size.y; iy++)
+                {
+                    int y = iy;
+                    if (iy >= colorMatrix.Matrix.GetLength(1))
+                    {
+                        y = iy - colorMatrix.Matrix.GetLength(1);
+                    }
+
+
+                    if (iy < 0)
+                    {
+                        y = colorMatrix.Matrix.GetLength(1) + iy; //iy < 0 -> -(-iy) = +iy
+
+                    }
+
+                    colorMatrix.Matrix[x, y] = 2;
+                }
+
             }
         }
     }

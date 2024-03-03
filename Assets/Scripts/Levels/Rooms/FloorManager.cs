@@ -22,14 +22,16 @@ public class FloorManager : MonoBehaviour
         numOfUnlockedKeys++;
 
         matrixShifter.ActivateGreenArea(id);
+        matrixShifter.RenderGreen();
+
         KeyCollectionFeedback?.PlayFeedbacks();
-         
+             
+        OnKeyCollectedEvent.Invoke();
+
         if (numOfUnlockedKeys >= numOfAllKeys)
         {
             OnAllKeysCollectedEvent.Invoke();
         }
-        
-        OnKeyCollectedEvent.Invoke();
 
     }
 }
