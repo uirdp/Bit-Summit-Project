@@ -15,6 +15,7 @@ public class MatrixDictionary
             { "border", new BorderModel() },
             { "garden-second", new GardenSecondModel() },
             { "garden-last", new GardenLast() },
+            { "oasis-entrance", new OasisEntranceModel() }
         };
 
     public IMatrixModel ReturnMatrix(string targetName)

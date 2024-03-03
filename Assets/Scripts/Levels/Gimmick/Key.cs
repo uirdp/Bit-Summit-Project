@@ -14,6 +14,7 @@ public class Key : MonoBehaviour
     //public KeyCollectionProgress Progress;
     public FloorManager floorManager;
 
+    [Tooltip("Index of safe area that activates when this key is unlocked")]
     public int id;
 
     public float keyRadius = 1.0f; //please come up with a better name fr
