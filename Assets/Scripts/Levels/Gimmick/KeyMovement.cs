@@ -17,7 +17,7 @@ public class KeyMovement : MonoBehaviour
     public void RoundTrip()
     {
         float t = NormalizeSine(Mathf.Sin(Time.time * atten));
-        Debug.Log(t);
+
         transform.localPosition = Vector3.Lerp(startPosition, destination, t);
     }
 
