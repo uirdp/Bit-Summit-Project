@@ -156,6 +156,7 @@ public class ColorMatrixShifter : MonoBehaviour
                 colorMatrix.Matrix[ix, iy] = 1;
             }
         }
+        useReset = false;
     }
     
     public void AllGreen()
