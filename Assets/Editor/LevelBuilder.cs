@@ -98,7 +98,7 @@ public class LevelBuilder : EditorWindow
 	{
         LevelBuilder window = GetWindow<LevelBuilder>();
 
-        window.titleContent = new GUIContent("Sample Window");
+        window.titleContent = new GUIContent("Level Builder");
     }
 
     [ContextMenu("Generate Text")]
