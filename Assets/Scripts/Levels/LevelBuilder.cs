@@ -78,10 +78,6 @@ public class LevelBuilder : MonoBehaviour
     public MaterialList.MaterialName MatName;
     public RoomType roomType;
 
-    public List<GameObject> cubes = new List<GameObject>();
-    [Tooltip("set to true if you want them in a list")]
-    public bool makeList = false;
-
     public bool makeMatText = true;
     public StringBuilder matTxt = new StringBuilder();
 
@@ -104,8 +100,6 @@ public class LevelBuilder : MonoBehaviour
         cube.transform.SetParent(transform, false);
 
         cube.name = "Cube " + x + "-" + y + "-" + z;
-
-        if (makeList && cube != null) { cubes.Add(cube); }
     }
 
     [ContextMenu("Destory Room")]
@@ -118,7 +112,6 @@ public class LevelBuilder : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                cubes.Clear();
                 DestroyImmediate(child.gameObject);
             }
         }
@@ -201,23 +194,6 @@ public class LevelBuilder : MonoBehaviour
             Debug.Log("enter the name");
         }
 
-    }
-
-    [ContextMenu("Make List")]
-    private void MakeList()
-    {
-        if (cubes?.Count == 0)
-        {
-            foreach (Transform child in transform)
-            {
-                cubes.Add(child.gameObject);
-            }
-        }
-
-        else
-        {
-            Debug.Log("Cube list already exist");
-        }
     }
 
     //call this function from the Inspector(right click)

@@ -5,9 +5,6 @@ using static DirectionSpace.Directions;
 
 public class OasisRightModel : IMatrixModel
 {
-
-
-
     public static readonly string name = "oasis-rightroom";
 
     int[,] matrix =
