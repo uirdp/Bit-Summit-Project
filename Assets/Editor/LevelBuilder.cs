@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+using UnityEditor;
 
 
 public static class MatrixModelTextTemplate
@@ -68,11 +67,10 @@ public static class MatrixModelTextTemplate
 	}
 }
 
-//this code is a mess, sorry 
-public class LevelBuilder : MonoBehaviour
+
+public class LevelBuilder : EditorWindow
 {
     private int x_start = 0;
-    private int y_start = 0;
     private int z_start = 0;
 
     [Tooltip("length of sides")]
@@ -95,55 +93,12 @@ public class LevelBuilder : MonoBehaviour
 
     public string tag = "default";
 
-    //generate one cube per call
-    private void GenerateCube(float x, float y, float z)
-    {
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+    [MenuItem("Editor Extention/Level Builder", false, 1)]
+    private static void ShowWindow()
+	{
+        LevelBuilder window = GetWindow<LevelBuilder>();
 
-        Material material = cube.GetComponent<Renderer>().sharedMaterial;
-        material.color = baseColor;
-
-        if (CubeTexture != null)
-        {
-            material.mainTexture = CubeTexture;
-        }
-
-        cube.transform.position = new Vector3(x, y, z);
-        cube.transform.SetParent(transform, false);
-
-        cube.name = "Cube " + x + "-" + y + "-" + z;
-    }
-
-    [ContextMenu("Destory Room")]
-    private void DestroyRoom()
-    {
-        matTxt.Clear();
-        //need to iterate for some times to get rid of the children entirely, for some reason
-        int cap = (x_length + y_length + z_length) >> 1;
-        for (int i = 0; i < cap; i++)
-        {
-            foreach (Transform child in transform)
-            {
-                DestroyImmediate(child.gameObject);
-            }
-        }
-    }
- 
-
-    [ContextMenu("Generate floor")]
-    private void GenerateFloor()
-    {
-        DestroyRoom();
-
-        for (int x = 0; x < x_length; x++)
-        {
-            for (int z = 0; z < z_length; z++)
-            {
-                GenerateCube(x + x_start, 0, z + z_start);
-            }
-        }
-
-        GenerateTextFile();
+        window.titleContent = new GUIContent("Sample Window");
     }
 
     [ContextMenu("Generate Text")]
@@ -180,32 +135,6 @@ public class LevelBuilder : MonoBehaviour
             Debug.Log("enter the name");
         }
 
-    }
-
-    //call this function from the Inspector(right click)
-    [ContextMenu("Apply default material")]
-    //in the future plz fix this mess
-    private void ApplyDefaultMaterial()
-    {
-        Renderer renderer;
-
-        int matInd = 0;
-        if (roomType == RoomType.background) matInd = 3;
-        if (roomType == RoomType.border)
-        {
-            matInd = 1;
-            tag = "Dangerous";
-        }
-
-        foreach (Transform child in transform)
-        {
-            child.gameObject.tag = tag;
-            renderer = child.gameObject.GetComponent<Renderer>();
-            if (renderer != null || cubeMaterial.materials[matInd] != null)
-            {
-                renderer.sharedMaterial = cubeMaterial.materials[matInd];
-            }
-        }
     }
 
 }
