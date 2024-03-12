@@ -101,8 +101,7 @@ public class DamageControl : MonoBehaviour
         Transform playerPos = this.transform;
         playerPos.position = respawnPoint;
         
-        
-
+      
         isGuarded = true;
 
     }
@@ -112,4 +111,3 @@ public class DamageControl : MonoBehaviour
         if (!_isInvincible) DamageCheck();
     }
 }
-

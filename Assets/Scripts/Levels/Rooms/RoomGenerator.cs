@@ -82,11 +82,7 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Generate Room")]
     private void GenerateRoom()
     {
-        
-        
-        DestroyRoom();
-        
-        
+        DestroyRoom();    
 
         for (int x = 0; x < x_length; x++)
         {
@@ -129,29 +125,36 @@ public class RoomGenerator : MonoBehaviour
     [ContextMenu("Generate Text")]
     private void GenerateTextFile()
     {
-        string path = @"./" + roomName + ".txt";
+        string path = @"./Assets/Scripts/Matrix/Models/Auto" + roomName + ".txt";
 
-        Debug.Assert(roomName != null, "give the room a name!");
-        using (FileStream fs = File.Create(path))
-
-            if (File.Exists(path))
-            {
-                Debug.Log("file exsits");
-            }
-
-        matTxt.Clear();
-        matTxt.Append("{\n");
-
-        for(int i = 0; i < x_length; i++)
+        if (!string.IsNullOrEmpty(roomName))
         {
-            for(int j = 0; j < z_length; j++)
+            using (FileStream fs = File.Create(path))
+
+                if (File.Exists(path))
+                {
+                    Debug.Log("file exsits");
+                }
+
+            matTxt.Clear();
+            matTxt.Append("{\n");
+
+            for (int i = 0; i < x_length; i++)
             {
-                matTxt.Append("0, ");
+                for (int j = 0; j < z_length; j++)
+                {
+                    matTxt.Append("0, ");
+                }
+                matTxt.Append("},\n{");
             }
-            matTxt.Append("},\n{");
+
+            File.WriteAllText(path, matTxt.ToString());
         }
 
-        File.WriteAllText(path, matTxt.ToString());
+        else
+		{
+            Debug.Log("enter the name");
+		}
 
     }
 
