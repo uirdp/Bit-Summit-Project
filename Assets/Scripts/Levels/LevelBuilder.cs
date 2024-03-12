@@ -4,12 +4,6 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public enum RoomType
-{
-    level,
-    background,
-    border
-}
 
 public static class MatrixModelTextTemplate
 {
@@ -60,10 +54,17 @@ public static class MatrixModelTextTemplate
         return "public const int numOfRedArea = " + num;
 	}
 
-    public static string GetDirectionStatement(string num)
+    public static string GetDirectionArrayStatement(string num)
 	{
-        string st = "public static readonly Direction[][] directionsRed = new Direction[numOfRedArea][]";
-        return st;
+        return "public static readonly Direction[][] directionsRed = new Direction[" + num + "][]";
+	}
+
+    public static string GetDirectionStatements(string dir)
+	{
+        string st = "new Direction[]\n{" +
+                    dir + "\n},";
+
+        return st;                    
 	}
 }
 
