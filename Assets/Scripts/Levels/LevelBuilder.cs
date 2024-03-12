@@ -30,7 +30,7 @@ public static class MatrixModelTextTemplate
     }
 
     //<param name="matrixClassName">goes to be the class name in the file, cap first letter<param>
-    public static string GetClassDefinition(string matrixClassName)
+    public static string GetClassDefinitionText(string matrixClassName)
 	{
         string st = "public class " +
                      matrixClassName +
@@ -46,17 +46,25 @@ public static class MatrixModelTextTemplate
         return st;
     }
 
-    public static string GetMatrix(string matrixText)
+    public static string GetMatrixDefinitionText(string matrixText)
 	{
-        string st = "int[,] = {" +
+        string st = "int[,] = {\n" +
                     matrixText +
                     "};\n";
 
         return st;
 	}
 
-    public static string 
+    public static string GetNumOfRedColourText(string num)
+	{
+        return "public const int numOfRedArea = " + num;
+	}
 
+    public static string GetDirectionStatement(string num)
+	{
+        string st = "public static readonly Direction[][] directionsRed = new Direction[numOfRedArea][]";
+        return st;
+	}
 }
 
 //this code is a mess, sorry 
