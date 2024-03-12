@@ -18,6 +18,7 @@ public static class MatrixModelTextTemplate
                                          "using UnityEngine;\n" +
                                          "using static DirectionSpace.Directions;\n";
 
+    //TODO: Rename all those "Get" to something else
     public static string GetDirectiveStatements()
 	{
         string st = "using System.Collections;\n" +
@@ -53,6 +54,8 @@ public static class MatrixModelTextTemplate
 
         return st;
 	}
+
+    public static string 
 
 }
 
@@ -116,33 +119,7 @@ public class LevelBuilder : MonoBehaviour
             }
         }
     }
-
-    [ContextMenu("Generate Room")]
-    private void GenerateRoom()
-    {
-        DestroyRoom();
-
-        for (int x = 0; x < x_length; x++)
-        {
-            for (int y = 0; y < y_length; y++)
-            {
-                matTxt.Append("0, ");
-                for (int z = 0; z < z_length; z++)
-                {
-                    // I do NOT like this algorithm, there surely  is a better way
-                    // but also, it just runs once so... maybe later?
-                    if (x == 0 || x == x_length - 1 ||
-                        y == 0 || y == y_length - 1 ||
-                        z == 0 || z == z_length - 1)
-                    {
-                        GenerateCube(x + x_start, y + y_start, z + z_start);
-                    }
-                }
-            }
-
-        }
-
-    }
+ 
 
     [ContextMenu("Generate floor")]
     private void GenerateFloor()
